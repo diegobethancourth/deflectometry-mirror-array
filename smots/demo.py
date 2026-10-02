@@ -111,7 +111,10 @@ def main() -> None:
             errs.append(out.by_name("M5").theta_x - truth)
         e = np.asarray(errs) * 1e6
         print(f"   {noise:>6.1f}        {e.mean():+10.3f}      {np.sqrt((e ** 2).mean()):12.3f}")
-    print("\n  For reference the paper reports 0.8 urad RMS against an autocollimator.")
+    print("\n  These come from the forward model in simulate.py, not from hardware.")
+    print("  They show the retrieval inverts that model correctly -- no more than that.")
+    print("  Not comparable with the paper's 0.8 urad, which was measured on a real")
+    print("  bench against an autocollimator (a much harder test).")
 
     banner("Before this touches hardware")
     for line in (

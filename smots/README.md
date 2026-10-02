@@ -97,9 +97,16 @@ M5 commanded to 150 µrad, 50 trials per row, 30 px carrier at *z*<sub>d</sub> =
 | 2.0 DN | +0.06 µrad | **0.63 µrad** |
 | 4.0 DN | +0.15 µrad | **1.30 µrad** |
 
-The paper reports 0.8 µrad RMS against an autocollimator. These are synthetic
-numbers from an idealised forward model — they show the *arithmetic* is sound,
-not that your bench will hit them.
+These are synthetic numbers from an idealised forward model. They show the
+*arithmetic* is sound — the retrieval inverts the forward model that generated
+the frames — and nothing more. The model shares every assumption the retrieval
+makes, so any error common to both is invisible here by construction.
+
+Do not line these up against the 0.8 µrad RMS the paper reports. That figure was
+measured against an autocollimator on real hardware, and includes error sources
+this model does not contain: screen flatness, panel non-linearity, mirror figure,
+stray light, mechanical drift. A smaller number here is not a better result, it
+is an easier test.
 
 ## Three sign conventions that will bite you
 

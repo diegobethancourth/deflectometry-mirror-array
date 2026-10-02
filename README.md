@@ -109,12 +109,23 @@ SMOTS is not phase-shifting deflectometry: one pattern is displayed, one
 reference frame is captured, and every later frame is compared against it. The
 shift is recovered from the *sheared* pattern in the Fourier domain, per segment,
 all segments at once. Because the phase is measured as a fraction of a period —
-invariant under magnification — the camera's scale never enters the calculation.
+invariant under magnification, the recovered phase does not depend on the
+camera's scale — though where the per-segment apertures land, and how many camera
+pixels fall inside one, still does.
 
-On the synthetic bench the implementation recovers a 150 µrad tilt to **0.63 µrad
-RMS** at 2 DN camera noise; the paper reports 0.8 µrad RMS against an
-autocollimator. See [`smots/README.md`](smots/README.md) for the three sign
-conventions that will silently invert your angles if you get them wrong.
+**What has been checked, and what that is worth.** On the synthetic bench the
+implementation recovers a 150 µrad tilt to 0.63 µrad RMS at 2 DN camera noise.
+That number is the code measured against a forward model I wrote myself, which
+makes the same assumptions the code does — a flat screen, a pinhole camera, ideal
+mirrors, no stray light. It establishes that the arithmetic is implemented
+correctly. It establishes nothing about whether the method describes my bench,
+because no physical measurement is involved. The paper's 0.8 µrad RMS is a
+different kind of number: it was measured against an autocollimator on real
+hardware. The two are not comparable, and the experimental one is by far the
+harder test. Nothing here has been validated against a real optical system yet.
+
+See [`smots/README.md`](smots/README.md) for the three sign conventions that will
+silently invert your angles if you get them wrong.
 
 It also includes **mirror-based screen-pose calibration** (`calibration.py`),
 which recovers `z_d` and the screen orientation from reflected-ray

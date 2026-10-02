@@ -396,9 +396,12 @@ real experiment (numpy only, 63 tests). Modules: `analysis.py` (sheared Fourier)
 `calibration.py` (screen-pose calibration), `hardware.py` (bench configuration).
 Run `python demo.py` and `python demo.py calib` for narrated walkthroughs.
 
-Measured on the synthetic bench: a 150 µrad tilt recovered to **0.63 µrad RMS** at
-2 DN camera noise. The original paper reports 0.8 µrad RMS against an
-autocollimator.
+Checked on the synthetic bench: a 150 µrad tilt recovered to 0.63 µrad RMS at
+2 DN camera noise. This is a self-consistency check — the retrieval inverting the
+forward model that produced the frames — so it demonstrates the implementation is
+correct, not that the method is accurate on hardware. It should not be presented
+alongside the paper's 0.8 µrad RMS, which was measured against an autocollimator
+on a real bench. Nothing in this repository has been validated experimentally.
 
 ---
 
