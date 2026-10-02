@@ -4,13 +4,17 @@ Interactive, browser-based calculators supporting the array sizing and component
 selection analysis for a deflectometry (SMOTS / PMD) setup.
 
 Every page is plain HTML with no build step, no server and no external
-dependencies — open one by double-clicking, or serve the folder with GitHub
-Pages. All controls update the metrics, sketches and the live mathematics panel
-simultaneously.
+dependencies. All controls update the metrics, sketches and the live mathematics
+panel simultaneously.
 
-**New here?** Open [**Start Here**](guide.html) for the flowchart of how the
-pages feed each other, then press **Guided tour** in the top bar of any page for
-a walkthrough of that page's controls (arrow keys move, Escape closes).
+### ▶ [Open the toolkit](https://diegobethancourth.github.io/deflectometry-mirror-array/guide.html)
+
+The tools run on GitHub Pages — that link opens **Start Here**, the flowchart of
+how the pages feed each other. From any page, press **Guided tour** in the top
+bar for a walkthrough of that page's controls (arrow keys move, Escape closes).
+
+To run it offline instead, download the repository and double-click any `.html`
+file; everything works with no server and no network.
 
 The only shared assets are `assets/tour.js` and `assets/tour.css`, which drive
 that tour; every page still renders and calculates correctly without them.
@@ -19,14 +23,18 @@ that tour; every page still renders and calculates correctly without them.
 
 | Page | What it answers |
 |---|---|
-| [`guide.html`](guide.html) — **Start Here** | How do the five tools fit together? A clickable flowchart of the design chain, a table of what every amber/red verdict means and where to fix it, and a task router. |
-| [`index.html`](index.html) — **Array Config** | Which mirror layout fits the screen and gives enough fringes? Six governing equations across six candidate layouts, with a ranked comparison table. |
-| [`fringes.html`](fringes.html) — **Fringe Generator** | What exactly do I display on the screen? Phase-shifted sinusoid design, 1:1 pixel inspection, full-resolution PNG export and a matching Python snippet. |
-| [`piezo.html`](piezo.html) — **Tilt & Actuation** | Can the mounts actually point each mirror? Per-mirror law-of-reflection solution, piezo displacement, angular resolution and range budget. |
-| [`budget.html`](budget.html) — **Error Budget** | How accurate will the measurement be? Phase → slope → height propagation with each term integrated by its spatial character. |
-| [`simulator.html`](simulator.html) — **SMOTS Simulator** | Does the algorithm actually work? Ray-traces the camera image, runs the full SMOTS retrieval on it live, and compares recovered tilt against commanded tilt. |
-| [`smots/`](smots/) — **Python package** | The measurement algorithm for the experimental work: sheared Fourier analysis, per-segment apertures, 2π unwrapping, screen-pose calibration, with a validated forward model and 63 tests. |
-| [`docs/`](docs/math-reference.html) — **Math Reference** | Every equation in the toolkit, derived and explained in one printable document. |
+| [**Start Here**](https://diegobethancourth.github.io/deflectometry-mirror-array/guide.html) <br><sub>`guide.html`</sub> | How do the five tools fit together? A clickable flowchart of the design chain, a table of what every amber/red verdict means and where to fix it, and a task router. |
+| [**Array Config**](https://diegobethancourth.github.io/deflectometry-mirror-array/index.html) <br><sub>`index.html`</sub> | Which mirror layout fits the screen and gives enough fringes? Six governing equations across six candidate layouts, with a ranked comparison table. |
+| [**Fringe Generator**](https://diegobethancourth.github.io/deflectometry-mirror-array/fringes.html) <br><sub>`fringes.html`</sub> | What exactly do I display on the screen? Phase-shifted sinusoid design, 1:1 pixel inspection, full-resolution PNG export and a matching Python snippet. |
+| [**Tilt & Actuation**](https://diegobethancourth.github.io/deflectometry-mirror-array/piezo.html) <br><sub>`piezo.html`</sub> | Can the mounts actually point each mirror? Per-mirror law-of-reflection solution, piezo displacement, angular resolution and range budget. |
+| [**Error Budget**](https://diegobethancourth.github.io/deflectometry-mirror-array/budget.html) <br><sub>`budget.html`</sub> | How accurate will the measurement be? Phase → slope → height propagation with each term integrated by its spatial character. |
+| [**SMOTS Simulator**](https://diegobethancourth.github.io/deflectometry-mirror-array/simulator.html) <br><sub>`simulator.html`</sub> | Does the algorithm actually work? Ray-traces the camera image, runs the full SMOTS retrieval on it live, and compares recovered tilt against commanded tilt. |
+| [**Python package**](smots/) <br><sub>`smots/`</sub> | The measurement algorithm for the experimental work: sheared Fourier analysis, per-segment apertures, 2π unwrapping, screen-pose calibration, with a validated forward model and 63 tests. |
+| [**Math Reference**](https://diegobethancourth.github.io/deflectometry-mirror-array/docs/math-reference.html) <br><sub>`docs/`</sub> | Every equation in the toolkit, derived and explained in one printable document — array sizing, fringe coding, the SMOTS sheared-Fourier derivation, mirror pointing, the error budget and screen-pose calibration, with a symbol glossary and the three sign conventions that silently invert angles. [Download as PDF](docs/Deflectometry-Math-Reference.pdf), 20 pages. |
+
+Page names link to the live site; the filename under each one is the source
+file in this repository. Opening a `.html` file here on GitHub shows its code,
+not the running tool.
 
 ## Governing relations
 
