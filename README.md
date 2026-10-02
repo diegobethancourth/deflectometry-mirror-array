@@ -28,20 +28,6 @@ that tour; every page still renders and calculates correctly without them.
 | [`smots/`](smots/) — **Python package** | The measurement algorithm for the experimental work: sheared Fourier analysis, per-segment apertures, 2π unwrapping, screen-pose calibration, with a validated forward model and 63 tests. |
 | [`docs/`](docs/math-reference.html) — **Math Reference** | Every equation in the toolkit, derived and explained in one printable document. |
 
-## Mathematical reference
-
-**[Download the PDF](docs/Deflectometry-Math-Reference.pdf)** — 20 pages, or
-[read it in the browser](docs/math-reference.html).
-
-A single study and presentation document collecting every equation the toolkit
-implements: array sizing, fringe coding and phase-shift retrieval, the SMOTS
-sheared-Fourier derivation, mirror pointing and actuation, the error budget with
-its four integration rules, and screen-pose calibration. It includes a symbol
-glossary, the three sign conventions that silently invert angles, and references.
-
-Each section names the file that implements it, so the document and the code stay
-in step.
-
 ## Governing relations
 
 ### Array configuration
