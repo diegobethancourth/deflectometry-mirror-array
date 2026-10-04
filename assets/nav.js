@@ -63,7 +63,13 @@
     '.pager .lbl{display:block;font-size:10px;color:#747474;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}' +
     '.pager .nx{text-align:right}.pager .nx b,.pager b{color:#8C1D40;font-size:13px}' +
     '.pager .mid{flex:0 0 auto;min-width:0;text-align:center}' +
+    '.pager-top{margin-left:auto;display:flex;gap:6px;align-items:center;flex-wrap:wrap}' +
+    '.pager-top a,.pager-top button{display:inline-flex;align-items:center;gap:5px;max-width:300px;background:#F6F6F9;border:none;border-radius:6px;padding:6px 11px;font:700 11.5px Arial,Helvetica,sans-serif;color:#8C1D40;text-decoration:none;cursor:pointer;white-space:nowrap}' +
+    '.pager-top a span{overflow:hidden;text-overflow:ellipsis}' +
+    '.pager-top a:hover,.pager-top button:hover{background:#FFE08A}' +
+    '.pager-top a.nx{background:#FFC627;color:#5a0f28}' +
     '@media print{' +
+      '.pager-top{display:none !important}' +
       '*{-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
       '.nav,.brandbar img.logo-lab,.bench-bar,.pager,.tour-btn,#tour-launch,.tour-launch,button.btn,.btn-row{display:none !important}' +
       'body{background:#fff !important}.app{display:block !important}.left-col{width:auto !important;border:none !important;page-break-after:avoid}' +
@@ -115,6 +121,17 @@
       (next ? card('nx', 'Next →', next) : '<span style="flex:1"></span>');
     var foot = document.querySelector('.footer');
     if (foot) foot.parentNode.insertBefore(bar, foot); else document.body.appendChild(bar);
+
+    // compact copy in the page header, visible without scrolling
+    var hdr = document.querySelector('.page-hdr');
+    if (hdr) {
+      var top = document.createElement('div');
+      top.className = 'pager-top';
+      top.innerHTML = (prev ? '<a class="pv" href="' + prev.href + '" title="Previous: ' + prev.title + '">&larr; <span>' + prev.title + '</span></a>' : '') +
+        '<button type="button" onclick="window.print()" title="Print this page">&#128438; Print</button>' +
+        (next ? '<a class="nx" href="' + next.href + '" title="Next: ' + next.title + '"><span>Next: ' + next.title + '</span> &rarr;</a>' : '');
+      hdr.appendChild(top);
+    }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', buildPager); else buildPager();
 
