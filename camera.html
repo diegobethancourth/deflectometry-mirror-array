@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="asu_icon.ico" sizes="any">
+<link rel="stylesheet" href="assets/tour.css">
+<title>Camera &amp; Lens Selector — Diego Bethancourth | ASU Deflectometry</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;font-size:14px}
+.nav{background:#8C1D40;display:flex;align-items:center;gap:14px;padding:6px 24px;min-height:52px;flex-wrap:wrap}
+.nav-links{margin-left:auto;display:flex;gap:3px;flex-wrap:wrap}
+.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:12px;font-weight:700;padding:6px 11px;border-radius:3px;white-space:nowrap}
+.nav-links a:hover{background:rgba(255,255,255,.14);color:#fff}
+.nav-links a.active{background:#FFC627;color:#8C1D40}
+.gold-bar{height:4px;background:#FFC627}
+.brandbar{background:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:7px 24px;flex-wrap:wrap}
+.brandbar img{display:block}
+.logo-asu{height:30px;width:auto}
+.logo-lab{height:52px;width:auto;mix-blend-mode:multiply}
+.nav-title .t1{font-size:14px;font-weight:700;line-height:1.2;color:#fff}
+.nav-title .t2{font-size:11px;color:rgba(255,255,255,0.78);line-height:1.35}
+.nav-title .t2 strong{color:#FFC627;font-weight:700}
+.nav-title{min-width:0}
+.byline{font-size:12px;color:#747474}
+.byline strong{color:#8C1D40}
+@media(max-width:760px){.logo-asu{height:22px}.logo-lab{height:32px}}
+.page-hdr{background:#fff;padding:10px 24px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.page-hdr h1{font-size:17px;font-weight:700;color:#8C1D40;margin:0}.page-hdr p{font-size:12px;color:#747474}
+.app{display:grid;grid-template-columns:260px 1fr;gap:0;min-height:calc(100vh - 80px)}
+.left-col{background:#fff;padding:14px;display:flex;flex-direction:column;gap:12px}
+.right-col{padding:12px;display:flex;flex-direction:column;gap:10px}
+.sec-lbl{font-size:10px;font-weight:700;color:#8C1D40;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.ctrl-group{display:flex;flex-direction:column;gap:4px}
+.ctrl-group label{font-size:10px;font-weight:700;color:#747474;text-transform:uppercase;letter-spacing:.04em}
+.ctrl-group select,.ctrl-group input[type=number]{width:100%;font-size:13px;color:#191919;border:none;border-radius:6px;padding:6px 8px;background:#F1F1F4}
+.ctrl-group input[type=range]{width:100%;accent-color:#8C1D40}
+.ctrl-val{font-size:16px;font-weight:700;color:#8C1D40}
+.explainer{background:#FFF4D6;padding:10px 12px;font-size:11px;color:#3E3E3E;line-height:1.55;border-radius:8px}
+.explainer strong{color:#8C1D40}
+.fixed-box{background:#F1F1F4;border-radius:8px;padding:10px 12px}
+.mvar{font-size:11px;color:#747474;line-height:1.8}.mvar span{color:#191919;font-weight:700}
+.metrics-row{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.metric{background:#fff;border-radius:8px;padding:10px 12px}
+.metric .ml{font-size:10px;color:#747474;text-transform:uppercase;letter-spacing:.03em;margin-bottom:2px}
+.metric .mv{font-size:17px;font-weight:700;color:#8C1D40}.metric .ms{font-size:10px;color:#747474;margin-top:1px}
+.mid-row{display:grid;grid-template-columns:1.35fr 1fr;gap:10px}
+.panel{background:#fff;border-radius:10px;padding:14px}
+.panel-heading{font-size:13px;font-weight:700;color:#8C1D40;margin-bottom:3px}
+.panel-sub{font-size:10px;color:#747474;margin-bottom:8px}
+.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:#fff;border-radius:10px;padding:13px}
+.math-block{margin-bottom:10px;padding-bottom:0}
+.math-block:last-child{margin-bottom:0}
+.math-title{font-size:11px;font-weight:700;color:#8C1D40;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.live{background:#8C1D40;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap}
+.formula{background:#F1F1F4;border-radius:6px;padding:5px 8px;font-family:"Courier New",monospace;font-size:11px;color:#3E3E3E;margin:3px 0}
+.mvar2{font-size:10px;color:#747474;line-height:1.6}.mvar2 span{color:#191919;font-weight:700}
+.verdict-good{background:#E9F4EB;border-radius:8px;padding:11px 16px;font-size:12px;color:#1b5e20;font-weight:500}
+.verdict-warn{background:#FDF2DA;border-radius:8px;padding:11px 16px;font-size:12px;color:#6d4c00;font-weight:500}
+.verdict-bad{background:#FBEAEA;border-radius:8px;padding:11px 16px;font-size:12px;color:#7f0000;font-weight:500}
+.btn{background:#8C1D40;color:#fff;border:none;border-radius:4px;padding:7px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn:hover{background:#6d1631}
+.btn.alt{background:#F6E7EE;color:#8C1D40}
+.btn.alt:hover{background:#FFF4D6}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap}
+.chk{display:flex;align-items:center;gap:6px;font-size:11px;color:#3E3E3E;font-weight:700}
+.chk input{accent-color:#8C1D40}
+#prev{width:100%;display:block;border-radius:8px;background:#000}
+#crop{display:block;border-radius:8px;background:#000;max-width:100%}
+.code{background:#2b2b2b;color:#e6e6e6;border-radius:4px;padding:9px 11px;font-family:"Courier New",monospace;font-size:10.5px;line-height:1.5;white-space:pre;overflow-x:auto}
+.step-dots{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.dot{width:22px;height:22px;border-radius:6px;background:#EDEDF1;font-size:10px;font-weight:700;color:#747474;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.dot.on{background:#8C1D40;color:#fff}
+.footer{background:#3E3E3E;color:#BFBFBF;font-size:10px;padding:10px 24px;text-align:center;margin-top:auto}
+.footer span{color:#FFC627}
+
+.comp-table{width:100%;border-collapse:collapse;font-size:11px}
+.comp-table th{background:#8C1D40;color:#fff;padding:6px 7px;text-align:left;font-size:10px;font-weight:700}
+.comp-table td{padding:5px 7px;vertical-align:top}
+.comp-table tr:nth-child(even) td{background:#F6F6F9}
+.comp-table tr.act td{background:#FFF4D6;font-weight:700}
+.g{color:#2e7d32;font-weight:700}.m{color:#e65100;font-weight:700}.b{color:#b71c1c;font-weight:700}
+.stepcard{background:#fff;border-radius:10px;padding:14px}
+.step-head{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.step-num{background:#8C1D40;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:3px;white-space:nowrap}
+.step-title{font-size:14px;font-weight:700;color:#8C1D40}
+.step-q{font-size:11px;color:#747474;margin-bottom:10px}
+.two{display:grid;grid-template-columns:1.05fr 1fr;gap:12px;align-items:start}
+.figcap{font-size:10px;color:#3E3E3E;margin-top:4px}.figcap b{color:#8C1D40}
+.result{background:#FFC627;color:#191919;font-weight:700;font-size:12px;padding:7px 10px;border-radius:6px;margin-top:6px}
+.inrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ctrl-group input[type=number]{width:100%}
+.note{font-size:10px;color:#747474;line-height:1.5}
+.ext a{color:#8C1D40;font-weight:700}
+@media(max-width:1100px){.two{grid-template-columns:1fr}.metrics-row{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <img class="logo-asu" src="logos/ASU%20Logo%20School.png" alt="Arizona State University — Ira A. Fulton Schools of Engineering, School of Manufacturing Systems and Networks">
+  <img class="logo-lab" src="logos/SOLAR%20LAB%20LOGO.png" alt="SOLAR — Sensing, Optics, Laser Application Research">
+</div>
+<div class="nav">
+  <div class="nav-title">
+    <div class="t1">Deflectometry Mirror-Array Toolkit</div>
+    <div class="t2"><strong>Diego Bethancourth</strong> &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo &nbsp;&middot;&nbsp; Systems, Optics and Laser Application Research Lab &nbsp;&middot;&nbsp; Arizona State University</div>
+  </div>
+  <nav class="nav-links">
+    <a href="guide.html">Start Here</a>
+    <a href="index.html">Array Config</a>
+    <a href="fringes.html">Fringe Generator</a>
+    <a href="camera.html" class="active">Camera &amp; Lens</a>
+    <a href="piezo.html">Tilt &amp; Actuation</a>
+    <a href="budget.html">Error Budget</a>
+    <a href="simulator.html">SMOTS Simulator</a>
+  </nav>
+</div>
+<div class="gold-bar"></div>
+
+<div class="page-hdr">
+  <h1>Camera &amp; Lens Selector</h1>
+  <p>Five steps, each using only quantities from the steps before it: field of view &rarr; pixels &rarr; camera &rarr; lens and height &rarr; aperture and focus.</p>
+</div>
+
+<div class="app">
+  <div class="left-col">
+
+    <div>
+      <div class="sec-lbl">How it works</div>
+      <div class="explainer">
+        Enter the bench geometry. Every figure, table and equation on the right updates live.
+        <br><br><strong>Output:</strong> a camera, a focal length, a mounting height and an aperture, plus the values to type into the
+        <span class="ext"><a href="https://www.baslerweb.com/en-us/tools/lens-selector/" target="_blank" rel="noopener">Basler lens selector</a></span> as a cross-check.
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-lbl">Step 1 &middot; Array</div>
+      <div class="inrow">
+        <div class="ctrl-group"><label>Mirror side a (mm)</label><input type="number" id="a" value="24.89" step="0.01" oninput="update()"></div>
+        <div class="ctrl-group"><label>Gap g (mm)</label><input type="number" id="g" value="11.18" step="0.01" oninput="update()"></div>
+        <div class="ctrl-group"><label>Mirrors per row n<sub>c</sub></label><input type="number" id="nc" value="3" min="1" max="6" step="1" oninput="update()"></div>
+        <div class="ctrl-group"><label>Border &Delta; (mm)</label><input type="number" id="dlt" value="9" step="0.5" oninput="update()"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-lbl">Step 2 &middot; Screen and sampling</div>
+      <div class="inrow">
+        <div class="ctrl-group"><label>Screen width W (mm)</label><input type="number" id="W" value="344" step="1" oninput="update()"></div>
+        <div class="ctrl-group"><label>Screen pixels N<sub>x</sub></label><input type="number" id="Nx" value="3840" step="1" oninput="update()"></div>
+      </div>
+      <div class="ctrl-group" style="margin-top:8px"><label>Screen pixels per fringe n</label>
+        <input type="range" id="n" min="8" max="30" value="13" step="1" oninput="update()"><span class="ctrl-val" id="n-v"></span></div>
+      <div class="ctrl-group"><label>Mirror-to-screen distance z<sub>d</sub> (mm)</label>
+        <input type="range" id="zd" min="200" max="500" value="300" step="10" oninput="update()"><span class="ctrl-val" id="zd-v"></span></div>
+      <div class="inrow">
+        <div class="ctrl-group"><label>Camera px per fringe</label><input type="number" id="kpx" value="10" min="3" step="1" oninput="update()"></div>
+        <div class="ctrl-group"><label>Planning height (mm)</label><input type="number" id="zmin" value="350" step="10" oninput="update()"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-lbl">Step 3 &middot; Camera</div>
+      <div class="ctrl-group"><label>Camera</label>
+        <select id="cam" onchange="update()">
+          <option value="auto" selected>Auto — largest pixel that passes</option>
+          <option value="0">acA2440-20gm</option>
+          <option value="1">acA2440-35um</option>
+          <option value="2">a2A2448-23gmBAS</option>
+          <option value="3">Custom sensor (below)</option>
+        </select></div>
+      <div class="ctrl-group" style="margin-top:6px"><label>Cable to PC needed (m)</label><input type="number" id="cable" value="5" step="1" oninput="update()"></div>
+      <div class="inrow" style="margin-top:6px">
+        <div class="ctrl-group"><label>Custom px (H &times; V)</label><input type="text" id="cpx" value="2448x2048" oninput="update()" style="width:100%;font-size:13px;border:none;border-radius:6px;padding:6px 8px;background:#F1F1F4"></div>
+        <div class="ctrl-group"><label>Custom pixel (&micro;m)</label><input type="number" id="cpix" value="3.45" step="0.01" oninput="update()"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-lbl">Step 4 &middot; Lens and stage</div>
+      <div class="inrow">
+        <div class="ctrl-group"><label>Stage travel min (mm)</label><input type="number" id="smin" value="350" step="10" oninput="update()"></div>
+        <div class="ctrl-group"><label>Stage travel max (mm)</label><input type="number" id="smax" value="500" step="10" oninput="update()"></div>
+      </div>
+      <div class="ctrl-group" style="margin-top:6px"><label>Focal length</label>
+        <select id="lens" onchange="update()">
+          <option value="auto" selected>Auto — inside the stage travel</option>
+          <option>8</option><option>12</option><option>16</option><option>25</option><option>35</option><option>50</option>
+        </select></div>
+    </div>
+
+    <div>
+      <div class="sec-lbl">Step 5 &middot; Aperture</div>
+      <div class="ctrl-group"><label>f-number N</label>
+        <select id="fnum" onchange="update()">
+          <option>2.8</option><option>4</option><option>5.6</option><option>8</option><option selected>11</option><option>16</option>
+        </select></div>
+    </div>
+
+    <div class="note">Camera data: Basler product documentation; dynamic range from reseller datasheets (ranking only). Prices are list or reseller values and change.</div>
+  </div>
+
+  <div class="right-col">
+    <div class="metrics-row" id="metrics"></div>
+    <div id="status"></div>
+
+    <div class="stepcard" id="s1">
+      <div class="step-head"><span class="step-num">Step 1</span><span class="step-title">Field of view</span></div>
+      <div class="step-q">How large must the imaged area be so that the whole array fits in one frame?</div>
+      <div class="two">
+        <div><svg id="svg1" width="100%" viewBox="0 0 300 250"></svg>
+          <div class="figcap"><b>Fig. 1 &ndash;</b> Top view of the array to scale: mirrors plus the border &Delta; on each side.</div></div>
+        <div id="m1"></div>
+      </div>
+    </div>
+
+    <div class="stepcard" id="s2">
+      <div class="step-head"><span class="step-num">Step 2</span><span class="step-title">Pixel requirement</span></div>
+      <div class="step-q">How many pixels must the sensor have so that the fringe pattern is resolved?</div>
+      <div class="two">
+        <div><svg id="svg2" width="100%" viewBox="0 0 300 220"></svg>
+          <div class="figcap"><b>Fig. 2 &ndash;</b> (a) The camera sees the screen z<sub>d</sub> behind the mirror, so the pitch shrinks by z/(z+z<sub>d</sub>). (b) One apparent fringe must cover the chosen number of camera pixels.</div></div>
+        <div id="m2"></div>
+      </div>
+    </div>
+
+    <div class="stepcard" id="s3">
+      <div class="step-head"><span class="step-num">Step 3</span><span class="step-title">Camera short list</span></div>
+      <div class="step-q">Which cameras meet the pixel requirement and the measurement conditions?</div>
+      <div id="t3"></div>
+      <div class="two" style="margin-top:10px">
+        <div><svg id="svg3" width="100%" viewBox="0 0 300 150"></svg>
+          <div class="figcap"><b>Fig. 3 &ndash;</b> Sensors drawn to scale.</div></div>
+        <div id="m3"></div>
+      </div>
+    </div>
+
+    <div class="stepcard" id="s4">
+      <div class="step-head"><span class="step-num">Step 4</span><span class="step-title">Lens and camera height</span></div>
+      <div class="step-q">Which focal length gives the required field, and at what height must the camera be mounted?</div>
+      <div class="two">
+        <div><div id="t4"></div>
+          <svg id="svg4" width="100%" viewBox="0 0 300 70" style="margin-top:8px"></svg>
+          <div class="figcap"><b>Fig. 4 &ndash;</b> Camera height required by each focal length, against the screen plane and the stage travel.</div></div>
+        <div id="m4"></div>
+      </div>
+    </div>
+
+    <div class="stepcard" id="s5">
+      <div class="step-head"><span class="step-num">Step 5</span><span class="step-title">Aperture and focus plane</span></div>
+      <div class="step-q">The mirror and the screen image are z<sub>d</sub> apart &mdash; which plane is focused, and at which aperture?</div>
+      <div class="two">
+        <div><svg id="svg5" width="100%" viewBox="0 0 300 220"></svg>
+          <div class="figcap"><b>Fig. 5 &ndash;</b> Cone of light from the lens pupil, focused on the screen image: width b at the mirror plane.</div></div>
+        <div id="m5"></div>
+      </div>
+    </div>
+
+    <div class="stepcard" id="sv">
+      <div class="step-head"><span class="step-num">Check</span><span class="step-title">Requirements versus achieved values</span></div>
+      <div id="tv"></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Arizona State University</span> &nbsp;&middot;&nbsp; School of Manufacturing Systems and Networks &nbsp;&middot;&nbsp; SOLAR Lab &nbsp;&middot;&nbsp; Diego Bethancourth &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const num=id=>parseFloat($(id).value);
+const f1=(x,d=1)=>Number.isFinite(x)?x.toFixed(d):'—';
+const RAD=180/Math.PI;
+const GREEN='#2e7d32',AMBER='#e65100',RED='#b71c1c',MAR='#8C1D40',GOLD='#FFC627';
+const TINT={'#2e7d32':'#E9F4EB','#e65100':'#FDF0E2','#b71c1c':'#FBEAEA','#8C1D40':'#F8ECF1'};
+// Candidate cameras (Basler documentation; dynamic range from reseller datasheets)
+const CAMS=[
+ {name:'acA2440-20gm',sensor:'Sony IMX264, 2/3 in',pxH:2448,pxV:2048,pix:3.45,mono:true,global:true,cmount:true,bits:12,iface:'GigE',cableMax:100,dr:73.4,price:'$879 (Basler list)'},
+ {name:'acA2440-35um',sensor:'Sony IMX264, 2/3 in',pxH:2448,pxV:2048,pix:3.45,mono:true,global:true,cmount:true,bits:12,iface:'USB 3.0',cableMax:5,dr:73,price:'$879 – $1,031'},
+ {name:'a2A2448-23gmBAS',sensor:'Sony IMX547, 1/1.8 in',pxH:2448,pxV:2048,pix:2.74,mono:true,global:true,cmount:true,bits:12,iface:'GigE',cableMax:100,dr:70,price:'$659 – $935'}
+];
+const FOCALS=[8,12,16,25,35,50];
+
+function formula(t){return `<div class="formula">${t}</div>`}
+function block(title,lines){return `<div class="math-block"><div class="math-title">${title}<span class="live">LIVE</span></div>${lines.map(formula).join('')}</div>`}
+function el(svg,html){$(svg).innerHTML=html}
+
+function update(){
+  // ---------- inputs ----------
+  const a=num('a'),g=num('g'),nc=Math.max(1,Math.round(num('nc'))),D=num('dlt');
+  const W=num('W'),Nx=num('Nx'),n=num('n'),zd=num('zd'),kpx=num('kpx'),zmin=num('zmin');
+  const cable=num('cable'),smin=num('smin'),smax=num('smax'),N=parseFloat($('fnum').value);
+  $('n-v').textContent=n+' px'; $('zd-v').textContent=zd+' mm';
+
+  // ---------- Step 1 ----------
+  const L=nc*a+(nc-1)*g, FOV=L+2*D;
+  // ---------- Step 2 ----------
+  const p=W/Nx, Pf=n*p, Nf=L/Pf;
+  const PmPlan=Pf*zmin/(zmin+zd), qReq=PmPlan/kpx, pxReq=FOV/qReq;
+  // ---------- Step 3 ----------
+  const cp=($('cpx').value||'').toLowerCase().split('x').map(Number);
+  const custom={name:'Custom sensor',sensor:'user input',pxH:cp[0]||0,pxV:cp[1]||0,pix:num('cpix'),mono:true,global:true,cmount:true,bits:12,iface:'—',cableMax:Infinity,dr:NaN,price:'—'};
+  const all=CAMS.concat([custom]);
+  const evalCam=c=>{const s=c.pxV*c.pix/1000, sh=c.pxH*c.pix/1000;
+    const checks={px:c.pxV>=pxReq,mono:c.mono,global:c.global,cmount:c.cmount,bits:c.bits>=12,cable:c.cableMax>=cable};
+    return Object.assign({},c,{s,sh,checks,pass:Object.values(checks).every(Boolean)})};
+  const ev=all.map(evalCam);
+  let camIdx=$('cam').value;
+  if(camIdx==='auto'){const ok=ev.slice(0,3).map((c,i)=>[c,i]).filter(x=>x[0].pass).sort((x,y)=>y[0].pix-x[0].pix||y[0].dr-x[0].dr);camIdx=ok.length?ok[0][1]:0}
+  camIdx=+camIdx; const cam=ev[camIdx], s=cam.s, sh=cam.sh;
+  // ---------- Step 4 ----------
+  const lensRows=FOCALS.map(f=>{const z=f*(1+FOV/s);let v,c;
+    if(z<=zd){v='below the screen plane: obstructs the light path';c=RED}
+    else if(z<smin){v='below the stage travel';c=AMBER}
+    else if(z>smax){v='beyond the stage travel';c=RED}
+    else {v='clear of the screen, inside the stage travel';c=GREEN}
+    return {f,z,v,c,ok:c===GREEN}});
+  let fSel=$('lens').value;
+  if(fSel==='auto'){const ok=lensRows.filter(r=>r.ok).sort((x,y)=>Math.abs(x.z-(smin+smax)/2)-Math.abs(y.z-(smin+smax)/2));fSel=ok.length?ok[0].f:25}
+  fSel=+fSel; const z=fSel*(1+FOV/s), m=s/FOV;
+  const FOVh=FOV*sh/s, thV=2*Math.atan(s/(2*fSel))*RAD, thH=2*Math.atan(sh/(2*fSel))*RAD;
+  // ---------- Step 5 ----------
+  const pupil=fSel/N, b=pupil*zd/(z+zd), Pm=Pf*z/(z+zd), ratio=b/Pm;
+  // ---------- verification ----------
+  const q=FOV/cam.pxV, ppf=Pm/q, perMirror=a/Pm;
+
+  // ---------- metrics ----------
+  const zOK=z>zd&&z>=smin&&z<=smax;
+  const mcol=c=>`style="background:${TINT[c]||'#fff'}"`;
+  $('metrics').innerHTML=`
+   <div class="metric"><div class="ml">Field of view</div><div class="mv">${f1(FOV,0)} mm</div><div class="ms">${f1(FOV/25.4,2)} in</div></div>
+   <div class="metric"><div class="ml">Pixels required</div><div class="mv">&ge; ${f1(pxReq,0)}</div><div class="ms">short axis</div></div>
+   <div class="metric" ${mcol(cam.pass?GREEN:RED)}><div class="ml">Camera</div><div class="mv" style="font-size:13px">${cam.name}</div><div class="ms">s = ${f1(s,2)} mm</div></div>
+   <div class="metric"><div class="ml">Focal length</div><div class="mv">${fSel} mm</div><div class="ms">m = ${f1(m,3)}</div></div>
+   <div class="metric" ${mcol(zOK?GREEN:RED)}><div class="ml">Camera height</div><div class="mv" style="color:${zOK?GREEN:RED}">${f1(z,0)} mm</div><div class="ms">${f1(z/25.4,1)} in</div></div>
+   <div class="metric" ${mcol(ratio>1?AMBER:GREEN)}><div class="ml">Blur b at f/${N}</div><div class="mv">${f1(b,2)} mm</div><div class="ms">${f1(ratio,2)} fringe pitches</div></div>`;
+  const msgs=[];
+  if(Nf<60) msgs.push(`Only ${f1(Nf,0)} fringes across the array (target &ge; 60): lower n.`);
+  if(!cam.pass) msgs.push(`${cam.name} fails at least one criterion in Step 3.`);
+  if(!zOK) msgs.push(`Camera height ${f1(z,0)} mm is outside the usable range (above ${zd} mm and within ${smin}–${smax} mm).`);
+  $('status').innerHTML=msgs.length?`<div class="verdict-warn">${msgs.join(' ')}</div>`:`<div class="verdict-good">Configuration consistent: ${cam.name} + ${fSel} mm lens at ${f1(z,0)} mm, f/${N}, focused on the screen image.</div>`;
+
+  // ---------- Step 1 figure + math ----------
+  {const S=165/FOV, ox=150-FOV*S/2, oy=26; let h='';
+   h+=`<rect x="${ox}" y="${oy}" width="${FOV*S}" height="${FOV*S}" fill="#FFF4D6" stroke="${MAR}" stroke-dasharray="4 3"/>`;
+   for(let r=0;r<nc;r++)for(let c=0;c<nc;c++) h+=`<rect x="${ox+(D+c*(a+g))*S}" y="${oy+(D+r*(a+g))*S}" width="${a*S}" height="${a*S}" fill="#C9CED6" stroke="#7F8A99"/>`;
+   const arr=(x1,y1,x2,y2,c)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" marker-start="url(#ar)" marker-end="url(#ar)"/>`;
+   h=`<defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#404040"/></marker></defs>`+h;
+   const yt=oy-8; h+=arr(ox+D*S,yt,ox+(D+a)*S,yt,'#404040')+`<text x="${ox+(D+a/2)*S}" y="${yt-4}" font-size="9" text-anchor="middle" font-style="italic">a</text>`;
+   if(nc>1) h+=arr(ox+(D+a)*S,yt,ox+(D+a+g)*S,yt,MAR)+`<text x="${ox+(D+a+g/2)*S}" y="${yt-4}" font-size="9" text-anchor="middle" font-style="italic" fill="${MAR}">g</text>`;
+   const ym=oy+FOV*S/2; h+=arr(ox,ym,ox+D*S,ym,RED)+`<text x="${ox-4}" y="${ym+3}" font-size="9" text-anchor="end" fill="${RED}">Δ</text>`;
+   const yb=oy+FOV*S+12; h+=arr(ox+D*S,yb,ox+(FOV-D)*S,yb,'#404040')+`<text x="150" y="${yb+11}" font-size="9" text-anchor="middle">L = ${f1(L,1)} mm</text>`;
+   const yb2=yb+22; h+=arr(ox,yb2,ox+FOV*S,yb2,MAR)+`<text x="150" y="${yb2+11}" font-size="9" text-anchor="middle" fill="${MAR}" font-weight="700">FOV = ${f1(FOV,1)} mm</text>`;
+   el('svg1',h);
+   $('m1').innerHTML=block('Array extent and field of view',[`L = n<sub>c</sub>·a + (n<sub>c</sub>−1)·g = ${nc}(${a}) + ${nc-1}(${g}) = ${f1(L,2)} mm`,`FOV = L + 2Δ = ${f1(L,2)} + 2(${D}) = ${f1(FOV,1)} mm`])+`<div class="result">Required field of view: ${f1(FOV,1)} mm (${f1(FOV/25.4,2)} in) on each side.</div><div class="note" style="margin-top:6px">Δ covers alignment tolerance, mount edges and stage repeatability; it is the only chosen number in this step.</div>`;}
+
+  // ---------- Step 2 figure + math ----------
+  {let h=`<defs><marker id="ar2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#404040"/></marker></defs>`;
+   const cx=22,cy=62,x0=42,k=230/(zmin+zd),mx=x0+zmin*k,sx=x0+(zmin+zd)*k,half=40,hm=half*zmin/(zmin+zd);
+   h+=`<rect x="${cx-12}" y="${cy-9}" width="20" height="18" fill="#3E3E3E"/><polygon points="${cx+8},${cy-6} ${cx+16},${cy} ${cx+8},${cy+6}" fill="#3E3E3E"/><text x="${cx-2}" y="${cy+22}" font-size="8" text-anchor="middle">Camera</text>`;
+   h+=`<line x1="${mx}" y1="${cy-50}" x2="${mx}" y2="${cy+50}" stroke="#7F8A99" stroke-width="3"/><text x="${mx}" y="${cy-54}" font-size="8" text-anchor="middle">Mirror plane</text>`;
+   h+=`<line x1="${sx}" y1="${cy-50}" x2="${sx}" y2="${cy+50}" stroke="${MAR}" stroke-dasharray="4 3" stroke-width="1.5"/><text x="${sx-4}" y="${cy-54}" font-size="8" text-anchor="end" fill="${MAR}">Screen image</text>`;
+   h+=`<line x1="${x0}" y1="${cy}" x2="${sx}" y2="${cy-half}" stroke="#1F77B4"/><line x1="${x0}" y1="${cy}" x2="${sx}" y2="${cy+half}" stroke="#1F77B4"/>`;
+   h+=`<line x1="${sx+5}" y1="${cy-half}" x2="${sx+5}" y2="${cy+half}" stroke="${MAR}" marker-start="url(#ar2)" marker-end="url(#ar2)"/><text x="${sx+8}" y="${cy+3}" font-size="9" fill="${MAR}" font-style="italic">P<tspan font-size="6" dy="2">f</tspan></text>`;
+   h+=`<line x1="${mx+5}" y1="${cy-hm}" x2="${mx+5}" y2="${cy+hm}" stroke="#404040" marker-start="url(#ar2)" marker-end="url(#ar2)"/><text x="${mx+8}" y="${cy+3}" font-size="9" font-style="italic">P<tspan font-size="6" dy="2">mirror</tspan></text>`;
+   const yd=cy+60; h+=`<line x1="${x0}" y1="${yd}" x2="${mx}" y2="${yd}" stroke="#404040" marker-start="url(#ar2)" marker-end="url(#ar2)"/><text x="${(x0+mx)/2}" y="${yd+10}" font-size="9" text-anchor="middle" font-style="italic">z = ${zmin}</text>`;
+   h+=`<line x1="${mx}" y1="${yd}" x2="${sx}" y2="${yd}" stroke="${MAR}" marker-start="url(#ar2)" marker-end="url(#ar2)"/><text x="${(mx+sx)/2}" y="${yd+10}" font-size="9" text-anchor="middle" fill="${MAR}" font-style="italic">z<tspan font-size="6" dy="2">d</tspan><tspan dy="-2"> = ${zd}</tspan></text>`;
+   const K=Math.round(kpx),px0=30,pw=240/K,ys=170;let path='';for(let i=0;i<=200;i++){const X=px0+i*(K*pw)/200,Y=ys-14*Math.cos(2*Math.PI*i/200);path+=(i?'L':'M')+X.toFixed(1)+','+Y.toFixed(1)}
+   h+=`<text x="4" y="148" font-size="8" fill="#3E3E3E">(b)</text><text x="4" y="10" font-size="8" fill="#3E3E3E">(a)</text><path d="${path}" fill="none" stroke="${MAR}" stroke-width="1.6"/>`;
+   for(let j=0;j<K;j++) h+=`<rect x="${px0+j*pw}" y="${ys+20}" width="${pw}" height="10" fill="${j%2?'#E8EBF0':'#C9CED6'}" stroke="#7F8A99" stroke-width=".5"/>`;
+   h+=`<text x="150" y="${ys+43}" font-size="9" text-anchor="middle" fill="${MAR}" font-weight="700">P_mirror = ${K} q</text>`;
+   el('svg2',h);
+   $('m2').innerHTML=block('Fringe pitch and fringes across the array',[`p = W/N<sub>x</sub> = ${W}/${Nx} = ${f1(p,4)} mm`,`P<sub>f</sub> = n·p = ${n} × ${f1(p,4)} = ${f1(Pf,3)} mm`,`N<sub>f</sub> = L/P<sub>f</sub> = ${f1(L,1)}/${f1(Pf,3)} = ${f1(Nf,0)} fringes ${Nf>=60?'<span class="g">≥ 60 ✓</span>':'<span class="b">&lt; 60</span>'}`])+
+     block('Apparent pitch and pixel footprint (planning height)',[`P<sub>mirror</sub> = P<sub>f</sub>·z/(z+z<sub>d</sub>) = ${f1(Pf,3)} × ${zmin}/${zmin+zd} = ${f1(PmPlan,3)} mm`,`q = P<sub>mirror</sub>/${kpx} = ${f1(qReq,4)} mm`,`pixels = FOV/q = ${f1(FOV,1)}/${f1(qReq,4)} = ${f1(pxReq,0)}`])+
+     `<div class="result">The sensor must provide at least ${f1(pxReq,0)} pixels on its short axis.</div>`;}
+
+  // ---------- Step 3 table + figure ----------
+  {const ck=v=>v?'<span class="g">✓</span>':'<span class="b">✗</span>';
+   let t=`<table class="comp-table"><tr><th>Camera</th><th>Sensor</th><th>Pixels</th><th>s (mm)</th><th>Pixel</th><th>≥ ${f1(pxReq,0)} px</th><th>Mono</th><th>Global</th><th>C-mount</th><th>12-bit</th><th>Cable ≥ ${cable} m</th><th>DR*</th><th>Price</th></tr>`;
+   ev.forEach((c,i)=>{if(i===3&&camIdx!==3)return;t+=`<tr class="${i===camIdx?'act':''}"><td>${c.name}</td><td>${c.sensor}</td><td>${c.pxH}×${c.pxV}</td><td>${f1(c.s,2)}</td><td>${c.pix} µm</td><td>${ck(c.checks.px)}</td><td>${ck(c.checks.mono)}</td><td>${ck(c.checks.global)}</td><td>${ck(c.checks.cmount)}</td><td>${ck(c.checks.bits)}</td><td>${ck(c.checks.cable)} ${c.iface}</td><td>${Number.isFinite(c.dr)?c.dr+' dB':'—'}</td><td>${c.price}</td></tr>`});
+   t+=`</table><div class="figcap"><b>Table 1 &ndash;</b> Candidates against the criteria. Pixels: Step 2. Monochrome: the fringe has no colour and a colour sensor interpolates between filtered pixels. Global shutter: a rolling shutter turns screen refresh and stage motion into row-dependent intensity. C-mount: lens series of Step 4. 12-bit: finer quantization of the sinusoid. *Dynamic range from reseller datasheets.</div>`;
+   $('t3').innerHTML=t;
+   const list=ev.slice(0,3).concat(camIdx===3?[ev[3]]:[]); const S=Math.min(14,(280-12*(list.length-1))/list.reduce((t,c)=>t+c.sh,0),100/Math.max(...list.map(c=>c.s))); let h='',x=10;
+   list.forEach(c=>{const w=c.sh*S,hh=c.s*S;h+=`<rect x="${x}" y="${120-hh}" width="${w}" height="${hh}" fill="${c.name===cam.name?'#FFE08A':'#E8EBF0'}" stroke="#3E3E3E"/><text x="${x+w/2}" y="132" font-size="7.5" text-anchor="middle">${c.name}</text><text x="${x+w/2}" y="142" font-size="7" text-anchor="middle" fill="#747474">${f1(c.sh,2)} × ${f1(c.s,2)} mm</text>`;x+=w+12});
+   el('svg3',h);
+   $('m3').innerHTML=`<div class="result">Selected: ${cam.name} — sensor height s = ${f1(s,2)} mm.</div><div class="note" style="margin-top:6px">Auto mode picks the passing camera with the largest pixel (more light per pixel; highest listed dynamic range), then the highest dynamic range.</div>`;}
+
+  // ---------- Step 4 ----------
+  {let t=`<table class="comp-table"><tr><th>f (mm)</th><th>z = f(1 + FOV/s)</th><th>Verdict</th></tr>`;
+   lensRows.forEach(r=>{t+=`<tr class="${r.f===fSel?'act':''}"><td>${r.f}</td><td>${f1(r.z,0)} mm</td><td style="color:${r.c}">${r.v}</td></tr>`});
+   $('t4').innerHTML=t+`</table><div class="figcap"><b>Table 2 &ndash;</b> Camera height for each catalogue focal length.</div>`;
+   const zmax=Math.max(800,...lensRows.map(r=>r.z).filter(v=>v<1500))*1.02, X=v=>15+v*270/zmax; let h='';
+   h+=`<rect x="${X(smin)}" y="18" width="${X(smax)-X(smin)}" height="20" fill="#FFE08A"/><text x="${(X(smin)+X(smax))/2}" y="13" font-size="7.5" text-anchor="middle" fill="#6d4c00">stage travel</text>`;
+   h+=`<line x1="15" y1="28" x2="290" y2="28" stroke="#404040"/>`;
+   for(let v=0;v<=zmax;v+=100){h+=`<line x1="${X(v)}" y1="25" x2="${X(v)}" y2="31" stroke="#404040"/><text x="${X(v)}" y="44" font-size="6.5" text-anchor="middle">${v}</text>`}
+   h+=`<line x1="${X(zd)}" y1="14" x2="${X(zd)}" y2="34" stroke="#3E3E3E" stroke-dasharray="3 2" stroke-width="1.4"/><text x="${X(zd)-3}" y="13" font-size="7.5" text-anchor="end">screen plane</text>`;
+   lensRows.forEach(r=>{if(r.z<zmax)h+=`<circle cx="${X(r.z)}" cy="28" r="${r.f===fSel?5:3.5}" fill="${r.c}"/><text x="${X(r.z)}" y="58" font-size="7" text-anchor="middle" fill="${r.c}">${r.f}</text>`});
+   h+=`<text x="290" y="68" font-size="6.5" text-anchor="end" fill="#747474">camera height above the array (mm); labels = f (mm)</text>`;
+   el('svg4',h);
+   $('m4').innerHTML=block('Magnification and working distance',[`m = s/FOV = f/(z − f) &rArr; z = f(1 + FOV/s)`,`m = ${f1(s,2)}/${f1(FOV,1)} = ${f1(m,4)}`,`z = ${fSel}(1 + ${f1(FOV,1)}/${f1(s,2)}) = ${f1(z,0)} mm`])+
+    block('Values for the Basler lens selector',[`Camera: ${cam.name}`,`Working distance: ${f1(z,0)} mm &nbsp; Object height: ${f1(FOV,0)} mm &nbsp; Object width: ${Math.ceil(FOVh)} mm (${f1(FOVh,1)} rounded up)`,`Expected angles: θ<sub>v</sub> = 2 tan⁻¹(s/2f) = ${f1(thV,1)}°, θ<sub>h</sub> = 2 tan⁻¹(s<sub>h</sub>/2f) = ${f1(thH,1)}°`])+
+    `<div class="ext note">Enter these in the <a href="https://www.baslerweb.com/en-us/tools/lens-selector/" target="_blank" rel="noopener">Basler lens selector</a>; the angles it returns should match.</div>`;}
+
+  // ---------- Step 5 ----------
+  {const top=22,bot=205,cx=95,k=(bot-top)/(z+zd),Dp=90,ym=top+z*k,bw=Dp*zd/(z+zd);let h=`<defs><marker id="ar5" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b71c1c"/></marker></defs>`;
+   h+=`<ellipse cx="${cx}" cy="${top}" rx="${Dp/2}" ry="5" fill="#9DC3E6" stroke="#1F77B4"/><text x="${cx+Dp/2+5}" y="${top+3}" font-size="8" fill="#1F77B4">pupil f/N = ${f1(pupil,2)} mm</text>`;
+   h+=`<line x1="${cx-Dp/2}" y1="${top}" x2="${cx}" y2="${bot}" stroke="#1F77B4"/><line x1="${cx+Dp/2}" y1="${top}" x2="${cx}" y2="${bot}" stroke="#1F77B4"/>`;
+   h+=`<line x1="${cx-95}" y1="${ym}" x2="${cx+95}" y2="${ym}" stroke="#7F8A99" stroke-width="3"/><text x="${cx+98}" y="${ym+3}" font-size="8">Mirror plane (z = ${f1(z,0)})</text>`;
+   h+=`<line x1="${cx-95}" y1="${bot}" x2="${cx+95}" y2="${bot}" stroke="${MAR}" stroke-dasharray="4 3" stroke-width="1.5"/><text x="${cx+98}" y="${bot+3}" font-size="8" fill="${MAR}">Screen image (focused)</text>`;
+   h+=`<line x1="${cx-bw/2}" y1="${ym-6}" x2="${cx+bw/2}" y2="${ym-6}" stroke="#b71c1c" marker-start="url(#ar5)" marker-end="url(#ar5)"/><text x="${cx-bw/2-4}" y="${ym-8}" font-size="10" text-anchor="end" fill="#b71c1c" font-weight="700">b</text>`;
+   el('svg5',h);
+   let tt=`<table class="comp-table"><tr><th>N</th><th>Pupil f/N</th><th>b (mm)</th><th>b / P<sub>mirror</sub></th></tr>`;
+   [2.8,4,5.6,8,11,16].forEach(Ni=>{const bi=(fSel/Ni)*zd/(z+zd);tt+=`<tr class="${Ni===N?'act':''}"><td>f/${Ni}</td><td>${f1(fSel/Ni,2)} mm</td><td>${f1(bi,2)}</td><td>${f1(bi/Pm,2)}</td></tr>`});
+   $('m5').innerHTML=block('Defocus blur',[`b = (f/N)·z<sub>d</sub>/(z + z<sub>d</sub>) = ${f1(pupil,2)} × ${zd}/${f1(z+zd,0)} = ${f1(b,2)} mm`,`P<sub>mirror</sub> = P<sub>f</sub>·z/(z + z<sub>d</sub>) = ${f1(Pm,3)} mm &nbsp; → &nbsp; b/P<sub>mirror</sub> = ${f1(ratio,2)}`])+tt+`</table><div class="figcap"><b>Table 3 &ndash;</b> Blur at the mirror plane for each aperture (same value for the screen image when focused on the mirror).</div>`+
+     `<div class="result">${ratio>1?`Focus on the screen image; reduce each digital aperture by ≈ ${f1(b,1)} mm.`:`Blur below one fringe pitch at f/${N}.`}</div>`;}
+
+  // ---------- verification ----------
+  {const row=(r,req,ach,ok)=>`<tr><td>${r}</td><td>${req}</td><td>${ach}</td><td class="${ok?'g':'b'}">${ok?'Met':'Not met'}</td></tr>`;
+   $('tv').innerHTML=`<table class="comp-table"><tr><th>Requirement</th><th>Required</th><th>Achieved</th><th>Result</th></tr>`+
+    row('Field of view at the mirror plane',`≥ ${f1(FOV,0)} mm`,`${f1(FOV,0)} × ${f1(FOVh,0)} mm`,true)+
+    row('Sensor pixels on the short axis',`≥ ${f1(pxReq,0)} px`,`${cam.pxV} px`,cam.checks.px)+
+    row('Camera pixels per fringe',`≥ ${kpx}`,f1(ppf,1),ppf>=kpx)+
+    row('Fringes across the array N<sub>f</sub>','≥ 60',f1(Nf,0),Nf>=60)+
+    row('Fringe periods inside one mirror','≥ 3',f1(perMirror,0),perMirror>=3)+
+    row('Camera height within the stage travel',`${smin} – ${smax} mm`,`${f1(z,0)} mm (${f1(z/25.4,1)} in)`,zOK)+
+    `</table><div class="figcap"><b>Table 4 &ndash;</b> Requirements established in Steps 1–5 versus the selected configuration (q = FOV/${cam.pxV} = ${f1(q,4)} mm at z = ${f1(z,0)} mm).</div>`;}
+}
+update();
+</script>
+<script>window.TOUR_STEPS=[
+ {"sel":"#s1","title":"Step 1 · Field of view","text":"The array extent L plus a border Δ on each side. Δ is the only chosen number; everything after this follows from measured values."},
+ {"sel":"#s2","title":"Step 2 · Pixel requirement","text":"The camera sees the screen through the mirror, z<sub>d</sub> behind it, so the fringe looks smaller. The planning height gives the strictest case for the pixel count."},
+ {"sel":"#s3","title":"Step 3 · Camera short list","text":"Each criterion has a stated origin: the pixel count comes from Step 2; the others come from the measurement method and the bench."},
+ {"sel":"#s4","title":"Step 4 · Lens and height","text":"Each focal length fixes a camera height. The values printed here are what to type into the Basler lens selector to cross-check."},
+ {"sel":"#s5","title":"Step 5 · Aperture and focus","text":"The mirror and the screen image cannot both be sharp. The cone shows the blur b at the mirror plane when the screen image is in focus."},
+ {"sel":"#sv","title":"Check","text":"Every requirement from Steps 1–5 against what the selected configuration achieves."}
+];</script>
+<script src="assets/tour.js"></script>
+</body>
+</html>
