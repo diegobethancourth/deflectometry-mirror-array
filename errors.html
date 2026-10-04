@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="asu_icon.ico" sizes="any">
+<link rel="stylesheet" href="assets/tour.css">
+<title>Errors and calibration — Deflectometry Learning Lab | ASU SOLAR</title>
+<script src="assets/bench.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;font-size:14px}
+.nav{background:#8C1D40;display:flex;align-items:center;gap:14px;padding:6px 24px;min-height:52px;flex-wrap:wrap}
+.nav-links{margin-left:auto;display:flex;gap:3px;flex-wrap:wrap}
+.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:12px;font-weight:700;padding:6px 11px;border-radius:3px;white-space:nowrap}
+.nav-links a:hover{background:rgba(255,255,255,.14);color:#fff}
+.nav-links a.active{background:#FFC627;color:#8C1D40}
+.gold-bar{height:4px;background:#FFC627}
+.brandbar{background:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:7px 24px;flex-wrap:wrap}
+.brandbar img{display:block}
+.logo-asu{height:30px;width:auto}
+.logo-lab{height:52px;width:auto;mix-blend-mode:multiply}
+.nav-title .t1{font-size:14px;font-weight:700;line-height:1.2;color:#fff}
+.nav-title .t2{font-size:11px;color:rgba(255,255,255,0.78);line-height:1.35}
+.nav-title .t2 strong{color:#FFC627;font-weight:700}
+.nav-title{min-width:0}
+.byline{font-size:12px;color:#747474}
+.byline strong{color:#8C1D40}
+@media(max-width:760px){.logo-asu{height:22px}.logo-lab{height:32px}}
+.page-hdr{background:#fff;padding:10px 24px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.page-hdr h1{font-size:17px;font-weight:700;color:#8C1D40;margin:0}.page-hdr p{font-size:12px;color:#747474}
+.app{display:grid;grid-template-columns:260px 1fr;gap:0;min-height:calc(100vh - 80px)}
+.left-col{background:#fff;padding:14px;display:flex;flex-direction:column;gap:12px}
+.right-col{padding:12px;display:flex;flex-direction:column;gap:10px}
+.sec-lbl{font-size:10px;font-weight:700;color:#8C1D40;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.ctrl-group{display:flex;flex-direction:column;gap:4px}
+.ctrl-group label{font-size:10px;font-weight:700;color:#747474;text-transform:uppercase;letter-spacing:.04em}
+.ctrl-group select,.ctrl-group input[type=number]{width:100%;font-size:13px;color:#191919;border:none;border-radius:6px;padding:6px 8px;background:#F1F1F4}
+.ctrl-group input[type=range]{width:100%;accent-color:#8C1D40}
+.ctrl-val{font-size:16px;font-weight:700;color:#8C1D40}
+.explainer{background:#FFF4D6;padding:10px 12px;font-size:11px;color:#3E3E3E;line-height:1.55;border-radius:8px}
+.explainer strong{color:#8C1D40}
+.fixed-box{background:#F1F1F4;border-radius:8px;padding:10px 12px}
+.mvar{font-size:11px;color:#747474;line-height:1.8}.mvar span{color:#191919;font-weight:700}
+.metrics-row{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.metric{background:#fff;border-radius:8px;padding:10px 12px}
+.metric .ml{font-size:10px;color:#747474;text-transform:uppercase;letter-spacing:.03em;margin-bottom:2px}
+.metric .mv{font-size:17px;font-weight:700;color:#8C1D40}.metric .ms{font-size:10px;color:#747474;margin-top:1px}
+.mid-row{display:grid;grid-template-columns:1.35fr 1fr;gap:10px}
+.panel{background:#fff;border-radius:10px;padding:14px}
+.panel-heading{font-size:13px;font-weight:700;color:#8C1D40;margin-bottom:3px}
+.panel-sub{font-size:10px;color:#747474;margin-bottom:8px}
+.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:#fff;border-radius:10px;padding:13px}
+.math-block{margin-bottom:10px;padding-bottom:0}
+.math-block:last-child{margin-bottom:0}
+.math-title{font-size:11px;font-weight:700;color:#8C1D40;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.live{background:#8C1D40;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap}
+.formula{background:#F1F1F4;border-radius:6px;padding:5px 8px;font-family:"Courier New",monospace;font-size:11px;color:#3E3E3E;margin:3px 0}
+.mvar2{font-size:10px;color:#747474;line-height:1.6}.mvar2 span{color:#191919;font-weight:700}
+.verdict-good{background:#E9F4EB;border-radius:8px;padding:11px 16px;font-size:12px;color:#1b5e20;font-weight:500}
+.verdict-warn{background:#FDF2DA;border-radius:8px;padding:11px 16px;font-size:12px;color:#6d4c00;font-weight:500}
+.verdict-bad{background:#FBEAEA;border-radius:8px;padding:11px 16px;font-size:12px;color:#7f0000;font-weight:500}
+.btn{background:#8C1D40;color:#fff;border:none;border-radius:4px;padding:7px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn:hover{background:#6d1631}
+.btn.alt{background:#F6E7EE;color:#8C1D40}
+.btn.alt:hover{background:#FFF4D6}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap}
+.chk{display:flex;align-items:center;gap:6px;font-size:11px;color:#3E3E3E;font-weight:700}
+.chk input{accent-color:#8C1D40}
+#prev{width:100%;display:block;border-radius:8px;background:#000}
+#crop{display:block;border-radius:8px;background:#000;max-width:100%}
+.code{background:#2b2b2b;color:#e6e6e6;border-radius:4px;padding:9px 11px;font-family:"Courier New",monospace;font-size:10.5px;line-height:1.5;white-space:pre;overflow-x:auto}
+.step-dots{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.dot{width:22px;height:22px;border-radius:6px;background:#EDEDF1;font-size:10px;font-weight:700;color:#747474;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.dot.on{background:#8C1D40;color:#fff}
+.footer{background:#3E3E3E;color:#BFBFBF;font-size:10px;padding:10px 24px;text-align:center;margin-top:auto}
+.footer span{color:#FFC627}
+
+.comp-table{width:100%;border-collapse:collapse;font-size:11px}
+.comp-table th{background:#8C1D40;color:#fff;padding:6px 7px;text-align:left;font-size:10px;font-weight:700}
+.comp-table td{padding:5px 7px;vertical-align:top}.comp-table tr:nth-child(even) td{background:#F6F6F9}
+.comp-table tr.act td{background:#FFF4D6;font-weight:700}
+.g{color:#2e7d32;font-weight:700}.b{color:#b71c1c;font-weight:700}.m{color:#e65100;font-weight:700}
+.stepcard{background:#fff;border-radius:10px;padding:14px}
+.step-head{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.step-num{background:#5B3A99;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:3px}
+.step-title{font-size:14px;font-weight:700;color:#8C1D40}.step-q{font-size:11px;color:#747474;margin-bottom:10px}
+.two{display:grid;grid-template-columns:1.05fr 1fr;gap:12px;align-items:start}
+.figcap{font-size:10px;color:#3E3E3E;margin-top:4px}.figcap b{color:#8C1D40}
+.result{background:#FFC627;color:#191919;font-weight:700;font-size:12px;padding:7px 10px;border-radius:6px;margin-top:6px}
+.inrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ctrl-group input[type=number]{width:100%}
+.note{font-size:10px;color:#747474;line-height:1.5}
+.obj-lbl{font-size:11px;color:#3E3E3E}
+@media(max-width:1100px){.two{grid-template-columns:1fr}}
+
+.qa details{background:#F6F6F9;border-radius:7px;padding:7px 10px;margin-bottom:6px;font-size:12px}
+.qa summary{cursor:pointer;font-weight:700;color:#3E3E3E}.qa details p{margin:6px 0 0;color:#3E3E3E;line-height:1.55}
+.legend{font-size:10px;color:#3E3E3E}.obj{font-size:12px;line-height:1.6;color:#3E3E3E}
+.wide{grid-template-columns:1.4fr 1fr}
+
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <img class="logo-asu" src="logos/ASU%20Logo%20School.png" alt="Arizona State University — Ira A. Fulton Schools of Engineering, School of Manufacturing Systems and Networks">
+  <img class="logo-lab" src="logos/SOLAR%20LAB%20LOGO.png" alt="SOLAR — Sensing, Optics, Laser Application Research">
+</div>
+<div class="nav">
+  <div class="nav-title">
+    <div class="t1">Deflectometry Learning Lab</div>
+    <div class="t2"><strong>Diego Bethancourth</strong> &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo &nbsp;&middot;&nbsp; Systems, Optics and Laser Application Research Lab &nbsp;&middot;&nbsp; Arizona State University</div>
+  </div>
+  <nav class="nav-links" id="site-nav"></nav>
+  <script src="assets/nav.js"></script>
+</div>
+<div class="gold-bar"></div>
+
+<div class="page-hdr">
+  <h1>L5 · Errors and calibration</h1>
+  <p>From intensity noise to slope error; random versus systematic; which calibration removes which error.</p>
+</div>
+
+<div class="app">
+  <div class="left-col">
+    <div><div class="sec-lbl">Learning objective</div>
+      <div class="explainer">Follow an error from the camera to the slope: intensity noise → phase → screen position → slope. Separate <b>random</b> errors (averaged down) from <b>systematic</b> ones (removed only by calibration), and match each calibration to the error it removes.</div></div>
+    <div><div class="sec-lbl">Bench (shared)</div>
+      <div class="inrow">
+        <div class="ctrl-group"><label>Screen width W (mm)</label><input type="number" id="W" step="0.1"></div>
+        <div class="ctrl-group"><label>Screen pixels N<sub>x</sub></label><input type="number" id="Nx" step="1"></div>
+        <div class="ctrl-group"><label>Pixels per fringe n</label><input type="number" id="n" step="1"></div>
+        <div class="ctrl-group"><label>Mirror–screen z<sub>d</sub> (mm)</label><input type="number" id="zd" step="10"></div></div></div>
+    <div><div class="sec-lbl">Measurement</div>
+      <div class="ctrl-group"><label>Method</label><select id="meth"><option value="psi">Phase shifting, per pixel</option><option value="smots">SMOTS, averaged over an aperture</option></select></div>
+      <div class="inrow" style="margin-top:6px">
+        <div class="ctrl-group"><label>Noise σ<sub>I</sub>/B</label><input type="number" id="noi" value="0.02" step="0.005"></div>
+        <div class="ctrl-group"><label>Phase steps N</label><input type="number" id="N" value="4" step="1"></div>
+        <div class="ctrl-group"><label>Pixels per aperture M</label><input type="number" id="M" value="10000" step="100"></div>
+        <div class="ctrl-group"><label>Tilt measured θ (µrad)</label><input type="number" id="th" value="1000" step="50"></div></div></div>
+    <div><div class="sec-lbl">Systematic uncertainties</div>
+      <div class="inrow">
+        <div class="ctrl-group"><label>z<sub>d</sub> uncertainty (mm)</label><input type="number" id="dzd" value="5" step="0.5"></div>
+        <div class="ctrl-group"><label>Pixel-pitch error (%)</label><input type="number" id="dp" value="0.1" step="0.05"></div></div>
+      <div class="note" style="margin-top:6px">Choi et al. report z<sub>d</sub> = 2020 ± 5 mm (Sec. 3.1, p. 103770G-4).</div></div>
+  </div>
+  <div class="right-col">
+    <div class="metrics-row" id="metrics"></div>
+    <div class="stepcard" id="s1"><div class="step-head"><span class="step-num">L5.1</span><span class="step-title">The propagation chain</span></div>
+      <svg id="chain" width="100%" viewBox="0 0 600 90"></svg><div class="figcap"><b>Fig. 1 –</b> How intensity noise becomes slope noise. Each arrow is one equation in L5.2.</div></div>
+    <div class="stepcard" id="s2"><div class="step-head"><span class="step-num">L5.2</span><span class="step-title">Random error</span></div><div class="two"><div id="m2"></div><div id="m2b"></div></div></div>
+    <div class="stepcard" id="s3"><div class="step-head"><span class="step-num">L5.3</span><span class="step-title">Systematic error and the total</span></div>
+      <div class="two"><div><svg id="bars" width="100%" viewBox="0 0 320 170"></svg><div class="figcap"><b>Fig. 2 –</b> Contributions to the slope error at the tilt being measured.</div></div><div id="m3"></div></div></div>
+    <div class="stepcard" id="s4"><div class="step-head"><span class="step-num">L5.4</span><span class="step-title">Which calibration removes which error</span></div>
+      <table class="comp-table"><tr><th>Error source</th><th>Type</th><th>Effect on slope</th><th>Calibration that removes it</th><th>In this lab</th></tr>
+        <tr><td>Camera noise, monitor flicker</td><td>Random</td><td>noise ∝ σ<sub>I</sub>/B</td><td>None — average frames or pixels</td><td><a href="phase.html">L3</a>, <a href="budget.html">D4</a></td></tr>
+        <tr><td>Mirror–screen distance z<sub>d</sub></td><td>Systematic</td><td>scale error δz<sub>d</sub>/z<sub>d</sub></td><td>Screen-pose calibration; measured distance</td><td><a href="https://github.com/diegobethancourth/deflectometry-mirror-array/tree/main/smots" target="_blank" rel="noopener">smots/calibration.py</a></td></tr>
+        <tr><td>Screen pixel pitch, screen flatness</td><td>Systematic</td><td>scale error, local slope ripple</td><td>Pitch measured under a microscope (as Choi et al.); flatness map</td><td><a href="budget.html">D4</a></td></tr>
+        <tr><td>Display gamma (non-linear intensity)</td><td>Systematic</td><td>phase ripple at 2× and 3× the fringe frequency</td><td>Gamma pre-compensation of the displayed pattern</td><td><a href="fringes.html">L2</a></td></tr>
+        <tr><td>Unknown starting orientation</td><td>Systematic</td><td>offset (looks like real tilt)</td><td>"Absolute reference": reference flat or autocollimator</td><td><a href="integration.html">L4</a></td></tr>
+        <tr><td>Sign conventions (FFT, axes, Eq. 6)</td><td>Systematic</td><td>reported tilt has the wrong sign</td><td>A known tilt of known direction</td><td><a href="docs/math-reference.html">Math reference</a></td></tr>
+      </table><div class="figcap"><b>Table 1 –</b> Error sources, their effect, and the calibration that addresses each. Choi et al. validated SMOTS against an autocollimator (ELCOMAT 3000) and report 0.8 µrad RMS agreement.</div></div>
+    <div class="stepcard qa"><div class="sec-lbl">Check yourself</div>
+      <details><summary>1. Which reduces random slope error more: doubling z<sub>d</sub> or doubling N?</summary><p>Doubling z<sub>d</sub> halves σ<sub>θ</sub> (σ<sub>θ</sub> ∝ 1/z<sub>d</sub>); doubling N reduces it by only √2. But a longer z<sub>d</sub> needs a larger screen (D1).</p></details>
+      <details><summary>2. Why does SMOTS reach sub-microradian noise with an ordinary monitor?</summary><p>It averages over every pixel of a segment's aperture: the phase noise falls roughly as 1/√M, and Choi et al. also use a long z<sub>d</sub> (2020 mm).</p></details>
+      <details><summary>3. A 5 mm error in a 2020 mm z<sub>d</sub>: is it random or systematic, and how big is its effect on a 1 mrad tilt?</summary><p>Systematic: a scale error of 5/2020 = 0.25 %, i.e. 2.5 µrad on 1 mrad. Averaging cannot remove it; only a better distance measurement or calibration can.</p></details>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Arizona State University</span> &nbsp;&middot;&nbsp; School of Manufacturing Systems and Networks &nbsp;&middot;&nbsp; SOLAR Lab &nbsp;&middot;&nbsp; Diego Bethancourth &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo
+</div>
+<script>
+
+const $=id=>document.getElementById(id);
+const f1=(x,d=1)=>Number.isFinite(x)?x.toFixed(d):'—';
+Bench.bind({W:'W',Nx:'Nx',n:'n',zd:'zd'});
+function formula(t){return `<div class="formula">${t}</div>`}
+function block(title,lines){return `<div class="math-block"><div class="math-title">${title}<span class="live">LIVE</span></div>${lines.map(formula).join('')}</div>`}
+function update(){
+  const b=Bench.get(), meth=$('meth').value, noi=+$('noi').value, N=+$('N').value, M=+$('M').value, th=+$('th').value*1e-6, dzd=+$('dzd').value, dp=+$('dp').value/100;
+  const p=b.W/b.Nx, Pf=b.n*p, zd=b.zd;
+  const sphi=meth==='psi'?Math.sqrt(2/N)*noi:2*noi/Math.sqrt(M);
+  const sx=sphi*Pf/(2*Math.PI), sth=sx/(2*zd);
+  const eZ=th*dzd/zd, eP=th*dp, tot=Math.sqrt(sth**2+eZ**2+eP**2);
+  const ur=v=>v*1e6;
+  $('metrics').innerHTML=`
+   <div class="metric"><div class="ml">Phase noise σ<sub>φ</sub></div><div class="mv">${f1(sphi*1000,2)} mrad</div><div class="ms">${meth==='psi'?'per pixel':'per aperture'}</div></div>
+   <div class="metric"><div class="ml">Screen position σ<sub>x</sub></div><div class="mv">${f1(sx*1000,2)} µm</div><div class="ms">P<sub>f</sub> = ${f1(Pf,3)} mm</div></div>
+   <div class="metric"><div class="ml">Slope noise σ<sub>θ</sub></div><div class="mv">${f1(ur(sth),2)} µrad</div><div class="ms">random</div></div>
+   <div class="metric"><div class="ml">z<sub>d</sub> scale error</div><div class="mv">${f1(ur(eZ),2)} µrad</div><div class="ms">at θ = ${$('th').value} µrad</div></div>
+   <div class="metric"><div class="ml">Pitch scale error</div><div class="mv">${f1(ur(eP),2)} µrad</div><div class="ms">systematic</div></div>
+   <div class="metric"><div class="ml">Total (RSS)</div><div class="mv">${f1(ur(tot),2)} µrad</div><div class="ms">random + systematic</div></div>`;
+  // chain figure
+  const boxes=[['σ_I / B',f1(noi,3)],['σ_φ (rad)',f1(sphi,5)],['σ_x (mm)',f1(sx,6)],['σ_θ (µrad)',f1(ur(sth),3)]];
+  let h=`<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8C1D40"/></marker></defs>`;
+  boxes.forEach((bx,i)=>{const x=10+i*150;h+=`<rect x="${x}" y="15" width="120" height="56" rx="8" fill="${i===3?'#FFF4D6':'#F6F6F9'}" stroke="#D0D4D4"/><text x="${x+60}" y="38" font-size="12" text-anchor="middle" fill="#8C1D40" font-weight="700">${bx[0]}</text><text x="${x+60}" y="58" font-size="12" text-anchor="middle">${bx[1]}</text>`;
+    if(i<3)h+=`<line x1="${x+122}" y1="43" x2="${x+146}" y2="43" stroke="#8C1D40" stroke-width="1.5" marker-end="url(#a)"/>`;});
+  $('chain').innerHTML=h;
+  $('m2').innerHTML=block('Intensity → phase',[meth==='psi'?`σ<sub>φ</sub> = √(2/N)·σ<sub>I</sub>/B = √(2/${N}) × ${noi} = ${f1(sphi,4)} rad`:`σ<sub>ψ</sub> ≈ 2·σ<sub>I</sub>/(B√M) = 2 × ${noi}/√${M} = ${f1(sphi,5)} rad (two frames, M pixels)`])+
+    block('Phase → screen position → slope',[`σ<sub>x</sub> = σ<sub>φ</sub>·P<sub>f</sub>/(2π) = ${f1(sphi,5)} × ${f1(Pf,3)}/(2π) = ${f1(sx*1000,3)} µm`,`σ<sub>θ</sub> = σ<sub>x</sub>/(2z<sub>d</sub>) = ${f1(sx*1000,3)} µm/(2 × ${zd} mm) = ${f1(ur(sth),3)} µrad`]);
+  $('m2b').innerHTML=`<div class="note" style="font-size:11.5px;color:#3E3E3E;line-height:1.6">The first step depends on the method (L3). The last step is the geometry of L1: a slope θ moves the screen point by 2θ·z<sub>d</sub>. A finer fringe (smaller P<sub>f</sub>) and a longer z<sub>d</sub> both lower σ<sub>θ</sub>. The SMOTS expression is an estimate for averaging over M independent pixels.</div>`;
+  // bars
+  const items=[['Random σ_θ',sth,'#1F77B4'],['z_d scale',eZ,'#8C1D40'],['Pitch scale',eP,'#E0A800'],['Total (RSS)',tot,'#191919']];
+  const mx=Math.max(...items.map(i=>i[1]))||1; let g='';
+  items.forEach((it,i)=>{const y=12+i*38,w=200*it[1]/mx;g+=`<text x="0" y="${y+15}" font-size="10">${it[0]}</text><rect x="90" y="${y}" width="${Math.max(1,w)}" height="22" fill="${it[2]}" opacity=".85"/><text x="${96+w}" y="${y+15}" font-size="10">${f1(ur(it[1]),2)} µrad</text>`;});
+  $('bars').innerHTML=g;
+  $('m3').innerHTML=block('Systematic contributions at the measured tilt',[`δθ<sub>z</sub> = θ·δz<sub>d</sub>/z<sub>d</sub> = ${$('th').value} µrad × ${dzd}/${zd} = ${f1(ur(eZ),2)} µrad`,`δθ<sub>p</sub> = θ·δp/p = ${$('th').value} µrad × ${f1(dp*100,2)} % = ${f1(ur(eP),2)} µrad`,`total = √(σ<sub>θ</sub>² + δθ<sub>z</sub>² + δθ<sub>p</sub>²) = ${f1(ur(tot),2)} µrad`])+`<div class="note">Scale errors grow with the tilt being measured; random errors do not. For the full budget of your bench, including screen non-flatness and calibration residuals, open <a href="budget.html">D4 · Error budget</a>.</div>`;
+}
+document.querySelectorAll('input,select').forEach(e=>e.addEventListener('input',update)); update();
+
+</script>
+<script>window.TOUR_STEPS=[{"sel":"#s1","title":"The chain","text":"Intensity noise becomes phase noise, phase noise becomes a screen-position error, and that becomes a slope error."},{"sel":"#s3","title":"Systematic errors","text":"Distance and pitch errors scale with the tilt being measured; averaging cannot remove them."},{"sel":"#s4","title":"Calibration","text":"Each systematic error has a calibration that removes it. The links lead to the page of this lab where it is handled."}];</script>
+<script src="assets/tour.js"></script>
+</body>
+</html>

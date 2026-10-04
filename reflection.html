@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="asu_icon.ico" sizes="any">
+<link rel="stylesheet" href="assets/tour.css">
+<title>Reflection and surface slope — Deflectometry Learning Lab | ASU SOLAR</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;font-size:14px}
+.nav{background:#8C1D40;display:flex;align-items:center;gap:14px;padding:6px 24px;min-height:52px;flex-wrap:wrap}
+.nav-links{margin-left:auto;display:flex;gap:3px;flex-wrap:wrap}
+.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:12px;font-weight:700;padding:6px 11px;border-radius:3px;white-space:nowrap}
+.nav-links a:hover{background:rgba(255,255,255,.14);color:#fff}
+.nav-links a.active{background:#FFC627;color:#8C1D40}
+.gold-bar{height:4px;background:#FFC627}
+.brandbar{background:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:7px 24px;flex-wrap:wrap}
+.brandbar img{display:block}
+.logo-asu{height:30px;width:auto}
+.logo-lab{height:52px;width:auto;mix-blend-mode:multiply}
+.nav-title .t1{font-size:14px;font-weight:700;line-height:1.2;color:#fff}
+.nav-title .t2{font-size:11px;color:rgba(255,255,255,0.78);line-height:1.35}
+.nav-title .t2 strong{color:#FFC627;font-weight:700}
+.nav-title{min-width:0}
+.byline{font-size:12px;color:#747474}
+.byline strong{color:#8C1D40}
+@media(max-width:760px){.logo-asu{height:22px}.logo-lab{height:32px}}
+.page-hdr{background:#fff;padding:10px 24px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.page-hdr h1{font-size:17px;font-weight:700;color:#8C1D40;margin:0}.page-hdr p{font-size:12px;color:#747474}
+.app{display:grid;grid-template-columns:260px 1fr;gap:0;min-height:calc(100vh - 80px)}
+.left-col{background:#fff;padding:14px;display:flex;flex-direction:column;gap:12px}
+.right-col{padding:12px;display:flex;flex-direction:column;gap:10px}
+.sec-lbl{font-size:10px;font-weight:700;color:#8C1D40;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.ctrl-group{display:flex;flex-direction:column;gap:4px}
+.ctrl-group label{font-size:10px;font-weight:700;color:#747474;text-transform:uppercase;letter-spacing:.04em}
+.ctrl-group select,.ctrl-group input[type=number]{width:100%;font-size:13px;color:#191919;border:none;border-radius:6px;padding:6px 8px;background:#F1F1F4}
+.ctrl-group input[type=range]{width:100%;accent-color:#8C1D40}
+.ctrl-val{font-size:16px;font-weight:700;color:#8C1D40}
+.explainer{background:#FFF4D6;padding:10px 12px;font-size:11px;color:#3E3E3E;line-height:1.55;border-radius:8px}
+.explainer strong{color:#8C1D40}
+.fixed-box{background:#F1F1F4;border-radius:8px;padding:10px 12px}
+.mvar{font-size:11px;color:#747474;line-height:1.8}.mvar span{color:#191919;font-weight:700}
+.metrics-row{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.metric{background:#fff;border-radius:8px;padding:10px 12px}
+.metric .ml{font-size:10px;color:#747474;text-transform:uppercase;letter-spacing:.03em;margin-bottom:2px}
+.metric .mv{font-size:17px;font-weight:700;color:#8C1D40}.metric .ms{font-size:10px;color:#747474;margin-top:1px}
+.mid-row{display:grid;grid-template-columns:1.35fr 1fr;gap:10px}
+.panel{background:#fff;border-radius:10px;padding:14px}
+.panel-heading{font-size:13px;font-weight:700;color:#8C1D40;margin-bottom:3px}
+.panel-sub{font-size:10px;color:#747474;margin-bottom:8px}
+.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:#fff;border-radius:10px;padding:13px}
+.math-block{margin-bottom:10px;padding-bottom:0}
+.math-block:last-child{margin-bottom:0}
+.math-title{font-size:11px;font-weight:700;color:#8C1D40;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.live{background:#8C1D40;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap}
+.formula{background:#F1F1F4;border-radius:6px;padding:5px 8px;font-family:"Courier New",monospace;font-size:11px;color:#3E3E3E;margin:3px 0}
+.mvar2{font-size:10px;color:#747474;line-height:1.6}.mvar2 span{color:#191919;font-weight:700}
+.verdict-good{background:#E9F4EB;border-radius:8px;padding:11px 16px;font-size:12px;color:#1b5e20;font-weight:500}
+.verdict-warn{background:#FDF2DA;border-radius:8px;padding:11px 16px;font-size:12px;color:#6d4c00;font-weight:500}
+.verdict-bad{background:#FBEAEA;border-radius:8px;padding:11px 16px;font-size:12px;color:#7f0000;font-weight:500}
+.btn{background:#8C1D40;color:#fff;border:none;border-radius:4px;padding:7px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn:hover{background:#6d1631}
+.btn.alt{background:#F6E7EE;color:#8C1D40}
+.btn.alt:hover{background:#FFF4D6}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap}
+.chk{display:flex;align-items:center;gap:6px;font-size:11px;color:#3E3E3E;font-weight:700}
+.chk input{accent-color:#8C1D40}
+#prev{width:100%;display:block;border-radius:8px;background:#000}
+#crop{display:block;border-radius:8px;background:#000;max-width:100%}
+.code{background:#2b2b2b;color:#e6e6e6;border-radius:4px;padding:9px 11px;font-family:"Courier New",monospace;font-size:10.5px;line-height:1.5;white-space:pre;overflow-x:auto}
+.step-dots{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.dot{width:22px;height:22px;border-radius:6px;background:#EDEDF1;font-size:10px;font-weight:700;color:#747474;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.dot.on{background:#8C1D40;color:#fff}
+.footer{background:#3E3E3E;color:#BFBFBF;font-size:10px;padding:10px 24px;text-align:center;margin-top:auto}
+.footer span{color:#FFC627}
+
+.comp-table{width:100%;border-collapse:collapse;font-size:11px}
+.comp-table th{background:#8C1D40;color:#fff;padding:6px 7px;text-align:left;font-size:10px;font-weight:700}
+.comp-table td{padding:5px 7px;vertical-align:top}.comp-table tr:nth-child(even) td{background:#F6F6F9}
+.comp-table tr.act td{background:#FFF4D6;font-weight:700}
+.g{color:#2e7d32;font-weight:700}.b{color:#b71c1c;font-weight:700}.m{color:#e65100;font-weight:700}
+.stepcard{background:#fff;border-radius:10px;padding:14px}
+.step-head{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.step-num{background:#5B3A99;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:3px}
+.step-title{font-size:14px;font-weight:700;color:#8C1D40}.step-q{font-size:11px;color:#747474;margin-bottom:10px}
+.two{display:grid;grid-template-columns:1.05fr 1fr;gap:12px;align-items:start}
+.figcap{font-size:10px;color:#3E3E3E;margin-top:4px}.figcap b{color:#8C1D40}
+.result{background:#FFC627;color:#191919;font-weight:700;font-size:12px;padding:7px 10px;border-radius:6px;margin-top:6px}
+.inrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ctrl-group input[type=number]{width:100%}
+.note{font-size:10px;color:#747474;line-height:1.5}
+.obj-lbl{font-size:11px;color:#3E3E3E}
+@media(max-width:1100px){.two{grid-template-columns:1fr}}
+
+.qa details{background:#F6F6F9;border-radius:7px;padding:7px 10px;margin-bottom:6px;font-size:12px}
+.qa summary{cursor:pointer;font-weight:700;color:#3E3E3E}.qa details p{margin:6px 0 0;color:#3E3E3E;line-height:1.55}
+.legend{font-size:10px;color:#3E3E3E}.obj{font-size:12px;line-height:1.6;color:#3E3E3E}
+.wide{grid-template-columns:1.4fr 1fr}
+
+</style>
+</head>
+<body data-no-bench>
+
+<div class="brandbar">
+  <img class="logo-asu" src="logos/ASU%20Logo%20School.png" alt="Arizona State University — Ira A. Fulton Schools of Engineering, School of Manufacturing Systems and Networks">
+  <img class="logo-lab" src="logos/SOLAR%20LAB%20LOGO.png" alt="SOLAR — Sensing, Optics, Laser Application Research">
+</div>
+<div class="nav">
+  <div class="nav-title">
+    <div class="t1">Deflectometry Learning Lab</div>
+    <div class="t2"><strong>Diego Bethancourth</strong> &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo &nbsp;&middot;&nbsp; Systems, Optics and Laser Application Research Lab &nbsp;&middot;&nbsp; Arizona State University</div>
+  </div>
+  <nav class="nav-links" id="site-nav"></nav>
+  <script src="assets/nav.js"></script>
+</div>
+<div class="gold-bar"></div>
+
+<div class="page-hdr">
+  <h1>L1 · Reflection and surface slope</h1>
+  <p>Why a screen and a camera measure the slope of a mirror.</p>
+</div>
+
+<div class="app">
+  <div class="left-col">
+    <div><div class="sec-lbl">Learning objective</div>
+      <div class="explainer">After this module you can explain why deflectometry measures <b>surface slope</b>, predict how far the reflected screen point moves for a given tilt, and state the slope resolution set by one screen pixel.</div></div>
+    <div><div class="sec-lbl">Mirror</div>
+      <div class="ctrl-group"><label>Tilt θ (mrad)</label><input type="range" id="th" min="-40" max="40" step="0.5" value="10"><span class="ctrl-val" id="th-v"></span></div>
+      <div class="ctrl-group"><label>Curvature 1/R (1/m)</label><input type="range" id="cv" min="-3" max="3" step="0.1" value="0"><span class="ctrl-val" id="cv-v"></span></div>
+      <div class="ctrl-group"><label>Mirror width (mm)</label><input type="range" id="mw" min="20" max="200" step="5" value="100"><span class="ctrl-val" id="mw-v"></span></div></div>
+    <div><div class="sec-lbl">Geometry</div>
+      <div class="ctrl-group"><label>Screen distance z<sub>d</sub> (mm)</label><input type="range" id="zd" min="100" max="1000" step="10" value="300"><span class="ctrl-val" id="zd-v"></span></div>
+      <div class="ctrl-group"><label>Camera offset from axis (mm)</label><input type="range" id="xc" min="-300" max="-20" step="5" value="-120"><span class="ctrl-val" id="xc-v"></span></div>
+      <div class="ctrl-group"><label>Screen pixel pitch p (µm)</label><input type="number" id="pp" value="89.6" step="0.1"></div></div>
+    <div class="note">The camera sits in the screen plane, beside the screen — the layout of most deflectometry systems. Distances are drawn to scale.</div>
+  </div>
+  <div class="right-col">
+    <div class="metrics-row" id="metrics"></div>
+    <div class="stepcard" id="s1"><div class="step-head"><span class="step-num">L1.1</span><span class="step-title">What the camera sees in a mirror</span></div>
+      <div class="step-q">Each camera pixel looks at one point of the mirror; the law of reflection decides which screen point it sees there.</div>
+      <svg id="svg1" width="100%" viewBox="0 0 600 360" style="max-width:760px;display:block;margin:0 auto"></svg>
+      <div class="figcap"><b>Fig. 1 –</b> Rays from the camera reflect off the mirror and land on the screen. Solid: tilted or curved mirror. Dashed grey: flat, untilted reference. The gold marks show how far each screen point moved.</div></div>
+    <div class="stepcard" id="s2"><div class="step-head"><span class="step-num">L1.2</span><span class="step-title">Tilt turns the reflected ray by twice the angle</span></div>
+      <div class="two"><div id="m2"></div><div id="m2b"></div></div></div>
+    <div class="stepcard" id="s3"><div class="step-head"><span class="step-num">L1.3</span><span class="step-title">The inverse problem: from screen point back to slope</span></div>
+      <div class="step-q">Deflectometry measures which screen point each camera pixel sees, then solves for the surface normal.</div>
+      <div class="two"><div id="m3"></div><div><table class="comp-table" id="t3"></table><div class="figcap"><b>Table 1 –</b> Surface slope recovered from the camera, mirror and screen points of five rays, compared with the true slope.</div></div></div></div>
+    <div class="stepcard"><div class="sec-lbl">Key ideas</div><ul class="obj">
+      <li>The measured quantity is the <b>slope</b> (surface normal), not the height. Height comes later, by integration (L4).</li>
+      <li>A tilt θ turns the reflected ray by <b>2θ</b>; at distance z<sub>d</sub> the screen point moves by about 2θ·z<sub>d</sub>. A longer z<sub>d</sub> means more screen motion per microradian — higher sensitivity.</li>
+      <li>One screen pixel of motion corresponds to a slope of p/(2z<sub>d</sub>); fringe phase (L2, L3) locates the screen point to a small fraction of a pixel.</li></ul></div>
+    <div class="stepcard qa"><div class="sec-lbl">Check yourself</div>
+      <details><summary>1. Doubling z<sub>d</sub> changes the screen shift for a given tilt how?</summary><p>It doubles it: Δx ≈ 2θ·z<sub>d</sub>. The slope resolution per pixel, p/(2z<sub>d</sub>), halves — the measurement becomes twice as sensitive.</p></details>
+      <details><summary>2. Why can deflectometry not measure a pure piston (a mirror moved straight up)?</summary><p>A piston does not change the surface normal, so every ray reflects in the same direction; the screen points barely move. Deflectometry is a slope measurement.</p></details>
+      <details><summary>3. Set a curvature with zero tilt. Why do the screen points spread or converge?</summary><p>The slope now varies across the mirror (slope = x/R), so each ray is turned by a different 2·slope; the reflected fan widens (convex) or narrows (concave).</p></details>
+      <details><summary>4. With p = 89.6 µm and z<sub>d</sub> = 300 mm, what slope moves the screen point by one pixel?</summary><p>p/(2z<sub>d</sub>) = 0.0896/600 = 149 µrad. Phase measurement to 1/100 of a fringe of 13 pixels brings this to about 19 µrad (see L5).</p></details>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Arizona State University</span> &nbsp;&middot;&nbsp; School of Manufacturing Systems and Networks &nbsp;&middot;&nbsp; SOLAR Lab &nbsp;&middot;&nbsp; Diego Bethancourth &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo
+</div>
+<script>
+
+const $=id=>document.getElementById(id);
+const f1=(x,d=1)=>Number.isFinite(x)?x.toFixed(d):'—';
+const MAR='#8C1D40';
+function formula(t){return `<div class="formula">${t}</div>`}
+function block(title,lines){return `<div class="math-block"><div class="math-title">${title}<span class="live">LIVE</span></div>${lines.map(formula).join('')}</div>`}
+function trace(C,xm,surf,dsurf,zd){
+  const M=[xm,surf(xm)], d=[M[0]-C[0],M[1]-C[1]], L=Math.hypot(d[0],d[1]); d[0]/=L; d[1]/=L;
+  const s=dsurf(xm), nl=Math.hypot(s,1), n=[-s/nl,1/nl];
+  const dn=d[0]*n[0]+d[1]*n[1], r=[d[0]-2*dn*n[0], d[1]-2*dn*n[1]];
+  const t=(zd-M[1])/r[1]; return {M,S:[M[0]+t*r[0],zd],r,n,slope:s};
+}
+function update(){
+  const th=+$('th').value/1000, cv=+$('cv').value/1000, mw=+$('mw').value, zd=+$('zd').value, xc=+$('xc').value, p=+$('pp').value/1000;
+  $('th-v').textContent=$('th').value+' mrad'; $('cv-v').textContent=$('cv').value+' 1/m'+(cv===0?' (flat)':cv>0?' (concave)':' (convex)');
+  $('mw-v').textContent=mw+' mm'; $('zd-v').textContent=zd+' mm'; $('xc-v').textContent=xc+' mm';
+  const surf=x=>th*x+cv*x*x/2, dsurf=x=>th+cv*x, flat=x=>0, dflat=x=>0;
+  const C=[xc,zd];
+  const xsamp=[-0.5,-0.25,0,0.25,0.5].map(u=>u*mw);
+  const R=xsamp.map(x=>trace(C,x,surf,dsurf,zd)), R0=xsamp.map(x=>trace(C,x,flat,dflat,zd));
+  // drawing
+  const xs=[C[0],...R.map(r=>r.S[0]),...R0.map(r=>r.S[0]),-mw/2,mw/2];
+  const xmin=Math.min(...xs)-30, xmax=Math.max(...xs)+30, zmin=-40, zmax=zd+40;
+  const S=Math.min(560/(xmax-xmin),320/(zmax-zmin)), X=x=>20+(x-xmin)*S, Z=z=>340-(z-zmin)*S;
+  let h=`<line x1="${X(xmin+10)}" y1="${Z(zd)}" x2="${X(xmax-10)}" y2="${Z(zd)}" stroke="#3E3E3E" stroke-width="5" opacity=".18"/>`;
+  h+=`<text x="${X(xmax-12)}" y="${Z(zd)-8}" font-size="10" text-anchor="end" fill="#3E3E3E">screen plane (z = z<tspan font-size="7" dy="2">d</tspan><tspan dy="-2">)</tspan></text>`;
+  let path='';for(let i=0;i<=40;i++){const x=-mw/2+mw*i/40;path+=(i?'L':'M')+X(x).toFixed(1)+','+Z(surf(x)).toFixed(1)}
+  h+=`<line x1="${X(-mw/2)}" y1="${Z(0)}" x2="${X(mw/2)}" y2="${Z(0)}" stroke="#bbb" stroke-dasharray="3 3"/><path d="${path}" fill="none" stroke="#7F8A99" stroke-width="4"/>`;
+  h+=`<text x="${X(0)}" y="${Z(0)+22}" font-size="10" text-anchor="middle" fill="#3E3E3E">mirror</text>`;
+  R0.forEach(r=>{h+=`<polyline points="${X(C[0])},${Z(C[1])} ${X(r.M[0])},${Z(r.M[1])} ${X(r.S[0])},${Z(r.S[1])}" fill="none" stroke="#B0B0B0" stroke-dasharray="4 3"/>`});
+  R.forEach((r,i)=>{h+=`<polyline points="${X(C[0])},${Z(C[1])} ${X(r.M[0])},${Z(r.M[1])} ${X(r.S[0])},${Z(r.S[1])}" fill="none" stroke="#1F77B4" stroke-width="1.3"/>`;
+    const a=X(R0[i].S[0]),b=X(r.S[0]); h+=`<line x1="${a}" y1="${Z(zd)+6}" x2="${b}" y2="${Z(zd)+6}" stroke="#E0A800" stroke-width="3"/>`;});
+  h+=`<rect x="${X(C[0])-14}" y="${Z(C[1])-9}" width="18" height="18" fill="#3E3E3E"/><text x="${X(C[0])}" y="${Z(C[1])-14}" font-size="10" text-anchor="middle">camera</text>`;
+  $('svg1').innerHTML=h;
+  // centre ray numbers
+  const c=R[2], c0=R0[2], dx=c.S[0]-c0.S[0];
+  const alpha=Math.atan2(c0.M[0]-C[0], C[1]-c0.M[1]); // incidence angle from the normal (flat)
+  const approx=2*th*zd, exact=zd*(Math.tan(alpha-2*th)-Math.tan(alpha));
+  const res=p/(2*zd);
+  $('metrics').innerHTML=`
+   <div class="metric"><div class="ml">Ray turned by</div><div class="mv">${f1(2*th*1000,1)} mrad</div><div class="ms">2θ at the centre</div></div>
+   <div class="metric"><div class="ml">Screen shift |Δx| (traced)</div><div class="mv">${f1(Math.abs(dx),2)} mm</div><div class="ms">centre ray</div></div>
+   <div class="metric"><div class="ml">2|θ|·z<sub>d</sub></div><div class="mv">${f1(Math.abs(approx),2)} mm</div><div class="ms">small-angle estimate</div></div>
+   <div class="metric"><div class="ml">Incidence angle α</div><div class="mv">${f1(alpha*180/Math.PI,1)}°</div><div class="ms">camera offset</div></div>
+   <div class="metric"><div class="ml">Slope per pixel</div><div class="mv">${f1(res*1e6,0)} µrad</div><div class="ms">p/(2z<sub>d</sub>)</div></div>
+   <div class="metric"><div class="ml">Shift in pixels</div><div class="mv">${f1(Math.abs(dx)/p,0)}</div><div class="ms">at p = ${f1(p*1000,1)} µm</div></div>`;
+  $('m2').innerHTML=block('Law of reflection',[`r = d − 2(d·n)n`,`tilt θ rotates n by θ ⇒ r rotates by 2θ`])+block('Screen shift at distance z<sub>d</sub>',[`Δx = z<sub>d</sub>[tan(α − 2θ) − tan α] = ${f1(exact,2)} mm (exact, flat mirror)`,`Δx ≈ −2θ·z<sub>d</sub>/cos²α = ${f1(-approx/Math.cos(alpha)**2,2)} mm`,`|Δx| ≈ 2|θ|·z<sub>d</sub> = ${f1(Math.abs(approx),2)} mm (normal incidence)`,`α = incidence angle; a positive slope moves the point back toward the camera side`]);
+  $('m2b').innerHTML=`<div class="note" style="font-size:11.5px;color:#3E3E3E;line-height:1.6">The ray-traced shift (${f1(dx,2)} mm) and the small-angle estimate differ by the obliquity factor 1/cos²α and by second-order terms in θ. Choi et al. use the exact form, Eq. (6), with arctangents; the small-angle form is Δx/(2z<sub>d</sub>).</div>`+
+    `<div class="result">Slope resolution of one screen pixel: ${f1(res*1e6,0)} µrad.</div>`;
+  $('m3').innerHTML=block('Surface normal from three points',[`n ∝ û<sub>MC</sub> + û<sub>MS</sub>`,`û<sub>MC</sub>, û<sub>MS</sub>: unit vectors from the mirror point M to the camera C and to the screen point S`,`slope = −n<sub>x</sub>/n<sub>z</sub>`])+`<div class="note">This is the core of every deflectometry method. The methods differ only in <b>how S is found</b>: fringe phase (L2, L3).</div>`;
+  let t='<tr><th>Ray</th><th>Mirror x (mm)</th><th>Screen x (mm)</th><th>Slope recovered (mrad)</th><th>True slope (mrad)</th></tr>';
+  R.forEach((r,i)=>{const uc=[C[0]-r.M[0],C[1]-r.M[1]],us=[r.S[0]-r.M[0],r.S[1]-r.M[1]],lc=Math.hypot(...uc),ls=Math.hypot(...us);
+    const n=[uc[0]/lc+us[0]/ls, uc[1]/lc+us[1]/ls], sl=-n[0]/n[1];
+    t+=`<tr><td>${i+1}</td><td>${f1(r.M[0],1)}</td><td>${f1(r.S[0],1)}</td><td>${f1(sl*1000,3)}</td><td>${f1(r.slope*1000,3)}</td></tr>`});
+  $('t3').innerHTML=t;
+}
+document.querySelectorAll('input').forEach(e=>e.addEventListener('input',update)); update();
+
+</script>
+<script>window.TOUR_STEPS=[{"sel":"#svg1","title":"Rays","text":"Each camera ray reflects at one mirror point. Tilt the mirror and watch the gold marks: the screen points move by about 2θ·z_d."},{"sel":"#s2","title":"Twice the angle","text":"The law of reflection turns the ray by twice the tilt; distance turns that angle into screen motion."},{"sel":"#s3","title":"The inverse problem","text":"Knowing the camera, mirror and screen points gives the normal as the bisector of the two directions. Every deflectometry method ends here."}];</script>
+<script src="assets/tour.js"></script>
+</body>
+</html>

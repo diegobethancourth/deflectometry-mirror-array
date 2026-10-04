@@ -8,11 +8,11 @@
   var NAV = [
     { label: 'Home', href: 'index.html' },
     { label: 'Learn', items: [
-      { t: 'L1 · Reflection and surface slope', soon: true },
+      { t: 'L1 · Reflection and surface slope', href: 'reflection.html' },
       { t: 'L2 · Fringe coding and phase shifting', href: 'fringes.html' },
-      { t: 'L3 · Phase retrieval methods compared', soon: true },
-      { t: 'L4 · From slope to surface', soon: true },
-      { t: 'L5 · Errors and calibration', soon: true }
+      { t: 'L3 · Phase retrieval methods compared', href: 'phase.html' },
+      { t: 'L4 · From slope to surface', href: 'integration.html' },
+      { t: 'L5 · Errors and calibration', href: 'errors.html' }
     ]},
     { label: 'Design', items: [
       { t: 'D0 · Bench setup and presets', href: 'bench.html' },
