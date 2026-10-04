@@ -179,3 +179,13 @@ Lab, School of Manufacturing Systems and Networks, Ira A. Fulton Schools of
 Engineering, Arizona State University. Advisor: Dr. Xiangyu Guo.
 
 System sketch referenced from Huang et al. 2018, Fig. 1 & 3.
+
+## License and citation
+
+Copyright © 2026 Diego Bethancourth. **All rights reserved.** The published pages
+may be viewed and used for personal, non-commercial study; copying, modifying or
+redistributing any part requires the author's written permission. See
+[`LICENSE`](LICENSE).
+
+To cite the lab, use the **Cite this repository** button on GitHub or the
+metadata in [`CITATION.cff`](CITATION.cff).

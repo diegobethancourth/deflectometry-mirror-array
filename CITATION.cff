@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+message: "If you use or refer to the Deflectometry Learning Lab, please cite it as below."
+type: software
+title: "Deflectometry Learning Lab: learn, design and replicate phase-measuring deflectometry"
+authors:
+  - family-names: Bethancourth
+    given-names: Diego
+    affiliation: "Arizona State University, School of Manufacturing Systems and Networks — SOLAR Lab"
+version: "1.0.0"
+date-released: "2026-10-04"
+url: "https://diegobethancourth.github.io/deflectometry-mirror-array/"
+license-url: "https://diegobethancourth.github.io/deflectometry-mirror-array/LICENSE"
+keywords:
+  - deflectometry
+  - optical metrology
+  - segmented mirrors
+  - SMOTS
+  - fringe analysis
+  - phase retrieval
+  - education
+references:
+  - type: conference-paper
+    title: "Simultaneous angular alignment of segmented mirrors using sinusoidal pattern analysis"
+    authors:
+      - family-names: Choi
+        given-names: Heejoo
+      - family-names: Trumper
+        given-names: Isaac
+      - family-names: Dubin
+        given-names: Matthew
+      - family-names: Zhao
+        given-names: Wenchuan
+      - family-names: Kim
+        given-names: Dae Wook
+    collection-title: "Optical System Alignment, Tolerancing, and Verification XI"
+    conference:
+      name: "SPIE Optical Engineering + Applications"
+    publisher:
+      name: SPIE
+    volume: 10377
+    start: "103770G"
+    year: 2017
+    doi: "10.1117/12.2275197"

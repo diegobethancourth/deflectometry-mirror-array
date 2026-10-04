@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Sheared-Fourier tilt retrieval for a segmented mirror array (SMOTS)"
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "MIT" }
+license = { text = "All rights reserved — see LICENSE in the repository root" }
 authors = [{ name = "Diego Bethancourth" }]
 keywords = ["deflectometry", "SMOTS", "metrology", "segmented mirror", "optics"]
 dependencies = ["numpy>=1.24"]

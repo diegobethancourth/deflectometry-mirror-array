@@ -29,8 +29,7 @@
       { t: 'R4 · ASU bench case study', href: 'asu-bench.html' }
     ]},
     { label: 'Reference', items: [
-      { t: 'Math reference (75 equations)', href: 'docs/math-reference.html' },
-      { t: 'Source code on GitHub', href: 'https://github.com/diegobethancourth/deflectometry-mirror-array', ext: true }
+      { t: 'Math reference (75 equations)', href: 'docs/math-reference.html' }
     ]}
   ];
 
