@@ -1,41 +1,59 @@
-# Deflectometry Mirror-Array Toolkit
+# Deflectometry Learning Lab
 
-Interactive, browser-based calculators supporting the array sizing and component
-selection analysis for a deflectometry (SMOTS / PMD) setup.
+An interactive, browser-based environment for learning deflectometry, designing a
+deflectometry bench, and replicating a published experiment. It grew out of the
+ASU SOLAR lab replication of the SMOTS method (Choi et al., *Proc. SPIE* 10377,
+103770G, 2017), and is organised so that SMOTS is one case study within the
+general method rather than the whole of it.
 
 Every page is plain HTML with no build step, no server and no external
-dependencies. All controls update the metrics, sketches and the live mathematics
-panel simultaneously.
+dependencies.
 
-### ▶ [Open the toolkit](https://diegobethancourth.github.io/deflectometry-mirror-array/guide.html)
+### ▶ [Open the lab](https://diegobethancourth.github.io/deflectometry-mirror-array/)
 
-The tools run on GitHub Pages — that link opens **Start Here**, the flowchart of
-how the pages feed each other. From any page, press **Guided tour** in the top
-bar for a walkthrough of that page's controls (arrow keys move, Escape closes).
+## Structure — three tracks
 
-To run it offline instead, download the repository and double-click any `.html`
-file; everything works with no server and no network.
+| Track | For | Modules |
+|---|---|---|
+| **Learn** | Students new to deflectometry | L1 Reflection and surface slope *(planned)* · [L2 Fringe coding and phase shifting](https://diegobethancourth.github.io/deflectometry-mirror-array/fringes.html) · L3 Phase retrieval methods compared *(planned)* · L4 From slope to surface *(planned)* · L5 Errors and calibration *(planned)* |
+| **Design** | Anyone sizing a bench | [D0 Bench setup and presets](https://diegobethancourth.github.io/deflectometry-mirror-array/bench.html) · [D1 Test object and geometry](https://diegobethancourth.github.io/deflectometry-mirror-array/geometry.html) · [D2 Screen and fringes](https://diegobethancourth.github.io/deflectometry-mirror-array/fringes.html) · [D3 Camera and lens](https://diegobethancourth.github.io/deflectometry-mirror-array/camera.html) · [D4 Error budget](https://diegobethancourth.github.io/deflectometry-mirror-array/budget.html) · [D5 Actuation](https://diegobethancourth.github.io/deflectometry-mirror-array/piezo.html) |
+| **Replicate** | Reproducing a paper | [R1 SMOTS Python package](smots/) · [R2 Step-by-step scripts](smots/first_steps/) · [R3 SMOTS live simulator](https://diegobethancourth.github.io/deflectometry-mirror-array/simulator.html) · R4 ASU bench case study *(planned)* |
+| **Reference** | Everyone | [Math reference](https://diegobethancourth.github.io/deflectometry-mirror-array/docs/math-reference.html) — 75 numbered equations; [PDF](docs/Deflectometry-Math-Reference.pdf) |
 
-The only shared assets are `assets/tour.js` and `assets/tour.css`, which drive
-that tour; every page still renders and calculates correctly without them.
+## One shared bench
 
-## Pages
+The Design pages share one set of values — test object, screen, camera,
+geometry — kept in the browser by `assets/bench.js`. A value changed on any page
+is the value every other page uses. The bench bar under the navigation shows the
+active bench and offers:
 
-| Page | What it answers |
+- **Presets:** *ASU SOLAR bench* (3 × 3 square mirrors, the Week 11 camera
+  report), *Choi et al. 2017* (seven hexagonal segments, z<sub>d</sub> = 2020 mm,
+  294 µm screen pixel, 30 px fringe period; segment size approximate, camera
+  distance assumed) and *Single flat mirror* (a generic exercise).
+- **Export / Import:** the bench as a JSON file, to hand in with a report or
+  share with a lab partner.
+
+D3 (camera and lens) is vendor-neutral: it outputs a camera specification and
+checks any camera the student enters from a datasheet.
+
+## Files
+
+| File | Role |
 |---|---|
-| [**Start Here**](https://diegobethancourth.github.io/deflectometry-mirror-array/guide.html) <br><sub>`guide.html`</sub> | How do the five tools fit together? A clickable flowchart of the design chain, a table of what every amber/red verdict means and where to fix it, and a task router. |
-| [**Array Config**](https://diegobethancourth.github.io/deflectometry-mirror-array/index.html) <br><sub>`index.html`</sub> | Which mirror layout fits the screen and gives enough fringes? Six governing equations across six candidate layouts, with a ranked comparison table. |
-| [**Fringe Generator**](https://diegobethancourth.github.io/deflectometry-mirror-array/fringes.html) <br><sub>`fringes.html`</sub> | What exactly do I display on the screen? Phase-shifted sinusoid design, 1:1 pixel inspection, full-resolution PNG export and a matching Python snippet. |
-| [**Camera & Lens**](https://diegobethancourth.github.io/deflectometry-mirror-array/camera.html) <br><sub>`camera.html`</sub> | Which camera, lens, height and aperture? Five dependent steps — field of view, pixel requirement, camera short list, focal length and height, aperture and focus — each with a live figure, the equations with substituted numbers, and the values to enter in the Basler lens selector as a cross-check. |
-| [**Tilt & Actuation**](https://diegobethancourth.github.io/deflectometry-mirror-array/piezo.html) <br><sub>`piezo.html`</sub> | Can the mounts actually point each mirror? Per-mirror law-of-reflection solution, piezo displacement, angular resolution and range budget. |
-| [**Error Budget**](https://diegobethancourth.github.io/deflectometry-mirror-array/budget.html) <br><sub>`budget.html`</sub> | How accurate will the measurement be? Phase → slope → height propagation with each term integrated by its spatial character. |
-| [**SMOTS Simulator**](https://diegobethancourth.github.io/deflectometry-mirror-array/simulator.html) <br><sub>`simulator.html`</sub> | Does the algorithm actually work? Ray-traces the camera image, runs the full SMOTS retrieval on it live, and compares recovered tilt against commanded tilt. |
-| [**Python package**](smots/) <br><sub>`smots/`</sub> | The measurement algorithm for the experimental work: sheared Fourier analysis, per-segment apertures, 2π unwrapping, screen-pose calibration, with a validated forward model and 63 tests. |
-| [**Math Reference**](https://diegobethancourth.github.io/deflectometry-mirror-array/docs/math-reference.html) <br><sub>`docs/`</sub> | Every equation in the toolkit, derived and explained in one printable document — array sizing, fringe coding, the SMOTS sheared-Fourier derivation, mirror pointing, the error budget and screen-pose calibration, with a symbol glossary and the three sign conventions that silently invert angles. [Download as PDF](docs/Deflectometry-Math-Reference.pdf), 20 pages. |
+| `index.html` | Home — the three tracks |
+| `bench.html`, `geometry.html`, `fringes.html`, `camera.html`, `budget.html`, `piezo.html` | Design pages D0–D5 (`fringes.html` is also Learn L2) |
+| `simulator.html` | Replicate R3 |
+| `guide.html` | Redirects to the home page (kept so old links work) |
+| `assets/bench.js` | Shared bench state, presets, import/export |
+| `assets/nav.js` | Site navigation, defined once for every page |
+| `assets/tour.js`, `assets/tour.css` | Guided tour on each page |
+| `smots/` | Python reference implementation of SMOTS with tests |
+| `docs/` | Math reference (HTML and PDF) |
 
-Page names link to the live site; the filename under each one is the source
-file in this repository. Opening a `.html` file here on GitHub shows its code,
-not the running tool.
+Page names link to the live site. Opening a `.html` file on GitHub shows its
+source, not the running tool; to run offline, download the repository and open
+`index.html`.
 
 ## Governing relations
 

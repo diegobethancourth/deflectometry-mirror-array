@@ -6,6 +6,7 @@
 <link rel="icon" href="asu_icon.ico" sizes="any">
 <link rel="stylesheet" href="assets/tour.css">
 <title>Phase-Shifted Fringe Pattern Generator — Diego Bethancourth | ASU Deflectometry</title>
+<script src="assets/bench.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;font-size:14px}
@@ -85,23 +86,16 @@ body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;fon
 </div>
 <div class="nav">
   <div class="nav-title">
-    <div class="t1">Deflectometry Mirror-Array Toolkit</div>
+    <div class="t1">Deflectometry Learning Lab</div>
     <div class="t2"><strong>Diego Bethancourth</strong> &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo &nbsp;&middot;&nbsp; Systems, Optics and Laser Application Research Lab &nbsp;&middot;&nbsp; Arizona State University</div>
   </div>
-  <nav class="nav-links">
-    <a href="guide.html">Start Here</a>
-    <a href="index.html">Array Config</a>
-    <a href="fringes.html" class="active">Fringe Generator</a>
-    <a href="camera.html">Camera &amp; Lens</a>
-    <a href="piezo.html">Tilt &amp; Actuation</a>
-    <a href="budget.html">Error Budget</a>
-    <a href="simulator.html">SMOTS Simulator</a>
-  </nav>
+  <nav class="nav-links" id="site-nav"></nav>
+  <script src="assets/nav.js"></script>
 </div>
 <div class="gold-bar"></div>
 
 <div class="page-hdr">
-  <h1>Phase-Shifted Fringe Pattern Generator</h1>
+  <h1>L2 / D2 · Phase-Shifted Fringe Pattern Generator</h1>
 </div>
 
 <div class="app">
@@ -200,7 +194,7 @@ body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;fon
       </div>
       <div class="ctrl-group">
         <label>Mirror gap (mm)</label>
-        <input type="range" id="gap" min="1" max="8" value="3" step="1" oninput="update()">
+        <input type="range" id="gap" min="0" max="20" value="3" step="0.01" oninput="update()">
         <span class="ctrl-val" id="gap-v">3 mm</span>
       </div>
     </div>
@@ -260,8 +254,10 @@ body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;fon
 // Highlighted metrics use a soft pastel wash rather than an accent rule, so no
 // block on the page carries a line.
 const TINT={'#2e7d32':'#E9F4EB','#e65100':'#FDF0E2','#b71c1c':'#FBEAEA','#8C1D40':'#F8ECF1','#f9a825':'#FDF2DA'};
+if(window.Bench)Bench.bind({ppf:'n',sw:'W',gap:'g',arr:{field:'cols',toControl:(v,b)=>b.cols+'x'+b.rows,write:(v,b)=>{const p=String(v).split('x');Bench.set('cols',+p[0]);Bench.set('rows',+p[1]);}},res:{field:'Nx',toControl:(v,b)=>b.Nx+','+b.Ny,write:(v,b)=>{const p=String(v).split(',');Bench.set('Nx',+p[0]);Bench.set('Ny',+p[1]);}}},{gridOnly:true});
 const tint=c=>TINT[c]||'#F1F1F4';
-const MIRROR=25.4;
+const _B=window.Bench?Bench.get():null;
+const MIRROR=_B?_B.a:25.4;
 const cfgs={'1x4':{c:4,r:1},'1x5':{c:5,r:1},'2x4':{c:4,r:2},'3x3':{c:3,r:3},'2x5':{c:5,r:2},'3x4':{c:4,r:3}};
 const PAL=['#8C1D40','#1565C0','#2e7d32','#E65100','#6A1B9A','#00838F','#AD1457','#37474F','#9E7700','#4527A0','#00695C','#BF360C','#283593','#558B2F','#D84315','#455A64'];
 let K=0;

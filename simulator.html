@@ -6,6 +6,7 @@
 <link rel="icon" href="asu_icon.ico" sizes="any">
 <link rel="stylesheet" href="assets/tour.css">
 <title>SMOTS Live Simulator — Diego Bethancourth | ASU Deflectometry</title>
+<script src="assets/bench.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;font-size:14px}
@@ -85,23 +86,16 @@ canvas{display:block;width:100%;image-rendering:pixelated;border-radius:8px;back
 </div>
 <div class="nav">
   <div class="nav-title">
-    <div class="t1">Deflectometry Mirror-Array Toolkit</div>
+    <div class="t1">Deflectometry Learning Lab</div>
     <div class="t2"><strong>Diego Bethancourth</strong> &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo &nbsp;&middot;&nbsp; Systems, Optics and Laser Application Research Lab &nbsp;&middot;&nbsp; Arizona State University</div>
   </div>
-  <nav class="nav-links">
-    <a href="guide.html">Start Here</a>
-    <a href="index.html">Array Config</a>
-    <a href="fringes.html">Fringe Generator</a>
-    <a href="camera.html">Camera &amp; Lens</a>
-    <a href="piezo.html">Tilt &amp; Actuation</a>
-    <a href="budget.html">Error Budget</a>
-    <a href="simulator.html" class="active">SMOTS Simulator</a>
-  </nav>
+  <nav class="nav-links" id="site-nav"></nav>
+  <script src="assets/nav.js"></script>
 </div>
 <div class="gold-bar"></div>
 
 <div class="page-hdr">
-  <h1>SMOTS Live Simulator</h1>
+  <h1>R3 · SMOTS Live Simulator</h1>
 </div>
 
 <div class="app">
@@ -232,6 +226,7 @@ canvas{display:block;width:100%;image-rendering:pixelated;border-radius:8px;back
 // Highlighted metrics use a soft pastel wash rather than an accent rule, so no
 // block on the page carries a line.
 const TINT={'#2e7d32':'#E9F4EB','#e65100':'#FDF0E2','#b71c1c':'#FBEAEA','#8C1D40':'#F8ECF1','#f9a825':'#FDF2DA'};
+if(window.Bench)Bench.bind({zd:'zd',per:'n',arr:{field:'cols',toControl:(v,b)=>b.cols+'x'+b.rows,write:(v,b)=>{const p=String(v).split('x');Bench.set('cols',+p[0]);Bench.set('rows',+p[1]);}}},{gridOnly:true});
 const tint=c=>TINT[c]||'#F1F1F4';
 /* ============================================================================
    SMOTS live simulator.
@@ -244,8 +239,9 @@ const tint=c=>TINT[c]||'#F1F1F4';
                     Same maths as the Python package in smots/.
    ========================================================================== */
 
-const MIRROR=25.4, GAP=3.0, SW=344, NX=3840, PITCH=SW/NX;   // screen pitch, mm/px
-const SCREEN_H_PX=2160;
+const _B=window.Bench?Bench.get():null;
+const MIRROR=_B?_B.a:25.4, GAP=_B?_B.g:3.0, SW=_B?_B.W:344, NX=_B?_B.Nx:3840, PITCH=SW/NX;
+const SCREEN_H_PX=_B?_B.Ny:2160;   // screen pitch, mm/px
 const LEVER=19.05, STEP_NM=20;                               // KMSR + MPIA10
 const cfgs={'1x4':{c:4,r:1},'2x4':{c:4,r:2},'3x3':{c:3,r:3},'3x4':{c:4,r:3}};
 const NAP=64;                       // aperture samples per axis (power of 2 for the FFT)
