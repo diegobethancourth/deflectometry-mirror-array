@@ -15,23 +15,23 @@ dependencies.
 
 | Track | For | Modules |
 |---|---|---|
-| **Learn** | Students new to deflectometry | [L1 Reflection and surface slope](https://diegobethancourth.github.io/deflectometry-mirror-array/reflection.html) · [L2 Fringe coding and phase shifting](https://diegobethancourth.github.io/deflectometry-mirror-array/fringes.html) · [L3 Phase retrieval methods compared](https://diegobethancourth.github.io/deflectometry-mirror-array/phase.html) · [L4 From slope to surface](https://diegobethancourth.github.io/deflectometry-mirror-array/integration.html) · [L5 Errors and calibration](https://diegobethancourth.github.io/deflectometry-mirror-array/errors.html) |
-| **Design** | Anyone sizing a bench | [D0 Bench setup and presets](https://diegobethancourth.github.io/deflectometry-mirror-array/bench.html) · [D1 Test object and geometry](https://diegobethancourth.github.io/deflectometry-mirror-array/geometry.html) · [D2 Screen and fringes](https://diegobethancourth.github.io/deflectometry-mirror-array/fringes.html) · [D3 Camera and lens](https://diegobethancourth.github.io/deflectometry-mirror-array/camera.html) · [D4 Error budget](https://diegobethancourth.github.io/deflectometry-mirror-array/budget.html) · [D5 Actuation](https://diegobethancourth.github.io/deflectometry-mirror-array/piezo.html) |
-| **Replicate** | Reproducing a paper | [R1 SMOTS — Choi et al. 2017](https://diegobethancourth.github.io/deflectometry-mirror-array/smots.html) · [R2 Notebooks and scripts](https://diegobethancourth.github.io/deflectometry-mirror-array/notebooks.html) · [R3 SMOTS live simulator](https://diegobethancourth.github.io/deflectometry-mirror-array/simulator.html) · [R4 ASU bench case study](https://diegobethancourth.github.io/deflectometry-mirror-array/asu-bench.html) |
+| **[Learn](https://diegobethancourth.github.io/deflectometry-mirror-array/learn.html)** | Students new to deflectometry | [L1 Reflection and surface slope](https://diegobethancourth.github.io/deflectometry-mirror-array/reflection.html) · [L2 Fringe coding and phase shifting](https://diegobethancourth.github.io/deflectometry-mirror-array/fringes.html) · [L3 Phase retrieval methods compared](https://diegobethancourth.github.io/deflectometry-mirror-array/phase.html) · [L4 From slope to surface](https://diegobethancourth.github.io/deflectometry-mirror-array/integration.html) · [L5 Errors and calibration](https://diegobethancourth.github.io/deflectometry-mirror-array/errors.html) |
+| **[Design](https://diegobethancourth.github.io/deflectometry-mirror-array/design.html)** | Anyone sizing a bench | [D0 Choose the bench](https://diegobethancourth.github.io/deflectometry-mirror-array/bench.html) · [D1 Test object and geometry](https://diegobethancourth.github.io/deflectometry-mirror-array/geometry.html) · [D2 Screen and fringes](https://diegobethancourth.github.io/deflectometry-mirror-array/fringes.html) · [D3 Camera and lens](https://diegobethancourth.github.io/deflectometry-mirror-array/camera.html) · [D4 Error budget](https://diegobethancourth.github.io/deflectometry-mirror-array/budget.html) · [D5 Actuation](https://diegobethancourth.github.io/deflectometry-mirror-array/piezo.html) · [D6 Design summary](https://diegobethancourth.github.io/deflectometry-mirror-array/summary.html) |
+| **[Replicate](https://diegobethancourth.github.io/deflectometry-mirror-array/replicate.html)** | Reproducing a paper | [R1 SMOTS — Choi et al. 2017](https://diegobethancourth.github.io/deflectometry-mirror-array/smots.html) · [R2 Notebooks and scripts](https://diegobethancourth.github.io/deflectometry-mirror-array/notebooks.html) · [R3 SMOTS live simulator](https://diegobethancourth.github.io/deflectometry-mirror-array/simulator.html) · [R4 ASU bench case study](https://diegobethancourth.github.io/deflectometry-mirror-array/asu-bench.html) |
 | **Reference** | Everyone | [Math reference](https://diegobethancourth.github.io/deflectometry-mirror-array/docs/math-reference.html) — 75 numbered equations; [PDF](docs/Deflectometry-Math-Reference.pdf) |
 
 ## One shared bench
 
 The Design pages share one set of values — test object, screen, camera,
 geometry — kept in the browser by `assets/bench.js`. A value changed on any page
-is the value every other page uses. The bench bar under the navigation shows the
-active bench and offers:
+is the value every other page uses. The yellow bar under the navigation shows the
+bench in use; D0 is where it is chosen, saved and loaded:
 
 - **Presets:** *ASU SOLAR bench* (3 × 3 square mirrors, the Week 11 camera
   report), *Choi et al. 2017* (seven hexagonal segments, z<sub>d</sub> = 2020 mm,
   294 µm screen pixel, 30 px fringe period; segment size approximate, camera
   distance assumed) and *Single flat mirror* (a generic exercise).
-- **Export / Import:** the bench as a JSON file, to hand in with a report or
+- **Save / Load:** the bench as a JSON file, to hand in with a report or
   share with a lab partner.
 
 D3 (camera and lens) is vendor-neutral: it outputs a camera specification and
@@ -42,6 +42,8 @@ checks any camera the student enters from a datasheet.
 | File | Role |
 |---|---|
 | `index.html` | Home — the three tracks |
+| `learn.html`, `design.html`, `replicate.html` | Track overviews |
+| `summary.html` | D6 — printable design summary |
 | `reflection.html`, `phase.html`, `integration.html`, `errors.html` | Learn modules L1, L3, L4, L5 |
 | `bench.html`, `geometry.html`, `fringes.html`, `camera.html`, `budget.html`, `piezo.html` | Design pages D0–D5 (`fringes.html` is also Learn L2) |
 | `smots.html`, `notebooks.html`, `simulator.html`, `asu-bench.html` | Replicate R1–R4 |

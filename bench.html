@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="asu_icon.ico" sizes="any">
 <link rel="stylesheet" href="assets/tour.css">
-<title>Bench setup — Deflectometry Learning Lab | ASU SOLAR</title>
+<title>Choose the bench — Deflectometry Learning Lab | ASU SOLAR</title>
 <script src="assets/bench.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -77,22 +77,52 @@ body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;fon
 .footer{background:#3E3E3E;color:#BFBFBF;font-size:10px;padding:10px 24px;text-align:center;margin-top:auto}
 .footer span{color:#FFC627}
 
-.wrap{max-width:1180px;margin:0 auto;padding:16px 24px 26px;display:flex;flex-direction:column;gap:14px}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.pc{background:#fff;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px}
-.pc h3{margin:0;font-size:13px;color:#8C1D40}.pc p{font-size:11px;color:#3E3E3E;line-height:1.55;margin:0}
-.pc.on{background:#FFF4D6}.pc button{align-self:flex-start}
+.comp-table{width:100%;border-collapse:collapse;font-size:11px}
+.comp-table th{background:#8C1D40;color:#fff;padding:6px 7px;text-align:left;font-size:10px;font-weight:700}
+.comp-table td{padding:5px 7px;vertical-align:top}.comp-table tr:nth-child(even) td{background:#F6F6F9}
+.comp-table tr.act td{background:#FFF4D6;font-weight:700}
+.g{color:#2e7d32;font-weight:700}.b{color:#b71c1c;font-weight:700}.m{color:#e65100;font-weight:700}
+.stepcard{background:#fff;border-radius:10px;padding:14px}
+.step-head{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.step-num{background:#0F6E56;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:3px}
+.step-title{font-size:14px;font-weight:700;color:#8C1D40}.step-q{font-size:11px;color:#747474;margin-bottom:10px}
+.two{display:grid;grid-template-columns:1.05fr 1fr;gap:12px;align-items:start}
+.figcap{font-size:10px;color:#3E3E3E;margin-top:4px}.figcap b{color:#8C1D40}
+.result{background:#FFC627;color:#191919;font-weight:700;font-size:12px;padding:7px 10px;border-radius:6px;margin-top:6px}
+.inrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ctrl-group input[type=number]{width:100%}
+.note{font-size:10px;color:#747474;line-height:1.5}
+.obj-lbl{font-size:11px;color:#3E3E3E}
+@media(max-width:1100px){.two{grid-template-columns:1fr}}
+
+.qa details{background:#F6F6F9;border-radius:7px;padding:7px 10px;margin-bottom:6px;font-size:12px}
+.qa summary{cursor:pointer;font-weight:700;color:#3E3E3E}.qa details p{margin:6px 0 0;color:#3E3E3E;line-height:1.55}
+.legend{font-size:10px;color:#3E3E3E}.obj{font-size:12px;line-height:1.6;color:#3E3E3E}
+.wide{grid-template-columns:1.4fr 1fr}
+
+.wrapB{max-width:1240px;margin:0 auto;padding:14px 24px 6px;display:flex;flex-direction:column;gap:12px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:stretch}
+.pc{background:#F6F6F9;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;border:2px solid transparent}
+.pc.on{background:#FFF4D6;border-color:#FFC627}
+.pc h3{margin:0;font-size:13.5px;color:#8C1D40;min-height:36px}
+.pc .use{font-size:11px;color:#3E3E3E;line-height:1.5;min-height:50px}
+.pc table{width:100%;border-collapse:collapse;font-size:11px}.pc td{padding:4px 5px;border-bottom:1px solid #E6E6EA;vertical-align:top}.pc td:first-child{color:#747474;width:42%}
+.pc .act{margin-top:auto;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:9px;background:#E9F4EB;color:#2e7d32}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.grp{background:#fff;border-radius:12px;padding:14px}.grp h3{margin:0 0 8px;font-size:13px;color:#8C1D40}
+.grp h3{margin:0 0 4px;font-size:13px;color:#8C1D40}.grp .who{font-size:10.5px;color:#747474;margin-bottom:8px}
 .f{display:grid;grid-template-columns:1fr 120px;gap:6px;align-items:center;font-size:12px;margin-bottom:6px}
 .f input,.f select{font-size:12px;border:none;border-radius:5px;padding:5px 7px;background:#F1F1F4;width:100%;box-sizing:border-box}
 .f .u{grid-column:1/-1;font-size:10px;color:#747474;margin-top:-4px}
-pre{background:#F6F6F9;border-radius:8px;padding:10px;font-size:10.5px;max-height:260px;overflow:auto;margin:0}
-@media(max-width:900px){.cards,.grid{grid-template-columns:1fr}}
+.save{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start}
+.save ol{margin:0;padding-left:18px;font-size:12px;line-height:1.65;color:#3E3E3E}
+.bigbtns{display:flex;flex-direction:column;gap:8px}.bigbtns .btn{text-align:left;padding:10px 14px;font-size:12.5px}
+.bigbtns small{display:block;font-weight:400;font-size:10.5px;opacity:.85;margin-top:2px}
+.code-inline{font-family:Consolas,monospace;font-size:11px;background:#F1F1F4;padding:1px 4px;border-radius:3px}
+@media(max-width:1000px){.cards,.grid,.save{grid-template-columns:1fr}}
 
 </style>
 </head>
-<body>
+<body data-no-bench>
 
 <div class="brandbar">
   <img class="logo-asu" src="logos/ASU%20Logo%20School.png" alt="Arizona State University — Ira A. Fulton Schools of Engineering, School of Manufacturing Systems and Networks">
@@ -109,44 +139,57 @@ pre{background:#F6F6F9;border-radius:8px;padding:10px;font-size:10.5px;max-heigh
 <div class="gold-bar"></div>
 
 <div class="page-hdr">
-  <h1>D0 · Bench setup and presets</h1>
-  <p>One set of values shared by every Design page.</p>
+  <h1>D0 · Choose the bench</h1>
+  <p>The working bench used by every Design page.</p>
 </div>
 
-<div class="wrap">
-  <div class="box" style="background:#fff;border-radius:12px;padding:14px;font-size:12px;line-height:1.6;color:#3E3E3E">
-    Every Design page (D1–D5) reads the values on this page. Load a preset to start from a complete bench, then edit any value; changes are saved in this browser and used everywhere. <b>Export</b> saves the bench as a JSON file (to hand in, share with a lab partner or keep with a report); <b>Import</b> loads one back.
-  </div>
-  <div class="cards" id="cards"></div>
-  <div class="grid">
-    <div class="grp"><h3>Test object (D1)</h3>
-      <div class="f"><label for="obj">Object type</label><select id="obj"><option value="grid">Square mirrors, N × M grid</option><option value="hex7">Seven hexagonal segments</option><option value="single">Single mirror</option></select></div>
-      <div class="f"><label for="cols">Mirrors per row</label><input type="number" id="cols" step="1"><div class=u>grid only</div></div>
-      <div class="f"><label for="rows">Rows</label><input type="number" id="rows" step="1"><div class=u>grid only</div></div>
-      <div class="f"><label for="a">Mirror size a (mm)</label><input type="number" id="a" step="any"><div class=u>square side, or flat-to-flat width for hexagons</div></div>
-      <div class="f"><label for="g">Gap between mirrors g (mm)</label><input type="number" id="g" step="any"></div>
-      <div class="f"><label for="delta">Border allowance Δ (mm)</label><input type="number" id="delta" step="any"><div class=u>clear space added on each side of the object</div></div>
-    </div>
-    <div class="grp"><h3>Screen and fringes (D2)</h3>
-      <div class="f"><label for="W">Screen active width W (mm)</label><input type="number" id="W" step="any"></div>
-      <div class="f"><label for="Nx">Screen pixels, horizontal</label><input type="number" id="Nx" step="1"></div>
-      <div class="f"><label for="Ny">Screen pixels, vertical</label><input type="number" id="Ny" step="1"></div>
-      <div class="f"><label for="n">Screen pixels per fringe n</label><input type="number" id="n" step="1"></div>
-      <div class="f"><label for="zd">Mirror-to-screen distance z_d (mm)</label><input type="number" id="zd" step="any"></div>
-      <div class="f"><label for="method">Phase retrieval method</label><select id="method"><option value="smots">Sheared Fourier (SMOTS), one frame pair</option><option value="psi">N-step phase shifting</option></select><div class=u>sets the camera criteria in D3</div></div>
-      <div class="f"><label for="steps">Phase steps N (phase shifting)</label><input type="number" id="steps" step="1"></div>
-    </div>
-    <div class="grp"><h3>Camera and mounting (D3)</h3>
-      <div class="f"><label for="kpx">Camera pixels per apparent fringe</label><input type="number" id="kpx" step="1"><div class=u>sampling rule; 10 recommended</div></div>
-      <div class="f"><label for="zplan">Planning camera height (mm)</label><input type="number" id="zplan" step="any"><div class=u>shortest plausible height, used for the pixel requirement</div></div>
-      <div class="f"><label for="zminCam">Minimum camera height (mm)</label><input type="number" id="zminCam" step="any"><div class=u>e.g. the screen plane in a folded bench; 0 = none</div></div>
-      <div class="f"><label for="smin">Camera height range, min (mm)</label><input type="number" id="smin" step="any"><div class=u>stage travel or allowed distance</div></div>
-      <div class="f"><label for="smax">Camera height range, max (mm)</label><input type="number" id="smax" step="any"></div>
-      <div class="f"><label for="cable">Cable length to the computer (m)</label><input type="number" id="cable" step="any"></div>
-      <div class="f"><label for="N">Lens f-number N</label><input type="number" id="N" step="any"></div>
-    </div>
-  </div>
-  <div class="grp"><h3>Bench file (read-only view of what is saved)</h3><pre id="json"></pre></div>
+<div class="wrapB">
+  <div class="stepcard"><div class="obj">D0 sets the <b>working bench</b>: the one set of values that every Design page (D1–D6) uses. <b>1</b> choose a starting bench, <b>2</b> adjust any value, <b>3</b> optionally save it as a file. Then continue to D1 with <b>Next →</b> at the bottom.</div></div>
+
+  <div class="stepcard" id="s1"><div class="step-head"><span class="step-num">1</span><span class="step-title">Choose a starting bench</span></div>
+    <div class="step-q">Each starting bench is complete. Pick the one closest to your case; you can change every value in step 2.</div>
+    <div class="cards" id="cards"></div>
+    <div class="figcap"><b>Table 1 –</b> The three starting benches, compared on the same rows.</div></div>
+
+  <div class="stepcard" id="s2"><div class="step-head"><span class="step-num">2</span><span class="step-title">Adjust the values</span></div>
+    <div class="step-q">Changes are kept automatically in this browser and used by every Design page. A value changed on a Design page comes back here too.</div>
+    <div class="grid">
+      <div class="grp"><h3>Test object</h3><div class="who">used from D1</div>
+        <div class="f"><label for="obj">Object type</label><select id="obj"><option value="grid">Square mirrors, N × M grid</option><option value="hex7">Seven hexagonal segments</option><option value="single">Single mirror</option></select></div>
+        <div class="f"><label for="cols">Mirrors per row</label><input type="number" id="cols" step="1"><div class=u>grid only</div></div>
+        <div class="f"><label for="rows">Rows</label><input type="number" id="rows" step="1"><div class=u>grid only</div></div>
+        <div class="f"><label for="a">Mirror size a (mm)</label><input type="number" id="a" step="any"><div class=u>square side, or flat-to-flat width of a hexagon</div></div>
+        <div class="f"><label for="g">Gap between mirrors g (mm)</label><input type="number" id="g" step="any"></div>
+        <div class="f"><label for="delta">Border Δ (mm)</label><input type="number" id="delta" step="any"><div class=u>clear space added on each side of the object</div></div></div>
+      <div class="grp"><h3>Screen and fringes</h3><div class="who">used from D1 and D2</div>
+        <div class="f"><label for="W">Screen active width W (mm)</label><input type="number" id="W" step="any"></div>
+        <div class="f"><label for="Nx">Screen pixels, horizontal</label><input type="number" id="Nx" step="1"></div>
+        <div class="f"><label for="Ny">Screen pixels, vertical</label><input type="number" id="Ny" step="1"></div>
+        <div class="f"><label for="n">Screen pixels per fringe n</label><input type="number" id="n" step="1"></div>
+        <div class="f"><label for="zd">Mirror-to-screen distance z_d (mm)</label><input type="number" id="zd" step="any"></div>
+        <div class="f"><label for="method">Phase retrieval method</label><select id="method"><option value="smots">Sheared Fourier (SMOTS), one frame pair</option><option value="psi">N-step phase shifting</option></select><div class=u>sets the camera criteria in D3</div></div>
+        <div class="f"><label for="steps">Phase steps N</label><input type="number" id="steps" step="1"><div class=u>phase shifting only</div></div></div>
+      <div class="grp"><h3>Camera and mounting</h3><div class="who">used from D3</div>
+        <div class="f"><label for="kpx">Camera pixels per apparent fringe</label><input type="number" id="kpx" step="1"><div class=u>10 recommended</div></div>
+        <div class="f"><label for="zplan">Planning camera height (mm)</label><input type="number" id="zplan" step="any"><div class=u>shortest plausible height; sets the pixel requirement</div></div>
+        <div class="f"><label for="zminCam">Minimum camera height (mm)</label><input type="number" id="zminCam" step="any"><div class=u>e.g. the screen plane in a folded bench; 0 = none</div></div>
+        <div class="f"><label for="smin">Allowed camera height, min (mm)</label><input type="number" id="smin" step="any"><div class=u>stage travel or allowed distance</div></div>
+        <div class="f"><label for="smax">Allowed camera height, max (mm)</label><input type="number" id="smax" step="any"></div>
+        <div class="f"><label for="cable">Cable length to the computer (m)</label><input type="number" id="cable" step="any"></div>
+        <div class="f"><label for="N">Lens f-number N</label><input type="number" id="N" step="any"></div></div>
+    </div></div>
+
+  <div class="stepcard" id="s3"><div class="step-head"><span class="step-num">3</span><span class="step-title">Save, load or print (optional)</span></div>
+    <div class="save">
+      <div><div class="step-q" style="margin-bottom:6px">The working bench is stored only in this browser. Save it as a file when you want to:</div>
+        <ol><li>keep a copy, or continue on another computer;</li><li>hand it in with a report or an assignment, so the numbers can be reproduced;</li><li>give it to a lab partner, who loads it and sees exactly your bench.</li></ol>
+        <div class="note" style="margin-top:8px">The file (<span class="code-inline">deflectometry-bench.json</span>) contains every value on this page and the camera candidates entered in D3 — nothing else.</div></div>
+      <div class="bigbtns">
+        <button class="btn" onclick="Bench.exportJSON()">Save bench to a file<small>downloads deflectometry-bench.json</small></button>
+        <button class="btn alt" onclick="document.getElementById('file').click()">Load a bench file<small>replaces the working bench with the file's values</small></button>
+        <input type="file" id="file" accept=".json,application/json" style="display:none">
+        <a class="btn alt" href="summary.html" style="text-decoration:none">Print the design summary (D6)<small>one page with the results of every step</small></a>
+      </div></div></div>
 </div>
 
 <div class="footer">
@@ -155,16 +198,27 @@ pre{background:#F6F6F9;border-radius:8px;padding:10px;font-size:10.5px;max-heigh
 <script>
 
 const B=Bench.get(), P=Bench.presets();
-const num=v=>{const x=parseFloat(v);return isNaN(x)?v:x};
 Bench.bind({obj:{field:'obj',fromControl:v=>v},cols:'cols',rows:'rows',a:'a',g:'g',delta:'delta',W:'W',Nx:'Nx',Ny:'Ny',n:'n',zd:'zd',
   method:{field:'method',fromControl:v=>v},steps:'steps',kpx:'kpx',zplan:'zplan',zminCam:'zminCam',smin:'smin',smax:'smax',cable:'cable',N:'N'});
-function show(){document.getElementById('json').textContent=JSON.stringify(Bench.get(),null,2)}
-document.querySelectorAll('input,select').forEach(e=>e.addEventListener('input',show));
-document.getElementById('cards').innerHTML=Object.keys(P).map(k=>`<div class="pc ${k===B.preset?'on':''}"><h3>${P[k].label}</h3><p>${P[k].note}</p><button class="btn" onclick="Bench.usePreset('${k}')">${k===B.preset?(B.edited?'Reset to this preset':'Loaded'):'Load this preset'}</button></div>`).join('');
-show();
+document.getElementById('file').addEventListener('change',e=>{if(e.target.files[0])Bench.importJSON(e.target.files[0]);});
+const objTxt=p=>p.obj==='single'?`single mirror, ${p.a} mm`:p.obj==='hex7'?`7 hexagonal segments, ${p.a} mm (approx.)`:`${p.cols} × ${p.rows} square, ${p.a} mm, gap ${p.g} mm`;
+const USE={asu:'The as-built ASU SOLAR bench: a compact folded layout with the camera on a vertical stage above the array.',
+  choi:'The experiment of the paper the lab replicates; useful to compare a long-distance bench with a compact one.',
+  single:'A simple starting point for exercises: one flat mirror and an editable camera list.'};
+document.getElementById('cards').innerHTML=Object.keys(P).map(k=>{const p=P[k],on=k===B.preset;
+  return `<div class="pc ${on?'on':''}"><h3>${p.label}</h3><div class="use">${USE[k]||''}</div>
+   <table><tr><td>Test object</td><td>${objTxt(p)}</td></tr>
+   <tr><td>Screen</td><td>${p.W} mm, ${p.Nx} × ${p.Ny} px</td></tr>
+   <tr><td>Pixel pitch</td><td>${(p.W/p.Nx*1000).toFixed(1)} µm</td></tr>
+   <tr><td>Mirror–screen z<sub>d</sub></td><td>${p.zd} mm</td></tr>
+   <tr><td>Fringe</td><td>${p.n} px per fringe</td></tr>
+   <tr><td>Method</td><td>${p.method==='psi'?'N-step phase shifting':'sheared Fourier (SMOTS)'}</td></tr>
+   <tr><td>Camera candidates</td><td>${p.candidates.length} listed</td></tr></table>
+   <div class="act">${on?`<span class="tag">In use${B.edited?' — values edited':''}</span>${B.edited?`<button class="btn alt" onclick="if(confirm('Discard your edits and restore the original values of this bench?'))Bench.usePreset('${k}')">Restore original values</button>`:''}`
+     :`<button class="btn" onclick="if(!${B.edited}||confirm('Replace the working bench? Your edited values will be lost unless you save them first (step 3).'))Bench.usePreset('${k}')">Use this bench</button>`}</div></div>`}).join('');
 
 </script>
-<script>window.TOUR_STEPS=[{"sel":"#cards","title":"Presets","text":"Each preset is a complete bench. Load one, then edit any value below."},{"sel":".grid","title":"Shared values","text":"These values are read by every Design page. Change one here or on any page; the change applies everywhere."},{"sel":"#json","title":"The bench file","text":"This is exactly what Export saves. Hand it in with a report so the numbers can be reproduced."}];</script>
+<script>window.TOUR_STEPS=[{"sel":"#s1","title":"1 · Choose","text":"Pick the starting bench closest to your case. The highlighted card is the bench in use."},{"sel":"#s2","title":"2 · Adjust","text":"Every value here is shared by D1–D6. You can also change values on those pages; they come back here."},{"sel":"#s3","title":"3 · Save (optional)","text":"The bench lives in this browser. Save it as a file to keep it, hand it in, or share it; load a file to restore every value."}];</script>
 <script src="assets/tour.js"></script>
 </body>
 </html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="asu_icon.ico" sizes="any">
+<link rel="stylesheet" href="assets/tour.css">
+<title>Design summary — Deflectometry Learning Lab | ASU SOLAR</title>
+<script src="assets/bench.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;font-size:14px}
+.nav{background:#8C1D40;display:flex;align-items:center;gap:14px;padding:6px 24px;min-height:52px;flex-wrap:wrap}
+.nav-links{margin-left:auto;display:flex;gap:3px;flex-wrap:wrap}
+.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:12px;font-weight:700;padding:6px 11px;border-radius:3px;white-space:nowrap}
+.nav-links a:hover{background:rgba(255,255,255,.14);color:#fff}
+.nav-links a.active{background:#FFC627;color:#8C1D40}
+.gold-bar{height:4px;background:#FFC627}
+.brandbar{background:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:7px 24px;flex-wrap:wrap}
+.brandbar img{display:block}
+.logo-asu{height:30px;width:auto}
+.logo-lab{height:52px;width:auto;mix-blend-mode:multiply}
+.nav-title .t1{font-size:14px;font-weight:700;line-height:1.2;color:#fff}
+.nav-title .t2{font-size:11px;color:rgba(255,255,255,0.78);line-height:1.35}
+.nav-title .t2 strong{color:#FFC627;font-weight:700}
+.nav-title{min-width:0}
+.byline{font-size:12px;color:#747474}
+.byline strong{color:#8C1D40}
+@media(max-width:760px){.logo-asu{height:22px}.logo-lab{height:32px}}
+.page-hdr{background:#fff;padding:10px 24px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.page-hdr h1{font-size:17px;font-weight:700;color:#8C1D40;margin:0}.page-hdr p{font-size:12px;color:#747474}
+.app{display:grid;grid-template-columns:260px 1fr;gap:0;min-height:calc(100vh - 80px)}
+.left-col{background:#fff;padding:14px;display:flex;flex-direction:column;gap:12px}
+.right-col{padding:12px;display:flex;flex-direction:column;gap:10px}
+.sec-lbl{font-size:10px;font-weight:700;color:#8C1D40;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.ctrl-group{display:flex;flex-direction:column;gap:4px}
+.ctrl-group label{font-size:10px;font-weight:700;color:#747474;text-transform:uppercase;letter-spacing:.04em}
+.ctrl-group select,.ctrl-group input[type=number]{width:100%;font-size:13px;color:#191919;border:none;border-radius:6px;padding:6px 8px;background:#F1F1F4}
+.ctrl-group input[type=range]{width:100%;accent-color:#8C1D40}
+.ctrl-val{font-size:16px;font-weight:700;color:#8C1D40}
+.explainer{background:#FFF4D6;padding:10px 12px;font-size:11px;color:#3E3E3E;line-height:1.55;border-radius:8px}
+.explainer strong{color:#8C1D40}
+.fixed-box{background:#F1F1F4;border-radius:8px;padding:10px 12px}
+.mvar{font-size:11px;color:#747474;line-height:1.8}.mvar span{color:#191919;font-weight:700}
+.metrics-row{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.metric{background:#fff;border-radius:8px;padding:10px 12px}
+.metric .ml{font-size:10px;color:#747474;text-transform:uppercase;letter-spacing:.03em;margin-bottom:2px}
+.metric .mv{font-size:17px;font-weight:700;color:#8C1D40}.metric .ms{font-size:10px;color:#747474;margin-top:1px}
+.mid-row{display:grid;grid-template-columns:1.35fr 1fr;gap:10px}
+.panel{background:#fff;border-radius:10px;padding:14px}
+.panel-heading{font-size:13px;font-weight:700;color:#8C1D40;margin-bottom:3px}
+.panel-sub{font-size:10px;color:#747474;margin-bottom:8px}
+.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:#fff;border-radius:10px;padding:13px}
+.math-block{margin-bottom:10px;padding-bottom:0}
+.math-block:last-child{margin-bottom:0}
+.math-title{font-size:11px;font-weight:700;color:#8C1D40;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.live{background:#8C1D40;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap}
+.formula{background:#F1F1F4;border-radius:6px;padding:5px 8px;font-family:"Courier New",monospace;font-size:11px;color:#3E3E3E;margin:3px 0}
+.mvar2{font-size:10px;color:#747474;line-height:1.6}.mvar2 span{color:#191919;font-weight:700}
+.verdict-good{background:#E9F4EB;border-radius:8px;padding:11px 16px;font-size:12px;color:#1b5e20;font-weight:500}
+.verdict-warn{background:#FDF2DA;border-radius:8px;padding:11px 16px;font-size:12px;color:#6d4c00;font-weight:500}
+.verdict-bad{background:#FBEAEA;border-radius:8px;padding:11px 16px;font-size:12px;color:#7f0000;font-weight:500}
+.btn{background:#8C1D40;color:#fff;border:none;border-radius:4px;padding:7px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn:hover{background:#6d1631}
+.btn.alt{background:#F6E7EE;color:#8C1D40}
+.btn.alt:hover{background:#FFF4D6}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap}
+.chk{display:flex;align-items:center;gap:6px;font-size:11px;color:#3E3E3E;font-weight:700}
+.chk input{accent-color:#8C1D40}
+#prev{width:100%;display:block;border-radius:8px;background:#000}
+#crop{display:block;border-radius:8px;background:#000;max-width:100%}
+.code{background:#2b2b2b;color:#e6e6e6;border-radius:4px;padding:9px 11px;font-family:"Courier New",monospace;font-size:10.5px;line-height:1.5;white-space:pre;overflow-x:auto}
+.step-dots{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.dot{width:22px;height:22px;border-radius:6px;background:#EDEDF1;font-size:10px;font-weight:700;color:#747474;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.dot.on{background:#8C1D40;color:#fff}
+.footer{background:#3E3E3E;color:#BFBFBF;font-size:10px;padding:10px 24px;text-align:center;margin-top:auto}
+.footer span{color:#FFC627}
+
+.sheet{max-width:960px;margin:16px auto 6px;background:#fff;border-radius:12px;padding:22px 28px}
+.sheet h2{font-size:17px;color:#8C1D40;margin:0 0 2px}.sheet .sub{font-size:11.5px;color:#747474;margin-bottom:14px}
+.sheet h3{font-size:13px;color:#8C1D40;margin:16px 0 6px}
+.t{width:100%;border-collapse:collapse;font-size:11.5px}.t th{background:#8C1D40;color:#fff;text-align:left;padding:6px 8px;font-size:10.5px}
+.t td{padding:5px 8px;border-bottom:1px solid #EEE;vertical-align:top}.t tr:nth-child(even) td{background:#FAFAFC}
+.t td.v{font-weight:700;white-space:nowrap}.ok{color:#2e7d32;font-weight:700}.no{color:#b71c1c;font-weight:700}.na{color:#747474}
+.cap{font-size:10px;color:#3E3E3E;margin-top:4px}.cap b{color:#8C1D40}
+.tools{max-width:960px;margin:12px auto 0;display:flex;gap:8px;justify-content:flex-end;padding:0 4px}
+.note2{font-size:10.5px;color:#747474;line-height:1.55;margin-top:12px}
+@media print{.tools{display:none}.sheet{box-shadow:none;margin:0;padding:0;max-width:none}.page-hdr{display:none}}
+
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <img class="logo-asu" src="logos/ASU%20Logo%20School.png" alt="Arizona State University — Ira A. Fulton Schools of Engineering, School of Manufacturing Systems and Networks">
+  <img class="logo-lab" src="logos/SOLAR%20LAB%20LOGO.png" alt="SOLAR — Sensing, Optics, Laser Application Research">
+</div>
+<div class="nav">
+  <div class="nav-title">
+    <div class="t1">Deflectometry Learning Lab</div>
+    <div class="t2"><strong>Diego Bethancourth</strong> &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo &nbsp;&middot;&nbsp; Systems, Optics and Laser Application Research Lab &nbsp;&middot;&nbsp; Arizona State University</div>
+  </div>
+  <nav class="nav-links" id="site-nav"></nav>
+  <script src="assets/nav.js"></script>
+</div>
+<div class="gold-bar"></div>
+
+<div class="page-hdr">
+  <h1>D6 · Design summary</h1>
+  <p>Every Design result for the working bench on one printable page.</p>
+</div>
+
+<div class="tools"><a class="btn alt" href="bench.html" style="text-decoration:none">Change the bench (D0)</a><button class="btn" onclick="window.print()">Print or save as PDF</button></div>
+<div class="sheet" id="sheet"></div>
+
+<div class="footer">
+  <span>Arizona State University</span> &nbsp;&middot;&nbsp; School of Manufacturing Systems and Networks &nbsp;&middot;&nbsp; SOLAR Lab &nbsp;&middot;&nbsp; Diego Bethancourth &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo
+</div>
+<script>
+
+const b=Bench.get(), P=Bench.presets(), e=Bench.extent(b);
+const f1=(x,d=1)=>Number.isFinite(x)?x.toFixed(d):'—';
+const ok=v=>v===null?'<span class="na">—</span>':v?'<span class="ok">Met</span>':'<span class="no">Not met</span>';
+// D1
+const FOV=Math.max(e.x,e.y)+2*b.delta, p=b.W/b.Nx, H=b.Ny*p, Pf=b.n*p, Nf=Math.min(e.x,e.y)/Pf;
+const z=b.z, zd=b.zd, th=(b.tilt===undefined?1.5:b.tilt)/1000, grow=(z+zd)/z;
+const Sx=e.x*grow+4*th*zd, Sy=e.y*grow+4*th*zd, cover=Sx<=b.W&&Sy<=H;
+const Pm=Pf*z/(z+zd), perMirror=b.a/Pm;
+// D3
+const PmPlan=Pf*b.zplan/(b.zplan+zd), pxReq=FOV/(PmPlan/b.kpx);
+const camKnown=!!b.camName, s=b.camS, f=b.f, N=b.N;
+const blur=f?(f/N)*zd/(z+zd):NaN, ratio=blur/Pm;
+const q=b.camPx?FOV/b.camPx:NaN, ppf=Pm/q;
+const zOK=(b.zminCam<=0||z>b.zminCam)&&z>=b.smin&&z<=b.smax;
+// L5 style slope resolution
+const slopePx=p/(2*zd), slopeFringe=Pf/(2*zd);
+const today=new Date().toISOString().slice(0,10);
+const objTxt=b.obj==='single'?`single mirror, ${b.a} mm`:b.obj==='hex7'?`7 hexagonal segments, ${b.a} mm flat-to-flat, gap ${b.g} mm`:`${b.cols} × ${b.rows} square mirrors, ${b.a} mm, gap ${b.g} mm`;
+let h=`<h2>Design summary — ${P[b.preset].label}${b.edited?' (edited)':''}</h2><div class="sub">Deflectometry Learning Lab · generated ${today} · values from the working bench; derivations on D1–D3</div>`;
+h+=`<h3>1 · Bench inputs</h3><table class="t"><tr><th>Quantity</th><th>Value</th><th>Set on</th></tr>
+ <tr><td>Test object</td><td class="v">${objTxt}</td><td>D0 / D1</td></tr>
+ <tr><td>Border Δ</td><td class="v">${b.delta} mm</td><td>D1</td></tr>
+ <tr><td>Screen</td><td class="v">${b.W} mm wide, ${b.Nx} × ${b.Ny} px (pitch ${f1(p*1000,1)} µm)</td><td>D0 / D2</td></tr>
+ <tr><td>Fringe</td><td class="v">${b.n} px per fringe (P<sub>f</sub> = ${f1(Pf,3)} mm)</td><td>D2</td></tr>
+ <tr><td>Mirror–screen distance z<sub>d</sub></td><td class="v">${zd} mm</td><td>D0 / D1</td></tr>
+ <tr><td>Phase retrieval</td><td class="v">${b.method==='psi'?`N-step phase shifting, N = ${b.steps}`:'sheared Fourier (SMOTS), one frame pair'}</td><td>D0 / D3</td></tr>
+ <tr><td>Allowed camera height</td><td class="v">${b.smin} – ${b.smax} mm${b.zminCam>0?`, above ${b.zminCam} mm`:''}</td><td>D0 / D3</td></tr></table>
+ <div class="cap"><b>Table 1 –</b> Inputs of the design.</div>`;
+h+=`<h3>2 · Results by step</h3><table class="t"><tr><th>Step</th><th>Result</th><th>Value</th><th>Requirement</th><th>Status</th></tr>
+ <tr><td>D1</td><td>Object extent</td><td class="v">${f1(e.x,1)} × ${f1(e.y,1)} mm</td><td>—</td><td class="na">—</td></tr>
+ <tr><td>D1</td><td>Required field of view</td><td class="v">${f1(FOV,1)} mm</td><td>object + 2Δ</td><td class="na">—</td></tr>
+ <tr><td>D1</td><td>Fringes across the object</td><td class="v">${f1(Nf,0)}</td><td>≥ 60</td><td>${ok(Nf>=60)}</td></tr>
+ <tr><td>D1</td><td>Screen region reflected by the mirrors</td><td class="v">${f1(Sx,0)} × ${f1(Sy,0)} mm</td><td>≤ screen ${f1(b.W,0)} × ${f1(H,0)} mm</td><td>${ok(cover)}</td></tr>
+ <tr><td>D3</td><td>Pixels required on the short axis</td><td class="v">≥ ${f1(pxReq,0)} px</td><td>${b.kpx} px per apparent fringe at ${b.zplan} mm</td><td class="na">—</td></tr>
+ <tr><td>D3</td><td>Selected camera</td><td class="v">${camKnown?`${b.camName} (${b.camPx} px short axis, ${b.camPix} µm, s = ${f1(s,2)} mm)`:'not selected yet — open D3'}</td><td>meets Table 1 of D3</td><td>${camKnown?ok(b.camPx>=pxReq):ok(null)}</td></tr>
+ <tr><td>D3</td><td>Focal length and camera height</td><td class="v">${f?`f = ${f} mm, z = ${f1(z,0)} mm (${f1(z/25.4,1)} in)`:'—'}</td><td>inside the allowed range</td><td>${f?ok(zOK):ok(null)}</td></tr>
+ <tr><td>D3</td><td>Aperture and focus</td><td class="v">${f?`f/${N}, focused on the screen image, blur b = ${f1(blur,2)} mm (${f1(ratio,2)} fringe pitches)`:'—'}</td><td>—</td><td class="na">—</td></tr>
+ <tr><td>D3</td><td>Camera pixels per apparent fringe</td><td class="v">${f1(ppf,1)}</td><td>≥ ${b.kpx}</td><td>${camKnown?ok(ppf>=b.kpx):ok(null)}</td></tr>
+ <tr><td>D3</td><td>Fringe periods inside one mirror</td><td class="v">${f1(perMirror,0)}</td><td>≥ 3</td><td>${ok(perMirror>=3)}</td></tr>
+ <tr><td>L1 / L5</td><td>Slope per screen pixel, per fringe</td><td class="v">${f1(slopePx*1e6,0)} µrad, ${f1(slopeFringe*1e3,2)} mrad</td><td>—</td><td class="na">—</td></tr>
+ <tr><td>L3</td><td>Unambiguous tilt range</td><td class="v">± ${f1(Pf/(4*zd)*1e3,2)} mrad</td><td>—</td><td class="na">—</td></tr></table>
+ <div class="cap"><b>Table 2 –</b> Results of each Design step for the working bench.</div>`;
+const cands=(b.candidates||[]).filter(c=>c.pxV&&c.pix);
+if(cands.length){h+=`<h3>3 · Camera candidates considered</h3><table class="t"><tr><th>Camera</th><th>Pixels</th><th>Pixel</th><th>Interface</th><th>Price</th></tr>${cands.map(c=>`<tr><td>${c.name}${c.name===b.camName?' <b>(selected)</b>':''}</td><td>${c.pxH} × ${c.pxV}</td><td>${c.pix} µm</td><td>${c.iface||'—'}</td><td>${c.price||'—'}</td></tr>`).join('')}</table><div class="cap"><b>Table 3 –</b> Candidates entered on D3.</div>`;}
+h+=`<div class="note2">Camera results appear after D3 has been opened with this bench. The error budget (D4) and actuation (D5) are documented on their own pages. Formulas: see the Math reference.</div>`;
+document.getElementById('sheet').innerHTML=h;
+
+</script>
+</body>
+</html>

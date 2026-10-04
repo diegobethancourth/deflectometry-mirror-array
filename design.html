@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="asu_icon.ico" sizes="any">
+<link rel="stylesheet" href="assets/tour.css">
+<title>Design — Deflectometry Learning Lab | ASU SOLAR</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;font-size:14px}
+.nav{background:#8C1D40;display:flex;align-items:center;gap:14px;padding:6px 24px;min-height:52px;flex-wrap:wrap}
+.nav-links{margin-left:auto;display:flex;gap:3px;flex-wrap:wrap}
+.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:12px;font-weight:700;padding:6px 11px;border-radius:3px;white-space:nowrap}
+.nav-links a:hover{background:rgba(255,255,255,.14);color:#fff}
+.nav-links a.active{background:#FFC627;color:#8C1D40}
+.gold-bar{height:4px;background:#FFC627}
+.brandbar{background:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:7px 24px;flex-wrap:wrap}
+.brandbar img{display:block}
+.logo-asu{height:30px;width:auto}
+.logo-lab{height:52px;width:auto;mix-blend-mode:multiply}
+.nav-title .t1{font-size:14px;font-weight:700;line-height:1.2;color:#fff}
+.nav-title .t2{font-size:11px;color:rgba(255,255,255,0.78);line-height:1.35}
+.nav-title .t2 strong{color:#FFC627;font-weight:700}
+.nav-title{min-width:0}
+.byline{font-size:12px;color:#747474}
+.byline strong{color:#8C1D40}
+@media(max-width:760px){.logo-asu{height:22px}.logo-lab{height:32px}}
+.page-hdr{background:#fff;padding:10px 24px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.page-hdr h1{font-size:17px;font-weight:700;color:#8C1D40;margin:0}.page-hdr p{font-size:12px;color:#747474}
+.app{display:grid;grid-template-columns:260px 1fr;gap:0;min-height:calc(100vh - 80px)}
+.left-col{background:#fff;padding:14px;display:flex;flex-direction:column;gap:12px}
+.right-col{padding:12px;display:flex;flex-direction:column;gap:10px}
+.sec-lbl{font-size:10px;font-weight:700;color:#8C1D40;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.ctrl-group{display:flex;flex-direction:column;gap:4px}
+.ctrl-group label{font-size:10px;font-weight:700;color:#747474;text-transform:uppercase;letter-spacing:.04em}
+.ctrl-group select,.ctrl-group input[type=number]{width:100%;font-size:13px;color:#191919;border:none;border-radius:6px;padding:6px 8px;background:#F1F1F4}
+.ctrl-group input[type=range]{width:100%;accent-color:#8C1D40}
+.ctrl-val{font-size:16px;font-weight:700;color:#8C1D40}
+.explainer{background:#FFF4D6;padding:10px 12px;font-size:11px;color:#3E3E3E;line-height:1.55;border-radius:8px}
+.explainer strong{color:#8C1D40}
+.fixed-box{background:#F1F1F4;border-radius:8px;padding:10px 12px}
+.mvar{font-size:11px;color:#747474;line-height:1.8}.mvar span{color:#191919;font-weight:700}
+.metrics-row{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.metric{background:#fff;border-radius:8px;padding:10px 12px}
+.metric .ml{font-size:10px;color:#747474;text-transform:uppercase;letter-spacing:.03em;margin-bottom:2px}
+.metric .mv{font-size:17px;font-weight:700;color:#8C1D40}.metric .ms{font-size:10px;color:#747474;margin-top:1px}
+.mid-row{display:grid;grid-template-columns:1.35fr 1fr;gap:10px}
+.panel{background:#fff;border-radius:10px;padding:14px}
+.panel-heading{font-size:13px;font-weight:700;color:#8C1D40;margin-bottom:3px}
+.panel-sub{font-size:10px;color:#747474;margin-bottom:8px}
+.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:#fff;border-radius:10px;padding:13px}
+.math-block{margin-bottom:10px;padding-bottom:0}
+.math-block:last-child{margin-bottom:0}
+.math-title{font-size:11px;font-weight:700;color:#8C1D40;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.live{background:#8C1D40;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap}
+.formula{background:#F1F1F4;border-radius:6px;padding:5px 8px;font-family:"Courier New",monospace;font-size:11px;color:#3E3E3E;margin:3px 0}
+.mvar2{font-size:10px;color:#747474;line-height:1.6}.mvar2 span{color:#191919;font-weight:700}
+.verdict-good{background:#E9F4EB;border-radius:8px;padding:11px 16px;font-size:12px;color:#1b5e20;font-weight:500}
+.verdict-warn{background:#FDF2DA;border-radius:8px;padding:11px 16px;font-size:12px;color:#6d4c00;font-weight:500}
+.verdict-bad{background:#FBEAEA;border-radius:8px;padding:11px 16px;font-size:12px;color:#7f0000;font-weight:500}
+.btn{background:#8C1D40;color:#fff;border:none;border-radius:4px;padding:7px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn:hover{background:#6d1631}
+.btn.alt{background:#F6E7EE;color:#8C1D40}
+.btn.alt:hover{background:#FFF4D6}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap}
+.chk{display:flex;align-items:center;gap:6px;font-size:11px;color:#3E3E3E;font-weight:700}
+.chk input{accent-color:#8C1D40}
+#prev{width:100%;display:block;border-radius:8px;background:#000}
+#crop{display:block;border-radius:8px;background:#000;max-width:100%}
+.code{background:#2b2b2b;color:#e6e6e6;border-radius:4px;padding:9px 11px;font-family:"Courier New",monospace;font-size:10.5px;line-height:1.5;white-space:pre;overflow-x:auto}
+.step-dots{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.dot{width:22px;height:22px;border-radius:6px;background:#EDEDF1;font-size:10px;font-weight:700;color:#747474;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.dot.on{background:#8C1D40;color:#fff}
+.footer{background:#3E3E3E;color:#BFBFBF;font-size:10px;padding:10px 24px;text-align:center;margin-top:auto}
+.footer span{color:#FFC627}
+
+.wrapL{max-width:1180px;margin:0 auto;padding:16px 24px 8px;display:flex;flex-direction:column;gap:14px}
+.box{background:#fff;border-radius:12px;padding:16px 18px}.box h2{margin:0 0 8px;font-size:16px;color:#8C1D40}
+.box p,.box li{font-size:12.5px;line-height:1.65;color:#3E3E3E}.box ul,.box ol{margin:4px 0 0;padding-left:18px}
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.sc{background:#fff;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:#191919;border:2px solid transparent}
+.sc:hover{border-color:#FFC627}.sc .code{font-size:11px;font-weight:700;color:#fff;background:var(--tc);border-radius:3px;padding:2px 7px;align-self:flex-start}
+.sc h3{margin:0;font-size:14px;color:#8C1D40}.sc p{margin:0;font-size:11.5px;line-height:1.55;color:#3E3E3E}
+.sc .go{margin-top:auto;font-size:11px;font-weight:700;color:#8C1D40}
+.flow{width:100%;border-collapse:collapse;font-size:11.5px}.flow th{background:#8C1D40;color:#fff;text-align:left;padding:7px 8px;font-size:10.5px}
+.flow td{padding:7px 8px;vertical-align:top;border-bottom:1px solid #EEE}.flow tr:nth-child(even) td{background:#FAFAFC}
+.flow a{color:#8C1D40;font-weight:700}
+.figcap{font-size:10px;color:#3E3E3E;margin-top:5px}.figcap b{color:#8C1D40}
+.start{display:inline-block;background:#FFC627;color:#8C1D40;font-weight:700;font-size:13px;padding:9px 16px;border-radius:6px;text-decoration:none;margin-top:8px}
+
+</style>
+</head>
+<body data-no-bench>
+
+<div class="brandbar">
+  <img class="logo-asu" src="logos/ASU%20Logo%20School.png" alt="Arizona State University — Ira A. Fulton Schools of Engineering, School of Manufacturing Systems and Networks">
+  <img class="logo-lab" src="logos/SOLAR%20LAB%20LOGO.png" alt="SOLAR — Sensing, Optics, Laser Application Research">
+</div>
+<div class="nav">
+  <div class="nav-title">
+    <div class="t1">Deflectometry Learning Lab</div>
+    <div class="t2"><strong>Diego Bethancourth</strong> &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo &nbsp;&middot;&nbsp; Systems, Optics and Laser Application Research Lab &nbsp;&middot;&nbsp; Arizona State University</div>
+  </div>
+  <nav class="nav-links" id="site-nav"></nav>
+  <script src="assets/nav.js"></script>
+</div>
+<div class="gold-bar"></div>
+
+<div class="page-hdr">
+  <h1>Design — overview</h1>
+  <p>From test object to a complete bench, one dependent step at a time.</p>
+</div>
+
+<div class="wrapL">
+  <div class="box"><h2>What this track produces</h2>
+    <p>The Design track turns a test object into a complete bench: field of view, fringe, camera, lens, mounting height, aperture and error budget. The steps depend on each other, so they are followed in order. Each step uses only quantities fixed in the steps before it.</p>
+    <ul><li><b>One working bench.</b> All Design pages share one set of values (the "working bench"). Choose a starting bench on <a href="bench.html">D0</a>; every later page reads it, and a value changed on any page is updated everywhere.</li>
+      <li><b>The yellow bar</b> under the menu on each Design page shows which bench is in use. To switch to another bench, use D0.</li>
+      <li><b>D6</b> collects the results of every step on one printable page.</li></ul>
+    <a class="start" href="bench.html">Start with D0 →</a></div>
+  <div class="box">
+    <table class="flow"><tr><th>Step</th><th>Question answered</th><th>Uses</th><th>Produces</th></tr>
+      <tr><td><a href="bench.html">D0 · Choose the bench</a></td><td>Which object, screen and distances?</td><td>a preset or your own values</td><td>the working bench</td></tr>
+      <tr><td><a href="geometry.html">D1 · Test object and geometry</a></td><td>How large must the field be? Does the screen cover the mirrors?</td><td>object, gap, border, screen, z<sub>d</sub></td><td>field of view, fringes on the object, screen coverage</td></tr>
+      <tr><td><a href="fringes.html?t=d">D2 · Screen and fringes</a></td><td>Which fringe pattern is displayed?</td><td>screen, pixels per fringe</td><td>fringe pitch, pattern files (PNG)</td></tr>
+      <tr><td><a href="camera.html">D3 · Camera and lens</a></td><td>Which camera, lens, height and aperture?</td><td>field of view, fringe pitch, z<sub>d</sub></td><td>camera specification and choice, focal length, height, blur</td></tr>
+      <tr><td><a href="budget.html">D4 · Error budget</a></td><td>How accurate will the tilt be?</td><td>fringe, camera, z<sub>d</sub></td><td>slope error by source</td></tr>
+      <tr><td><a href="piezo.html">D5 · Actuation</a></td><td>How are segments tilted and how finely? (segmented arrays only)</td><td>mirror size, layout</td><td>tilt per actuator step</td></tr>
+      <tr><td><a href="summary.html">D6 · Design summary</a></td><td>What is the complete design?</td><td>everything above</td><td>one printable page</td></tr>
+    </table><div class="figcap"><b>Table 1 –</b> The Design sequence: what each step uses and what it produces.</div></div>
+</div>
+<div class="footer">
+  <span>Arizona State University</span> &nbsp;&middot;&nbsp; School of Manufacturing Systems and Networks &nbsp;&middot;&nbsp; SOLAR Lab &nbsp;&middot;&nbsp; Diego Bethancourth &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo
+</div>
+</body>
+</html>

@@ -137,22 +137,23 @@ body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;fon
   </div>
 
   <div class="tracks">
-    <div class="track t-learn"><h3>Learn</h3><div class="who">Concepts that apply to every deflectometry method</div>
+    <div class="track t-learn"><h3><a href="learn.html" style="color:inherit;text-decoration:none">Learn →</a></h3><div class="who">Concepts that apply to every deflectometry method</div>
       <a class="mod" href="reflection.html"><b>L1</b>Reflection and surface slope</a>
       <a class="mod" href="fringes.html"><b>L2</b>Fringe coding and phase shifting</a>
       <a class="mod" href="phase.html"><b>L3</b>Phase retrieval methods compared</a>
       <a class="mod" href="integration.html"><b>L4</b>From slope to surface</a>
       <a class="mod" href="errors.html"><b>L5</b>Errors and calibration</a>
     </div>
-    <div class="track t-design"><h3>Design</h3><div class="who">Size a bench; every page reads the same bench values</div>
-      <a class="mod" href="bench.html"><b>D0</b>Bench setup and presets</a>
+    <div class="track t-design"><h3><a href="design.html" style="color:inherit;text-decoration:none">Design →</a></h3><div class="who">Size a bench; every page reads the same bench values</div>
+      <a class="mod" href="bench.html"><b>D0</b>Choose the bench</a>
       <a class="mod" href="geometry.html"><b>D1</b>Test object and geometry</a>
-      <a class="mod" href="fringes.html"><b>D2</b>Screen and fringes</a>
+      <a class="mod" href="fringes.html?t=d"><b>D2</b>Screen and fringes</a>
       <a class="mod" href="camera.html"><b>D3</b>Camera and lens</a>
       <a class="mod" href="budget.html"><b>D4</b>Error budget</a>
       <a class="mod" href="piezo.html"><b>D5</b>Actuation (segmented arrays)</a>
+      <a class="mod" href="summary.html"><b>D6</b>Design summary (print)</a>
     </div>
-    <div class="track t-rep"><h3>Replicate</h3><div class="who">Case studies: from a published paper to working code</div>
+    <div class="track t-rep"><h3><a href="replicate.html" style="color:inherit;text-decoration:none">Replicate →</a></h3><div class="who">Case studies: from a published paper to working code</div>
       <a class="mod" href="smots.html"><b>R1</b>SMOTS — Choi et al. 2017</a>
       <a class="mod" href="notebooks.html"><b>R2</b>Notebooks and scripts (Colab)</a>
       <a class="mod" href="simulator.html"><b>R3</b>SMOTS live simulator</a>
@@ -164,13 +165,13 @@ body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;fon
     <div class="box"><h3>Which path?</h3>
       <ul>
         <li><b>New to deflectometry:</b> follow Learn in order; each module ends with questions to check understanding.</li>
-        <li><b>Designing a bench:</b> load a preset on D0, then go D1 → D5. Each page uses only values fixed on the pages before it.</li>
+        <li><b>Designing a bench:</b> choose a starting bench on D0, then follow <b>Next →</b> through D1–D6. Each page uses only values fixed on the pages before it; D6 prints the result.</li>
         <li><b>Reproducing a paper:</b> start at R1. The Choi et al. preset on D0 loads the paper's own geometry.</li>
       </ul>
     </div>
     <div class="box"><h3>One shared bench</h3>
-      <p>The Design pages share one set of values — object, screen, camera, geometry — stored in your browser. Change the gap on one page and every other page uses the new gap. Presets load complete benches (the ASU bench, the Choi et al. 2017 experiment, a single flat mirror); Export saves your bench as a file to hand in or share.</p>
-      <a class="btn-l" href="bench.html">Open D0 · Bench setup</a>
+      <p>The Design pages share one set of values — the <b>working bench</b>: object, screen, camera and geometry, kept in your browser. Change the gap on one page and every other page uses the new gap. On D0 you choose a starting bench (the ASU bench, the Choi et al. 2017 experiment, or a single flat mirror), adjust it, and can save it as a file to hand in or share.</p>
+      <a class="btn-l" href="bench.html">Open D0 · Choose the bench</a>
     </div>
   </div>
 </div>

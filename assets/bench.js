@@ -103,6 +103,13 @@
     refreshBar();
   }
 
+  // Results computed by a page (e.g. the camera chosen in D3) are stored without
+  // marking the bench as edited by the user.
+  function setDerived(field, value) {
+    if (B[field] === value) return;
+    B[field] = value; save();
+  }
+
   function usePreset(key) {
     if (!PRESETS[key]) return;
     B = fresh(key); save(); location.reload();
@@ -168,11 +175,12 @@
   }
 
   // ---------- the bench bar shown under the navigation ----------
+  // A read-only reminder of which bench the page is using. Changing, saving
+  // and loading benches happens on one page only: D0 (bench.html).
   var bar = null;
   function refreshBar() {
     if (!bar) return;
-    var sel = bar.querySelector('select');
-    sel.options[0].textContent = (PRESETS[B.preset].label) + (B.edited ? ' (edited)' : '');
+    bar.querySelector('.bench-name').textContent = PRESETS[B.preset].label + (B.edited ? ' — values edited' : '');
     var warn = bar.querySelector('.bench-warn');
     if (warn) warn.style.display = (gridOnly && B.obj !== 'grid') ? 'inline' : 'none';
   }
@@ -183,26 +191,18 @@
     var css = document.createElement('style');
     css.textContent =
       '.bench-bar{background:#FFF8E1;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:6px 24px;font:12px Arial,Helvetica,sans-serif;color:#3E3E3E}' +
-      '.bench-bar b{color:#8C1D40}.bench-bar select{font-size:12px;border:none;border-radius:4px;padding:4px 6px;background:#fff;max-width:360px}' +
-      '.bench-bar a,.bench-bar button{font-size:11px;font-weight:700;color:#8C1D40;background:#fff;border:none;border-radius:4px;padding:4px 9px;cursor:pointer;text-decoration:none}' +
-      '.bench-bar a:hover,.bench-bar button:hover{background:#FFE08A}.bench-warn{color:#b71c1c;font-weight:700}';
+      '.bench-bar b{color:#8C1D40}.bench-bar .bench-name{font-weight:700}' +
+      '.bench-bar a{font-size:11px;font-weight:700;color:#8C1D40;background:#fff;border-radius:4px;padding:4px 9px;text-decoration:none}' +
+      '.bench-bar a:hover{background:#FFE08A}.bench-warn{color:#b71c1c;font-weight:700}.bench-help{color:#747474;font-size:11px}';
     document.head.appendChild(css);
     bar = document.createElement('div');
     bar.className = 'bench-bar';
-    var opts = '<option value="">' + PRESETS[B.preset].label + '</option>';
-    Object.keys(PRESETS).forEach(function (k) { opts += '<option value="' + k + '">Load preset: ' + PRESETS[k].label + '</option>'; });
-    bar.innerHTML = '<b>Bench</b><select title="Shared bench used by every Design page">' + opts + '</select>' +
-      '<span>' + objLabel() + ' · screen ' + B.W + ' mm / ' + B.Nx + ' px · z<sub>d</sub> = ' + B.zd + ' mm</span>' +
+    bar.innerHTML = '<b>Working bench:</b><span class="bench-name"></span>' +
+      '<span>· ' + objLabel() + ' · screen ' + B.W + ' mm, ' + B.Nx + ' px · z<sub>d</sub> = ' + B.zd + ' mm</span>' +
       '<span class="bench-warn" style="display:none">This page draws square grids only; the bench object is approximated.</span>' +
-      '<span style="margin-left:auto"></span><a href="bench.html">Edit all values</a>' +
-      '<button type="button" data-a="exp">Export</button><button type="button" data-a="imp">Import</button>' +
-      '<input type="file" accept=".json,application/json" style="display:none">';
+      '<span class="bench-help" style="margin-left:auto">Values changed on this page update the working bench.</span>' +
+      '<a href="bench.html">Change bench (D0)</a>';
     anchor.parentNode.insertBefore(bar, anchor.nextSibling);
-    var sel = bar.querySelector('select'), file = bar.querySelector('input[type=file]');
-    sel.addEventListener('change', function () { if (sel.value) usePreset(sel.value); });
-    bar.querySelector('[data-a=exp]').addEventListener('click', exportJSON);
-    bar.querySelector('[data-a=imp]').addEventListener('click', function () { file.click(); });
-    file.addEventListener('change', function () { if (file.files[0]) importJSON(file.files[0]); });
     refreshBar();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', buildBar); else buildBar();
@@ -210,6 +210,7 @@
   window.Bench = {
     get: function () { return B; },
     set: set,
+    setDerived: setDerived,
     bind: bind,
     extent: extent,
     objLabel: objLabel,
