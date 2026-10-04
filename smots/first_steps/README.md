@@ -7,6 +7,7 @@ needs only numpy, and answers one question before the next is attempted.
 | Script | Question it answers |
 |---|---|
 | `01_shear_theorem.py` | Does subtracting two shifted sinusoids really encode the shift? |
+| `Step1_shear_recovery_Colab.ipynb` | The same question as a step-by-step notebook, with plots — [open in Colab](https://colab.research.google.com/github/diegobethancourth/deflectometry-mirror-array/blob/main/smots/first_steps/Step1_shear_recovery_Colab.ipynb) |
 
 ```bash
 python 01_shear_theorem.py

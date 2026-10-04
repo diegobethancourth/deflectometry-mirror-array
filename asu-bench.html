@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="asu_icon.ico" sizes="any">
+<link rel="stylesheet" href="assets/tour.css">
+<title>ASU bench case study — Deflectometry Learning Lab | ASU SOLAR</title>
+<script src="assets/bench.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;font-size:14px}
+.nav{background:#8C1D40;display:flex;align-items:center;gap:14px;padding:6px 24px;min-height:52px;flex-wrap:wrap}
+.nav-links{margin-left:auto;display:flex;gap:3px;flex-wrap:wrap}
+.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:12px;font-weight:700;padding:6px 11px;border-radius:3px;white-space:nowrap}
+.nav-links a:hover{background:rgba(255,255,255,.14);color:#fff}
+.nav-links a.active{background:#FFC627;color:#8C1D40}
+.gold-bar{height:4px;background:#FFC627}
+.brandbar{background:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:7px 24px;flex-wrap:wrap}
+.brandbar img{display:block}
+.logo-asu{height:30px;width:auto}
+.logo-lab{height:52px;width:auto;mix-blend-mode:multiply}
+.nav-title .t1{font-size:14px;font-weight:700;line-height:1.2;color:#fff}
+.nav-title .t2{font-size:11px;color:rgba(255,255,255,0.78);line-height:1.35}
+.nav-title .t2 strong{color:#FFC627;font-weight:700}
+.nav-title{min-width:0}
+.byline{font-size:12px;color:#747474}
+.byline strong{color:#8C1D40}
+@media(max-width:760px){.logo-asu{height:22px}.logo-lab{height:32px}}
+.page-hdr{background:#fff;padding:10px 24px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.page-hdr h1{font-size:17px;font-weight:700;color:#8C1D40;margin:0}.page-hdr p{font-size:12px;color:#747474}
+.app{display:grid;grid-template-columns:260px 1fr;gap:0;min-height:calc(100vh - 80px)}
+.left-col{background:#fff;padding:14px;display:flex;flex-direction:column;gap:12px}
+.right-col{padding:12px;display:flex;flex-direction:column;gap:10px}
+.sec-lbl{font-size:10px;font-weight:700;color:#8C1D40;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.ctrl-group{display:flex;flex-direction:column;gap:4px}
+.ctrl-group label{font-size:10px;font-weight:700;color:#747474;text-transform:uppercase;letter-spacing:.04em}
+.ctrl-group select,.ctrl-group input[type=number]{width:100%;font-size:13px;color:#191919;border:none;border-radius:6px;padding:6px 8px;background:#F1F1F4}
+.ctrl-group input[type=range]{width:100%;accent-color:#8C1D40}
+.ctrl-val{font-size:16px;font-weight:700;color:#8C1D40}
+.explainer{background:#FFF4D6;padding:10px 12px;font-size:11px;color:#3E3E3E;line-height:1.55;border-radius:8px}
+.explainer strong{color:#8C1D40}
+.fixed-box{background:#F1F1F4;border-radius:8px;padding:10px 12px}
+.mvar{font-size:11px;color:#747474;line-height:1.8}.mvar span{color:#191919;font-weight:700}
+.metrics-row{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.metric{background:#fff;border-radius:8px;padding:10px 12px}
+.metric .ml{font-size:10px;color:#747474;text-transform:uppercase;letter-spacing:.03em;margin-bottom:2px}
+.metric .mv{font-size:17px;font-weight:700;color:#8C1D40}.metric .ms{font-size:10px;color:#747474;margin-top:1px}
+.mid-row{display:grid;grid-template-columns:1.35fr 1fr;gap:10px}
+.panel{background:#fff;border-radius:10px;padding:14px}
+.panel-heading{font-size:13px;font-weight:700;color:#8C1D40;margin-bottom:3px}
+.panel-sub{font-size:10px;color:#747474;margin-bottom:8px}
+.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:#fff;border-radius:10px;padding:13px}
+.math-block{margin-bottom:10px;padding-bottom:0}
+.math-block:last-child{margin-bottom:0}
+.math-title{font-size:11px;font-weight:700;color:#8C1D40;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.live{background:#8C1D40;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap}
+.formula{background:#F1F1F4;border-radius:6px;padding:5px 8px;font-family:"Courier New",monospace;font-size:11px;color:#3E3E3E;margin:3px 0}
+.mvar2{font-size:10px;color:#747474;line-height:1.6}.mvar2 span{color:#191919;font-weight:700}
+.verdict-good{background:#E9F4EB;border-radius:8px;padding:11px 16px;font-size:12px;color:#1b5e20;font-weight:500}
+.verdict-warn{background:#FDF2DA;border-radius:8px;padding:11px 16px;font-size:12px;color:#6d4c00;font-weight:500}
+.verdict-bad{background:#FBEAEA;border-radius:8px;padding:11px 16px;font-size:12px;color:#7f0000;font-weight:500}
+.btn{background:#8C1D40;color:#fff;border:none;border-radius:4px;padding:7px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn:hover{background:#6d1631}
+.btn.alt{background:#F6E7EE;color:#8C1D40}
+.btn.alt:hover{background:#FFF4D6}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap}
+.chk{display:flex;align-items:center;gap:6px;font-size:11px;color:#3E3E3E;font-weight:700}
+.chk input{accent-color:#8C1D40}
+#prev{width:100%;display:block;border-radius:8px;background:#000}
+#crop{display:block;border-radius:8px;background:#000;max-width:100%}
+.code{background:#2b2b2b;color:#e6e6e6;border-radius:4px;padding:9px 11px;font-family:"Courier New",monospace;font-size:10.5px;line-height:1.5;white-space:pre;overflow-x:auto}
+.step-dots{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.dot{width:22px;height:22px;border-radius:6px;background:#EDEDF1;font-size:10px;font-weight:700;color:#747474;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.dot.on{background:#8C1D40;color:#fff}
+.footer{background:#3E3E3E;color:#BFBFBF;font-size:10px;padding:10px 24px;text-align:center;margin-top:auto}
+.footer span{color:#FFC627}
+
+.comp-table{width:100%;border-collapse:collapse;font-size:11px}
+.comp-table th{background:#8C1D40;color:#fff;padding:6px 7px;text-align:left;font-size:10px;font-weight:700}
+.comp-table td{padding:5px 7px;vertical-align:top}.comp-table tr:nth-child(even) td{background:#F6F6F9}
+.comp-table tr.act td{background:#FFF4D6;font-weight:700}
+.g{color:#2e7d32;font-weight:700}.b{color:#b71c1c;font-weight:700}.m{color:#e65100;font-weight:700}
+.stepcard{background:#fff;border-radius:10px;padding:14px}
+.step-head{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.step-num{background:#993C1D;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:3px}
+.step-title{font-size:14px;font-weight:700;color:#8C1D40}.step-q{font-size:11px;color:#747474;margin-bottom:10px}
+.two{display:grid;grid-template-columns:1.05fr 1fr;gap:12px;align-items:start}
+.figcap{font-size:10px;color:#3E3E3E;margin-top:4px}.figcap b{color:#8C1D40}
+.result{background:#FFC627;color:#191919;font-weight:700;font-size:12px;padding:7px 10px;border-radius:6px;margin-top:6px}
+.inrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ctrl-group input[type=number]{width:100%}
+.note{font-size:10px;color:#747474;line-height:1.5}
+.obj-lbl{font-size:11px;color:#3E3E3E}
+@media(max-width:1100px){.two{grid-template-columns:1fr}}
+
+.qa details{background:#F6F6F9;border-radius:7px;padding:7px 10px;margin-bottom:6px;font-size:12px}
+.qa summary{cursor:pointer;font-weight:700;color:#3E3E3E}.qa details p{margin:6px 0 0;color:#3E3E3E;line-height:1.55}
+.legend{font-size:10px;color:#3E3E3E}.obj{font-size:12px;line-height:1.6;color:#3E3E3E}
+.wide{grid-template-columns:1.4fr 1fr}
+
+.pipe{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.st{background:#F6F6F9;border-radius:9px;padding:10px;font-size:11px;line-height:1.5;color:#3E3E3E;position:relative}
+.st.on{background:#FFF4D6}.st h4{margin:0 0 4px;font-size:12px;color:#8C1D40}
+.st a{color:#8C1D40;font-weight:700;text-decoration:none}.st a:hover{text-decoration:underline}
+.chipx{display:inline-block;padding:2px 8px;border-radius:9px;font-size:10px;font-weight:700}
+.done{background:#E9F4EB;color:#2e7d32}.prog{background:#FDF0E2;color:#e65100}.todo{background:#EEE;color:#666}
+.lnk a{color:#8C1D40;font-weight:700}.code-inline{font-family:Consolas,monospace;font-size:11px;background:#F1F1F4;padding:1px 4px;border-radius:3px}
+.wrapR{display:flex;flex-direction:column;gap:12px;max-width:1240px;margin:0 auto;padding:14px 24px 24px}
+@media(max-width:1000px){.pipe{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body data-no-bench>
+
+<div class="brandbar">
+  <img class="logo-asu" src="logos/ASU%20Logo%20School.png" alt="Arizona State University — Ira A. Fulton Schools of Engineering, School of Manufacturing Systems and Networks">
+  <img class="logo-lab" src="logos/SOLAR%20LAB%20LOGO.png" alt="SOLAR — Sensing, Optics, Laser Application Research">
+</div>
+<div class="nav">
+  <div class="nav-title">
+    <div class="t1">Deflectometry Learning Lab</div>
+    <div class="t2"><strong>Diego Bethancourth</strong> &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo &nbsp;&middot;&nbsp; Systems, Optics and Laser Application Research Lab &nbsp;&middot;&nbsp; Arizona State University</div>
+  </div>
+  <nav class="nav-links" id="site-nav"></nav>
+  <script src="assets/nav.js"></script>
+</div>
+<div class="gold-bar"></div>
+
+<div class="page-hdr">
+  <h1>R4 · ASU bench case study</h1>
+  <p>The decisions behind the ASU SOLAR replication bench, and what remains open.</p>
+</div>
+
+<div class="wrapR">
+  <div class="stepcard"><div class="step-head"><span class="step-num">R4</span><span class="step-title">A bench built to replicate SMOTS</span></div>
+    <div class="obj">The ASU SOLAR lab is reproducing Choi et al. (2017) with a 3 × 3 array of square mirrors instead of seven hexagonal segments, on a compact bench. This page records the design decisions in the order they were made, the evidence behind each, and what is still open — a worked example of the Design track.</div>
+    <div class="btn-row" style="margin-top:8px"><button class="btn" onclick="Bench.usePreset('asu')">Load the ASU bench (preset)</button><a class="btn alt" href="geometry.html" style="text-decoration:none">Walk through D1–D5 with it</a></div></div>
+  <div class="stepcard"><div class="step-head"><span class="step-num">R4.1</span><span class="step-title">Decisions</span></div>
+    <table class="comp-table"><tr><th>Stage</th><th>Decision</th><th>Basis</th><th>Lab page</th></tr>
+      <tr><td>Fringe</td><td>13 screen pixels per fringe (P<sub>f</sub> = 1.165 mm)</td><td>Week 3 study: 10–20 px per fringe; ≥ 60 fringes across the array limits n to 18</td><td><a href="fringes.html">D2</a></td></tr>
+      <tr><td>Geometry</td><td>Field of view 115 mm (array 97.0 mm + 9 mm border each side)</td><td>Measured mirror 24.89 mm and gap 11.18 mm (SolidWorks)</td><td><a href="geometry.html">D1</a></td></tr>
+      <tr><td>Camera</td><td>Basler acA2440-20gm (2448 × 2048, 3.45 µm, mono, global shutter, GigE)</td><td>≥ 1834 px on the short axis; largest pixel among three candidates; cable reach to the stage</td><td><a href="camera.html">D3</a></td></tr>
+      <tr><td>Lens and height</td><td>Basler C23-2518-5M, f = 25 mm, camera at z = 432 mm</td><td>Only catalogue focal length inside the stage travel and above the screen plane; confirmed with the Basler lens selector</td><td><a href="camera.html">D3</a></td></tr>
+      <tr><td>Focus</td><td>Focus on the screen image, f/11, apertures reduced by ≈ 1 mm</td><td>Mirror (432 mm) and screen image (732 mm) cannot both be sharp; blur 0.93 mm at the mirror</td><td><a href="camera.html">D3</a> Step 5</td></tr>
+      <tr><td>Retrieval</td><td>Complex ratio with atan2 (sign kept), validated in 1-D</td><td>Eq. (4) loses the direction; recovery exact to ±P/2</td><td><a href="phase.html">L3</a>, <a href="notebooks.html">R2</a></td></tr>
+    </table><div class="figcap"><b>Table 1 –</b> Design decisions for the ASU bench, from the Week 3, 10 and 11 reports.</div></div>
+  <div class="stepcard"><div class="step-head"><span class="step-num">R4.2</span><span class="step-title">Open items</span></div>
+    <table class="comp-table"><tr><th>Item</th><th>Why it matters</th><th>Where to check</th></tr>
+      <tr><td>Mirror–screen distance: 300 mm on the bench, 400 mm in the Step 1 notebook</td><td>Every angle scales with 1/z<sub>d</sub>; a 5 mm error is a 1.7 % scale error at 300 mm</td><td><a href="errors.html">L5</a></td></tr>
+      <tr><td>Sign convention between the paper's Eq. (2) and the NumPy transform</td><td>Magnitudes agree; the sign of the reported tilt flips</td><td><a href="phase.html">L3</a>, <a href="errors.html">L5</a></td></tr>
+      <tr><td>Required angular range not yet defined</td><td>Sets the fringe period, and whether the two-frequency pattern is needed</td><td><a href="fringes.html">D2</a>, <a href="phase.html">L3</a></td></tr>
+      <tr><td>Stage travel to be confirmed at 432 mm with the camera load</td><td>The lens choice depends on it</td><td><a href="camera.html">D3</a> Step 4</td></tr>
+      <tr><td>Mirror size and gap to be re-measured before ordering</td><td>They set the array extent, the field of view and the camera height</td><td><a href="geometry.html">D1</a></td></tr>
+      <tr><td>Bench constants in the Python package still list 1 in (25.4 mm) mirrors</td><td>The synthetic bench should use the measured values</td><td><a href="https://github.com/diegobethancourth/deflectometry-mirror-array/blob/main/smots/smots/hardware.py" target="_blank" rel="noopener" class="code-inline">hardware.py</a></td></tr>
+    </table><div class="figcap"><b>Table 2 –</b> Open items carried forward from the reports.</div></div>
+  <div class="stepcard"><div class="step-head"><span class="step-num">R4.3</span><span class="step-title">Next steps</span></div>
+    <ol class="obj"><li>Two-dimensional recovery with a binary aperture around a single mirror (stage 3).</li><li>All nine apertures at once on synthetic frames, then on camera frames.</li><li>Validation against a reference instrument, as Choi et al. did with an autocollimator.</li></ol></div>
+</div>
+
+<div class="footer">
+  <span>Arizona State University</span> &nbsp;&middot;&nbsp; School of Manufacturing Systems and Networks &nbsp;&middot;&nbsp; SOLAR Lab &nbsp;&middot;&nbsp; Diego Bethancourth &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo
+</div>
+</body>
+</html>

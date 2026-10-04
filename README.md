@@ -17,7 +17,7 @@ dependencies.
 |---|---|---|
 | **Learn** | Students new to deflectometry | [L1 Reflection and surface slope](https://diegobethancourth.github.io/deflectometry-mirror-array/reflection.html) · [L2 Fringe coding and phase shifting](https://diegobethancourth.github.io/deflectometry-mirror-array/fringes.html) · [L3 Phase retrieval methods compared](https://diegobethancourth.github.io/deflectometry-mirror-array/phase.html) · [L4 From slope to surface](https://diegobethancourth.github.io/deflectometry-mirror-array/integration.html) · [L5 Errors and calibration](https://diegobethancourth.github.io/deflectometry-mirror-array/errors.html) |
 | **Design** | Anyone sizing a bench | [D0 Bench setup and presets](https://diegobethancourth.github.io/deflectometry-mirror-array/bench.html) · [D1 Test object and geometry](https://diegobethancourth.github.io/deflectometry-mirror-array/geometry.html) · [D2 Screen and fringes](https://diegobethancourth.github.io/deflectometry-mirror-array/fringes.html) · [D3 Camera and lens](https://diegobethancourth.github.io/deflectometry-mirror-array/camera.html) · [D4 Error budget](https://diegobethancourth.github.io/deflectometry-mirror-array/budget.html) · [D5 Actuation](https://diegobethancourth.github.io/deflectometry-mirror-array/piezo.html) |
-| **Replicate** | Reproducing a paper | [R1 SMOTS Python package](smots/) · [R2 Step-by-step scripts](smots/first_steps/) · [R3 SMOTS live simulator](https://diegobethancourth.github.io/deflectometry-mirror-array/simulator.html) · R4 ASU bench case study *(planned)* |
+| **Replicate** | Reproducing a paper | [R1 SMOTS — Choi et al. 2017](https://diegobethancourth.github.io/deflectometry-mirror-array/smots.html) · [R2 Notebooks and scripts](https://diegobethancourth.github.io/deflectometry-mirror-array/notebooks.html) · [R3 SMOTS live simulator](https://diegobethancourth.github.io/deflectometry-mirror-array/simulator.html) · [R4 ASU bench case study](https://diegobethancourth.github.io/deflectometry-mirror-array/asu-bench.html) |
 | **Reference** | Everyone | [Math reference](https://diegobethancourth.github.io/deflectometry-mirror-array/docs/math-reference.html) — 75 numbered equations; [PDF](docs/Deflectometry-Math-Reference.pdf) |
 
 ## One shared bench
@@ -44,7 +44,7 @@ checks any camera the student enters from a datasheet.
 | `index.html` | Home — the three tracks |
 | `reflection.html`, `phase.html`, `integration.html`, `errors.html` | Learn modules L1, L3, L4, L5 |
 | `bench.html`, `geometry.html`, `fringes.html`, `camera.html`, `budget.html`, `piezo.html` | Design pages D0–D5 (`fringes.html` is also Learn L2) |
-| `simulator.html` | Replicate R3 |
+| `smots.html`, `notebooks.html`, `simulator.html`, `asu-bench.html` | Replicate R1–R4 |
 | `guide.html` | Redirects to the home page (kept so old links work) |
 | `assets/bench.js` | Shared bench state, presets, import/export |
 | `assets/nav.js` | Site navigation, defined once for every page |

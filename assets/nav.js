@@ -23,10 +23,10 @@
       { t: 'D5 · Actuation (segmented arrays)', href: 'piezo.html' }
     ]},
     { label: 'Replicate', items: [
-      { t: 'R1 · SMOTS — Choi et al. 2017', href: REPO + 'smots', ext: true },
-      { t: 'R2 · Step-by-step scripts', href: REPO + 'smots/first_steps', ext: true },
+      { t: 'R1 · SMOTS — Choi et al. 2017', href: 'smots.html' },
+      { t: 'R2 · Notebooks and scripts', href: 'notebooks.html' },
       { t: 'R3 · SMOTS live simulator', href: 'simulator.html' },
-      { t: 'R4 · ASU bench case study', soon: true }
+      { t: 'R4 · ASU bench case study', href: 'asu-bench.html' }
     ]},
     { label: 'Reference', items: [
       { t: 'Math reference (75 equations)', href: 'docs/math-reference.html' },
