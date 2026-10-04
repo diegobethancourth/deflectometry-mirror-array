@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="asu_icon.ico" sizes="any">
 <link rel="stylesheet" href="assets/tour.css">
-<title>Phase-Shifted Fringe Pattern Generator — Diego Bethancourth | ASU Deflectometry</title>
+<title>Fringe coding and phase shifting — Deflectometry Learning Lab | ASU SOLAR</title>
 <script src="assets/bench.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -76,6 +76,10 @@ body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;fon
 .dot.on{background:#8C1D40;color:#fff}
 .footer{background:#3E3E3E;color:#BFBFBF;font-size:10px;padding:10px 24px;text-align:center;margin-top:auto}
 .footer span{color:#FFC627}
+.figcap{font-size:10px;color:#3E3E3E;margin-top:4px}.figcap b{color:#8C1D40}
+.obj{font-size:12px;line-height:1.6;color:#3E3E3E;margin:0;padding-left:18px}
+.qa details{background:#F6F6F9;border-radius:7px;padding:7px 10px;margin-bottom:6px;font-size:12px}
+.qa summary{cursor:pointer;font-weight:700;color:#3E3E3E}.qa details p{margin:6px 0 0;color:#3E3E3E;line-height:1.55}
 </style>
 </head>
 <body>
@@ -95,19 +99,18 @@ body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;fon
 <div class="gold-bar"></div>
 
 <div class="page-hdr">
-  <h1>L2 / D2 · Phase-Shifted Fringe Pattern Generator</h1>
+  <h1>L2 / D2 · Fringe coding and phase shifting</h1>
 </div>
 
 <div class="app">
   <div class="left-col">
 
     <div>
-      <div class="sec-lbl">How it works</div>
+      <div class="sec-lbl">Learning objective</div>
       <div class="explainer">
-        Generates the sinusoidal patterns displayed on the SMOTS screen:
+        After this module you can explain how a fringe <strong>codes screen position as phase</strong>, choose the period, bias, contrast and number of phase steps, and produce the pattern the screen displays:
         <strong>I<sub>k</sub>(x) = A + B&middot;cos(2&pi;x/n &minus; 2&pi;k/N)</strong>.
-        Every control updates the preview, the true 1:1 pixel crop and the retrieval math live.
-        Export full-resolution PNGs for the display, or copy the matching Python snippet.
+        Every control updates the preview, the 1:1 pixel crop and the equations live; export PNGs for the display or copy the Python snippet.
       </div>
     </div>
 
@@ -220,11 +223,13 @@ body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;fon
         <div class="panel-heading">Screen preview</div>
         <div class="panel-sub">Full panel, scaled to fit &mdash; step <span id="kshow">0</span> of <span id="nshow">4</span></div>
         <canvas id="prev" width="760" height="428"></canvas>
+        <div class="figcap"><b>Fig. 1 –</b> The pattern as displayed on the full screen, phase step k of N.</div>
       </div>
       <div class="panel">
         <div class="panel-heading">1:1 pixel crop</div>
         <div class="panel-sub">True screen pixels &mdash; check sampling and quantisation</div>
         <canvas id="crop" width="330" height="120"></canvas>
+        <div class="figcap"><b>Fig. 2 –</b> True screen pixels: one fringe period spans n pixels, each an 8-bit grey level.</div>
         <div class="mvar2" style="margin-top:7px" id="crop-note"></div>
         <div class="panel-heading" style="margin-top:11px">Generator snippet</div>
         <div class="panel-sub">Matches the controls on the left</div>
@@ -236,12 +241,29 @@ body{font-family:Arial,Helvetica,sans-serif;background:#F2F2F5;color:#191919;fon
       <div class="card">
         <div class="sec-lbl" style="margin-bottom:8px">Intensity profile &mdash; all N steps over two fringes</div>
         <svg id="prof" width="100%" viewBox="0 0 320 180"></svg>
+        <div class="figcap"><b>Fig. 3 –</b> Intensity of all N phase-shifted patterns over two fringe periods.</div>
         <div class="mvar2" id="prof-note" style="margin-top:4px"></div>
       </div>
       <div class="card">
         <div class="sec-lbl" style="margin-bottom:8px">Mathematics</div>
         <div id="math"></div>
       </div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <div class="sec-lbl" style="margin-bottom:6px">Key ideas</div>
+      <ul class="obj">
+        <li>The fringe turns <b>screen position into phase</b>: one period of n pixels is 2&pi;, so a phase &phi; marks the position x = (&phi;/2&pi;)&middot;P<sub>f</sub> within a period, with P<sub>f</sub> = n&middot;p.</li>
+        <li>The camera reads that phase (methods compared in <a href="phase.html">L3</a>); the geometry of <a href="reflection.html">L1</a> turns the screen position into a slope.</li>
+        <li>Phase noise falls with contrast and with the number of steps: &sigma;<sub>&phi;</sub> = &radic;(2/N)&middot;&sigma;<sub>I</sub>/B. Use the largest B that does not clip at 0 or 255.</li>
+        <li>A display does not emit light in proportion to the grey level (gamma). Without pre-compensation the sinusoid is distorted and harmonics bias the phase.</li>
+      </ul>
+    </div>
+    <div class="card qa" style="margin-top:12px">
+      <div class="sec-lbl" style="margin-bottom:6px">Check yourself</div>
+      <details><summary>1. Halve the pixels per fringe n. What improves, and what must the camera now do?</summary><p>The same phase noise now corresponds to half the screen-position error, so slope noise halves (L5). But each apparent fringe must still cover enough camera pixels (D3, Step 2), so the camera needs about twice the pixels across the field.</p></details>
+      <details><summary>2. Why are the N patterns shifted by exactly 2&pi;/N?</summary><p>Equally spaced shifts make the sine and cosine sums independent of the bias A and the contrast B, so the phase follows from one atan2 — and the noise is the minimum &radic;(2/N)&middot;&sigma;<sub>I</sub>/B.</p></details>
+      <details><summary>3. Without gamma pre-compensation (the box unticked), why does the measured phase develop a ripple?</summary><p>The displayed profile is no longer a pure sinusoid: it gains components at 2&times; and 3&times; the fringe frequency. An N-step algorithm rejects harmonics only up to order N &minus; 2, so with few steps they leak into the phase as a ripple.</p></details>
+      <details><summary>4. SMOTS displays one pattern and never shifts it. Which controls on this page still matter for SMOTS?</summary><p>The period n, the bias, the contrast and gamma. SMOTS uses one frame pair (N does not apply), and reads the phase from the carrier frequency set by n (<a href="phase.html">L3</a>).</p></details>
     </div>
   </div>
 </div>
@@ -542,7 +564,7 @@ update();
  {
   "sel": "#ppf",
   "title": "Pixels per fringe",
-  "text": "Carry the value you settled on in Array Config. Keep it at 8 or above: below that the panel renders a stepped near-square wave, and the harmonics land in the retrieved phase."
+  "text": "This value is shared with the bench (D0, D1). Keep it at 8 or above: below that the panel renders a stepped near-square wave, and the harmonics land in the retrieved phase."
  },
  {
   "sel": "#steps",
