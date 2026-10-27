@@ -17,6 +17,21 @@ pip install numpy pytest pillow
 pytest -v tests/test_fringe.py
 ```
 
+**MATLAB (what the bench uses).** The `matlab/` folder is the same Stage 1 in MATLAB, base MATLAB only:
+
+| File | Purpose |
+|---|---|
+| `deflecto_fringe.m` | Generate the N-step sequence (lab convention, identical frames to Python) |
+| `deflecto_phase.m` | N-step phase retrieval → φ, modulation B, bias A |
+| `deflecto_show.m` | Show frames full screen on the bench monitor, pixel for pixel; key press advances |
+| `deflecto_fit_profile.m` | Quality score of a captured row (replaces `ISOComparator.m`) |
+| `test_deflecto.m` | 18 checks, incl. MATLAB frames == Python frames; must print `ALL PASS` |
+| `run_stage1_bench.m` | Bench session: tests → generate → save PNGs → display |
+| `reference/` | Frames written by Python, used by test E1 |
+
+In MATLAB: `cd` into `matlab/`, run `test_deflecto`, then open `run_stage1_bench.m` and run it section by section.
+Before the first display: Windows Settings → Display → bench monitor → **Scale 100 %**. `deflecto_show` refuses to run if MATLAB sees a different resolution, because a resampled pattern no longer has a period of P pixels.
+
 ---
 
 ## 1. How the two lab methods relate

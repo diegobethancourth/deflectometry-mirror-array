@@ -117,7 +117,9 @@ def generate(spec: FringeSpec, width: int, height: int, axis: str = "x",
         frames[k] = img
 
     if quantise:
-        return np.clip(np.rint(frames), 0, 255).astype(np.uint8)
+        # floor(x + 0.5): the same rounding as the MATLAB version (np.rint rounds
+        # halves to even, MATLAB round() away from zero).
+        return np.clip(np.floor(frames + 0.5), 0, 255).astype(np.uint8)
     return frames
 
 
