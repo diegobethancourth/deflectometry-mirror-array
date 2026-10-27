@@ -6,5 +6,5 @@
 # straight after cloning.
 [tool.pytest.ini_options]
 pythonpath = ["smots"]
-testpaths = ["smots/tests"]
+testpaths = ["smots/tests", "tests"]
 addopts = "-q"
