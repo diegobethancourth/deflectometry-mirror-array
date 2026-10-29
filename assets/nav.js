@@ -92,6 +92,7 @@
       });
       html += '</div></div>';
     });
+    html += '<a href="roadmap.html"' + (file === 'roadmap.html' ? ' class="active"' : '') + '>Roadmap</a>';
     html += '<div class="nav-dd"><a href="docs/math-reference.html">Reference &#9662;</a><div class="nav-menu">' +
       '<a href="docs/math-reference.html">Math reference (75 equations)</a></div></div>';
     nav.innerHTML = html;
