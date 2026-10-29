@@ -20,7 +20,7 @@
   /* pastel card tints from the ASU theme accents */
   --p-gold:#FFF4D6; --p-maroon:#F6E7EE; --p-blue:#E2F4FB; --p-green:#E9F4EB; --p-orange:#FFECDF; --p-grey:#F1F1F4;
   --display:Arial,'Helvetica Neue',Helvetica,sans-serif; --body:Arial,'Helvetica Neue',Helvetica,sans-serif; --mono:Consolas,'Courier New',ui-monospace,monospace;
-  --day:2.4px; --lab:262px; --nd:364;
+  --day:2.8px; --lab:262px; --nd:378;
   color-scheme:light;
 }
 /* Deliberately light-only: white page in every viewer theme */
@@ -72,7 +72,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .mrow .glab{background:var(--surface);color:var(--muted);font-size:12px;padding:3px 10px}
 .mk{position:absolute;top:5px;width:10px;height:10px;background:var(--gold);transform:rotate(45deg);border:1px solid var(--maroon)}
 .mlab{position:absolute;top:3px;font-size:10.5px;color:var(--maroon);white-space:nowrap;font-weight:700}
-.mlab.r0,.mlab.r2{transform:translateX(calc(-100% - 18px))}
+.mlab.r0,.mlab.r2,.mlab.r4{transform:translateX(calc(-100% - 18px))}
 .mrow{height:22px}
 .grow{display:flex;position:relative;z-index:2;height:24px;cursor:pointer;background:transparent}
 .grow:hover .glab{background:var(--p-gold)}
@@ -212,7 +212,25 @@ a{color:var(--accent);text-underline-offset:2px}
 .kpi{background:var(--p-grey)}
 .pbar{background:var(--p-grey)}
 .srow .btn{background:var(--p-grey)}
-.ms div{min-height:62px}
+/* compact top band so the Gantt sits high on the page */
+.wrap{gap:12px;padding-block:12px 40px}
+header.top{flex-direction:row;align-items:baseline;gap:6px 16px;flex-wrap:wrap;padding:8px 14px;border-radius:8px}
+header.top h1{font-size:20px;color:var(--maroon)}
+header.top .muted{font-size:13px}
+.ms{display:flex;flex-wrap:wrap;gap:6px}
+.ms div{flex-direction:row;align-items:baseline;gap:6px;padding:4px 10px;border-radius:6px}
+.ms b{font-size:12px}.ms span{font-size:12.5px}
+.sched{padding:6px 12px;gap:6px;border-radius:8px}
+.schead{gap:6px 10px;font-size:12.5px}
+.schip{font-size:12.5px;padding:2px 10px}
+.kpis{display:flex;flex-wrap:wrap;gap:6px}
+.kpi{flex-direction:row;align-items:baseline;gap:5px;padding:2px 8px}
+.kpi b{font-size:14px}.kpi span{font-size:12px}
+.pbars{grid-template-columns:auto 110px auto;gap:1px 6px;font-size:12px}
+.pbar{height:7px}
+.srow .btn,.schead .btn{margin:0;padding:2px 10px;font-size:12px;background:var(--p-grey)}
+.controls{padding-block:4px}
+.chip{padding:3px 10px;font-size:12.5px}
 .legend i{width:16px;height:10px;border-radius:2px}
 .tbl2{overflow-x:auto;background:var(--surface);border-radius:8px}
 .tbl2 table{min-width:860px}
@@ -237,40 +255,24 @@ td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowra
 <div class="gold-bar"></div>
 
 <div class="wrap">
-<header>
-  <span class="eyebrow">SMOTS segmented-mirror deflectometry · research roadmap · Mar 2026 – Mar 2027</span>
-  <h1>From the weekly reports to the WCMNM 2027 poster</h1>
-  <p class="muted">Every weekly report, the I-Corps program, the purchase lists submitted for the bench, and the plan to the poster-abstract deadline on Dec 10, 2026. Click any task in the Gantt chart to see its details in the panel beside it. Ticks are saved in this repository, so Dr. Guo and the lab see the same progress.</p>
+<header class="top">
+  <h1>Research Roadmap</h1>
+  <span class="muted">SMOTS segmented-mirror deflectometry · Mar 2026 – Mar 2027 · Diego Bethancourth · Advisor: Dr. Xiangyu Guo</span>
 </header>
 
-<section>
-  <h2>Milestones</h2>
-  <div class="ms">
-    <div><b>G1 · Fri 6 Nov</b><span>Decision gate: parts in hand decide Plan A, A-lite or B</span></div>
-    <div><b>Mon 10 Nov</b><span>WCMNM 2027 poster-abstract portal opens (≥ 250 words)</span></div>
-    <div><b>Mon 7 Dec</b><span>Abstract submitted, three days before the deadline</span></div>
-    <div><b>Thu 10 Dec</b><span>Poster-abstract deadline</span></div>
-    <div><b>8–11 Mar 2027</b><span>9th World Congress on Micro and Nano Manufacturing: poster</span></div>
-  </div>
-</section>
-
-<div class="controls" role="group" aria-label="Filter by track">
-  <span class="lbl">Show</span>
-  <button class="chip" data-f="all" aria-pressed="true">All tracks</button>
-  <button class="chip" data-f="MTH" aria-pressed="false"><span class="dot" style="background:var(--t-mth)"></span>Method and code</button>
-  <button class="chip" data-f="HW" aria-pressed="false"><span class="dot" style="background:var(--t-hw)"></span>Hardware</button>
-  <button class="chip" data-f="PRC" aria-pressed="false"><span class="dot" style="background:var(--t-prc)"></span>Purchasing</button>
-  <button class="chip" data-f="ICP" aria-pressed="false"><span class="dot" style="background:var(--t-icp)"></span>I-Corps</button>
-  <button class="chip" data-f="ABS" aria-pressed="false"><span class="dot" style="background:var(--t-abs)"></span>Abstract and poster</button>
-  <button class="chip" data-f="SIDE" aria-pressed="false"><span class="dot" style="background:var(--t-side)"></span>Side task</button>
-  <span class="progress" id="progress"></span>
+<div class="ms" aria-label="Milestones">
+  <div><b>G1 · Fri 6 Nov</b><span>Decision gate</span></div>
+  <div><b>Tue 10 Nov</b><span>Abstract portal opens</span></div>
+  <div><b>Mon 7 Dec</b><span>Abstract submission (target)</span></div>
+  <div><b>Thu 10 Dec</b><span>Abstract deadline</span></div>
+  <div><b>8–11 Mar 2027</b><span>WCMNM 2027 poster</span></div>
 </div>
 
-<section class="sched" aria-labelledby="sched-h">
-  <div class="schead"><h2 id="sched-h">Schedule status</h2><span class="schip wait" id="schip">Loading status…</span><span class="muted" id="sdate" style="font-size:13px"></span></div>
-  <div class="kpis" id="kpis"></div>
-  <div class="pbars" id="pbars"></div>
-  <div class="srow"><span class="muted" id="srcinfo"></span><button class="btn" type="button" id="refresh">Refresh status</button><button class="btn" type="button" id="connect">Connect GitHub to mark tasks</button></div>
+<section class="sched" aria-label="Schedule status">
+  <div class="schead"><span class="schip wait" id="schip">Loading status…</span><span class="muted" id="sdate"></span>
+    <div class="kpis" id="kpis"></div>
+    <div class="pbars" id="pbars"></div>
+    <span class="muted" id="srcinfo"></span><button class="btn" type="button" id="refresh">Refresh</button><button class="btn" type="button" id="connect">Connect GitHub to mark tasks</button></div>
   <div class="connbox" id="connbox" hidden>
     <b>Connect your GitHub account (once per browser)</b>
     <ol>
@@ -289,9 +291,20 @@ td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowra
   </div>
 </section>
 
+<div class="controls" role="group" aria-label="Filter by track">
+  <span class="lbl">Show</span>
+  <button class="chip" data-f="all" aria-pressed="true">All tracks</button>
+  <button class="chip" data-f="MTH" aria-pressed="false"><span class="dot" style="background:var(--t-mth)"></span>Method and code</button>
+  <button class="chip" data-f="HW" aria-pressed="false"><span class="dot" style="background:var(--t-hw)"></span>Hardware</button>
+  <button class="chip" data-f="PRC" aria-pressed="false"><span class="dot" style="background:var(--t-prc)"></span>Purchasing</button>
+  <button class="chip" data-f="ICP" aria-pressed="false"><span class="dot" style="background:var(--t-icp)"></span>I-Corps</button>
+  <button class="chip" data-f="ABS" aria-pressed="false"><span class="dot" style="background:var(--t-abs)"></span>Abstract and poster</button>
+  <button class="chip" data-f="SIDE" aria-pressed="false"><span class="dot" style="background:var(--t-side)"></span>Side task</button>
+  <span class="progress" id="progress"></span>
+</div>
+
 <section>
-  <h2>Gantt chart and tasks</h2>
-  <div class="legend">
+  <div class="legend" style="display:none">
     <span><i style="background:var(--t-mth)"></i>Method and code</span>
     <span><i style="background:var(--t-hw)"></i>Hardware design and build</span>
     <span><i style="background:var(--t-prc)"></i>Purchasing</span>
@@ -305,43 +318,35 @@ td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowra
     </div>
     <aside class="panel" id="panel" aria-live="polite"></aside>
   </div>
-  <p class="muted" style="font-size:13px">One column per week, 16 Mar 2026 – 14 Mar 2027. The pale gold band runs from Oct 29 to the abstract deadline; the orange column is Thanksgiving (26–27 Nov); dashed gold lines are milestones and the maroon line is today. A ✓ means done, a ! means past its end date and not done. Dates of past work come from report and file dates.</p>
+  <p class="muted" style="font-size:13px">One column per week, 16 Mar 2026 – 28 Mar 2027. The pale gold band runs from Oct 29 to the abstract deadline; the orange column is Thanksgiving (26–27 Nov); dashed gold lines are milestones and the maroon line is today. A ✓ means done, a ! means past its end date and not done. Dates of past work come from report and file dates. Click a task to see its details.</p>
 </section>
 
 <section>
   <h2>Purchase lists submitted to Dr. Guo</h2>
   <div class="tbl2"><table>
-    <thead><tr><th>List</th><th>Revision and date</th><th>Lines</th><th>Total (list prices)</th><th>File</th><th>Follow-up with ASU purchasing</th></tr></thead>
+    <thead><tr><th>List</th><th>Revision and date</th><th>Lines</th><th>Total (list prices)</th><th>File</th><th>Follow-up</th></tr></thead>
     <tbody>
-      <tr><td><b>P4.1 Test bed</b> (Thorlabs)</td><td class="n">Rev 9 · Sep 15, 2026</td><td class="n">12</td><td class="n">$4,711.44</td><td class="mono">Purchase_List_SOLAR_LAB_Diego_20260915_9NODE_HYBRID.docx</td><td>PO number and ship date per line; MPIA10 and MB12D marked “Lead Time”</td></tr>
-      <tr><td><b>P4.2 Camera and lens</b> (Basler)</td><td class="n">Rev 1 · Oct 4 · quote Oct 13</td><td class="n">7 / 7</td><td class="n">$1,185.64 (Rev 1)<br>$1,566.81 (quote)</td><td class="mono">…20261004_Camera_Lens.docx · NBQ-ECOM-0165.pdf</td><td>Confirm the USB acA2440-35um (quote, Rev 2) was ordered, not the GigE acA2440-20gm (Rev 1)</td></tr>
+      <tr><td><b>P4.1 Test bed</b> (Thorlabs)</td><td class="n">Rev 9 · Sep 15, 2026</td><td class="n">12</td><td class="n">$4,711.44</td><td class="mono">Purchase_List_SOLAR_LAB_Diego_20260915_9NODE_HYBRID.docx</td><td>PO and ship date per line; MPIA10 and MB12D marked “Lead Time”</td></tr>
+      <tr><td><b>P4.2 Camera and lens</b> (Basler)</td><td class="n">Rev 2 · Oct 16, 2026</td><td class="n">7</td><td class="n">$1,566.81</td><td class="mono">Purchase_List_SOLAR_LAB_Diego_20261016_Camera_Lens_Rev2.docx</td><td>acA2440-35um USB, quote NBQ-ECOM-0165; PO and ship date</td></tr>
       <tr><td><b>P4.3 Cage</b> (Thorlabs + Amazon)</td><td class="n">Rev 1 · Oct 16, 2026</td><td class="n">17</td><td class="n">$1,509.48</td><td class="mono">Purchase_List_SOLAR_LAB_Diego_20261016_Cage.docx</td><td>PO number and ship date</td></tr>
       <tr><td><b>P4.5 Overhead shelf</b> (side task)</td><td class="n">Rev F3-L · Oct 26, 2026</td><td class="n">17</td><td class="n">$3,309.13</td><td class="mono">…20261026_8020_Shelf_RevF3-L_Long_Side.docx</td><td>Not on the research critical path</td></tr>
     </tbody>
   </table></div>
-  <p class="muted" style="font-size:13px">Research bench total with the Basler quote: $7,787.73, shipping and tax excluded. Lists are in <span class="mono">00_ADMIN/Purchase_Lists</span>.</p>
+  <p class="muted" style="font-size:13px">Test bed, camera and cage: $7,787.73, shipping and tax excluded. Camera and cage lists sent to Dr. Guo on Oct 16, 2026. Files in <span class="mono">00_ADMIN/Purchase_Lists</span>.</p>
 </section>
 
-<div class="cols">
-  <div class="box">
-    <h2>Why the hardware can wait for the abstract</h2>
-    <ul>
-      <li>The Dec 10 deadline is for a poster <b>abstract</b> (≥ 250 words). The poster itself is presented on 8–11 Mar 2027.</li>
-      <li>E1 (repeatability) needs no actuator: nothing is moved during the 30 captures.</li>
-      <li>A manual tilt with the laser reference (C7.1) shows tilt detection before the MPIA10 arrive.</li>
-      <li>E2 (piezo linearity) and E3 (drift) move to January and go on the poster.</li>
-    </ul>
-  </div>
-  <div class="box">
-    <h2>Open items</h2>
-    <ul>
-      <li>Order status and PO numbers for P4.1–P4.4 (task P4.6).</li>
-      <li>Which camera version was ordered (P4.2).</li>
-      <li>Node-clearance check in the full SolidWorks assembly.</li>
-      <li>Re-measure mirror size and gap.</li>
-      <li>Corner-mirror fringe coverage: 93 % / 77 % in Week 12 CAD, 93 % / 87 % in the Week 14 simulation.</li>
-    </ul>
-  </div>
+<section>
+  <h2>Open items</h2>
+  <div class="tbl2"><table>
+    <thead><tr><th>Item</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>PO numbers and ship dates for P4.1–P4.4</td><td>Open (P4.6)</td></tr>
+      <tr><td>Node-clearance check in the full SolidWorks assembly</td><td>Open</td></tr>
+      <tr><td>Mirror size and gap re-measurement</td><td>Open</td></tr>
+      <tr><td>Corner-mirror fringe coverage M3 / M7: 93 % / 77 % (WK12 CAD), 93 % / 87 % (WK14 simulation)</td><td>Open</td></tr>
+    </tbody>
+  </table></div>
+</section>
 </div>
 </div>
 <div class="footer">Deflectometry Learning Lab · <span>ASU SOLAR</span> · Systems, Optics and Laser Application Research Lab · Arizona State University · All rights reserved</div>
@@ -408,12 +413,12 @@ const P = [
    "Ask ASU purchasing for the PO number, the Thorlabs order confirmation and the ship date of each line.",
    "MPIA10 and MB12D were marked “Lead Time” on the list. The cage design (P4.3) uses an MB18 instead of the MB12D.",
    "Count each box on arrival and add it to the lab inventory (room ISTB12 335)."]],
-  ["P4.2","Camera and lens (Basler)","Camera, lens, cables and tripod mount. Basler quote NBQ-ECOM-0165 (Oct 13): acA2440-35um USB + C23-2518-5M, $1,566.81 with express delivery and estimated tariffs","Camera and lens received","PRC","2026-10-04","2026-11-06","R3.4",[
-   "The submitted folder holds list Rev 1 (Oct 4: acA2440-20gm <b>GigE</b>, $1,185.64) and the quote for the <b>USB</b> acA2440-35um. List Rev 2 (Oct 16) is the USB version. Confirm with purchasing which one was ordered.",
-   "Quote terms: express delivery 5–7 business days once ordered; the quote is non-binding and tariffs are charged at cost.",
-   "List Rev 1 notes a Basler lead time of about 13 weeks for the camera at standard delivery. Ask for the confirmed date."]],
+  ["P4.2","Camera and lens, Rev 2 (Basler)","acA2440-35um USB 3.0, C23-2518-5M lens, USB 5 m and Power-I/O cables, tripod mount, express delivery and estimated tariffs (quote NBQ-ECOM-0165, Oct 13). $1,566.81","Camera and lens received","PRC","2026-10-16","2026-11-06","R3.5",[
+   "List: <code>Purchase_List_SOLAR_LAB_Diego_20261016_Camera_Lens_Rev2.docx</code>, sent to Dr. Guo on Oct 16 with the cage list. Replaces Rev 1 (Oct 4, GigE acA2440-20gm).",
+   "Quote terms: express delivery 5–7 business days after the order; non-binding; tariffs charged at cost.",
+   "Ask purchasing for the PO number and ship date."]],
   ["P4.3","Cage, Rev 1 (Thorlabs + Amazon)","MB18, 4× XE25L24, 9× XE25L15, RM1S cubes, brackets, fasteners, camera hanger (TR3, SWC, TR2), TB5 posterboard, MD2468 tilt mount. $1,509.48","All items received","PRC","2026-10-16","2026-11-06","R3.5",[
-   "List: <code>Purchase_List_SOLAR_LAB_Diego_20261016_Cage.docx</code>.",
+   "List: <code>Purchase_List_SOLAR_LAB_Diego_20261016_Cage.docx</code>, sent to Dr. Guo on Oct 16 with the camera list.",
    "The two Amazon lines can be ordered separately if the Thorlabs part of the order waits."]],
   ["P4.4","MPIA10 ×2: 8-week lead time","Thorlabs confirmed an 8-week lead time on the MPIA10 (Oct 20)","Both actuators received and tested with the KIM101","PRC","2026-10-20","2026-12-15","P4.1",[
    "8 weeks from Oct 20 is about Dec 15, after the abstract deadline. Only E2 and E3 need them.",
@@ -473,7 +478,7 @@ const P = [
   ["D8.6","WCMNM 2027","9th World Congress on Micro and Nano Manufacturing, poster session","Poster presented","ABS","2027-03-08","2027-03-11","D8.5",[]]]]
 ];
 
-const DAY = 864e5, START = Date.UTC(2026,2,16), NDAYS = 364;
+const DAY = 864e5, START = Date.UTC(2026,2,16), NDAYS = 378;
 const OWN = {MTH:["Method and code","--t-mth"],HW:["Hardware design and build","--t-hw"],PRC:["Purchasing","--t-prc"],ICP:["I-Corps","--t-icp"],ABS:["Abstract and poster","--t-abs"],SIDE:["Side task","--t-side"]};
 const MILES = [["G1","2026-11-06"],["Portal","2026-11-10"],["","2026-12-07"],["Submit · Due","2026-12-10"],["WCMNM","2027-03-08"]];
 const ut = s => Date.parse(s+"T00:00:00Z");
@@ -546,21 +551,20 @@ function renderSched(){
   const act=v.reduce((a,t)=>a+(done[t.id]?dur(t):0),0)/tot*100;
   const chip=document.getElementById("schip");
   if(!statusSrc){ chip.className="schip wait"; chip.textContent="Status not available here"; }
-  else if(late){ chip.className="schip late"; chip.textContent=`Behind schedule · ${late} late task${late>1?"s":""}`; }
+  else if(late){ chip.className="schip late"; chip.textContent=`${late} late`; }
   else { chip.className="schip ok"; chip.textContent="On schedule"; }
   const dl=dDiff(T,"2026-12-10");
-  document.getElementById("sdate").textContent=`Today ${fmtY(ut(T))} · ${filter==="all"?"all tracks":OWN[filter][0]}${dl>=0?` · ${dl} days to the abstract deadline`:""}`;
+  document.getElementById("sdate").textContent=`${fmtY(ut(T))}${dl>=0?` · ${dl} days to Dec 10`:""}`;
   document.getElementById("kpis").innerHTML=
-   `<div class="kpi ok"><b>${nd} / ${v.length}</b><span>Tasks done (${c("donelate")} of them late)</span></div>
-    <div class="kpi ${late?"late":""}"><b>${late}</b><span>Late, not done</span></div>
-    <div class="kpi"><b>${dueDone} / ${due}</b><span>Due by today and done</span></div>
-    <div class="kpi"><b>${c("prog")}</b><span>In progress</span></div>
-    <div class="kpi"><b>${c("ns")}</b><span>Not started</span></div>`;
+   `<div class="kpi ok"><b>${nd}/${v.length}</b><span>done</span></div>
+    <div class="kpi ${late?"late":""}"><b>${late}</b><span>late</span></div>
+    <div class="kpi"><b>${c("prog")}</b><span>in progress</span></div>
+    <div class="kpi"><b>${c("ns")}</b><span>not started</span></div>`;
   document.getElementById("pbars").innerHTML=
-   `<span>Planned by today</span><div class="pbar"><i style="width:${plan.toFixed(1)}%;background:var(--gold)"></i></div><b>${plan.toFixed(0)}%</b>
-    <span>Actually done</span><div class="pbar"><i style="width:${act.toFixed(1)}%;background:${act+0.5<plan?"var(--late)":"var(--ok)"}"></i></div><b>${act.toFixed(0)}%</b>`;
+   `<span>Planned</span><div class="pbar"><i style="width:${plan.toFixed(1)}%;background:var(--gold)"></i></div><b>${plan.toFixed(0)}%</b>
+    <span>Done</span><div class="pbar"><i style="width:${act.toFixed(1)}%;background:${act+0.5<plan?"var(--late)":"var(--ok)"}"></i></div><b>${act.toFixed(0)}%</b>`;
   const si=document.getElementById("srcinfo");
-  si.textContent=statusSrc?`Status read from ${statusSrc} at ${statusAt.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}.`:"The shared status loads on the GitHub page.";
+  si.textContent=statusSrc?`Read ${statusAt.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}`:"";
   document.getElementById("connect").textContent=me?`Connected as ${me.name} · Disconnect`:"Connect GitHub to mark tasks";
 }
 let filter="all", sel=null;
