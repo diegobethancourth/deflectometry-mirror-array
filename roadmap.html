@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="asu_icon.ico" sizes="any">
+<title>Research Roadmap — Deflectometry Learning Lab | ASU SOLAR</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+
+/* Layout: SOLAR Learning Lab brand bar and nav; milestones, track filter, schedule status, year-long Gantt beside a task panel; purchase lists below.
+   Palette and type match the official ASU PowerPoint template used for the proposal deck (Arial; maroon 8C1D40, gold FFC627, theme accents). */
+:root{
+  --maroon:#8C1D40; --gold:#FFC627; --on-maroon:#FFFFFF;
+  --bg:#F2F2F5; --surface:#FFFFFF; --fg:#191919; --muted:#5C5C5C; --line:#E2E2E2;
+  --accent:#8C1D40; --accent-soft:#FFF4D1;
+  /* solid pastel bars, one per track (SOLAR Learning Lab tints) */
+  --t-mth:#E2A9BD; --t-hw:#A9C3E3; --t-prc:#FFD75E; --t-icp:#A8D9B1; --t-abs:#FFBE8F; --t-side:#C9C9D1;
+  --warn:#8C6400; --warn-bg:#FFF4D1;
+  /* pastel card tints from the ASU theme accents */
+  --p-gold:#FFF4D6; --p-maroon:#F6E7EE; --p-blue:#E2F4FB; --p-green:#E9F4EB; --p-orange:#FFECDF; --p-grey:#F1F1F4;
+  --display:Arial,'Helvetica Neue',Helvetica,sans-serif; --body:Arial,'Helvetica Neue',Helvetica,sans-serif; --mono:Consolas,'Courier New',ui-monospace,monospace;
+  --day:2.4px; --lab:262px; --nd:364;
+  color-scheme:light;
+}
+/* Deliberately light-only: white page in every viewer theme */
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1680px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+header{display:flex;flex-direction:column;gap:6px;background:var(--surface);padding:14px 18px;border-radius:10px}
+header .muted{max-width:none;font-size:14px;line-height:1.45}
+header .links{font-size:13px}
+header a{color:var(--maroon)}
+header .eyebrow{color:var(--muted)}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:700;font-size:24px;line-height:1.2;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-weight:700;font-size:20px;margin:0;text-wrap:balance;color:var(--accent)}
+.box h2{color:var(--fg);font-size:17px}
+p{margin:0}
+.muted{color:var(--muted)}
+.mono,code{font-family:var(--mono);font-size:13px}
+code{background:var(--p-grey);padding:1px 5px;border-radius:4px;word-break:break-word}
+section{display:flex;flex-direction:column;gap:12px}
+/* milestones */
+.ms{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.ms div:nth-child(1){background:var(--p-gold)} .ms div:nth-child(2){background:var(--p-blue)} .ms div:nth-child(3){background:var(--p-green)} .ms div:nth-child(4){background:var(--p-orange)} .ms div:nth-child(5){background:var(--p-maroon)}
+.ms div{border-radius:8px;padding:7px 10px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.ms b{font-family:var(--mono);font-weight:500;font-size:13px;color:var(--accent)}
+.ms span{font-size:13px;line-height:1.35}
+/* controls */
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding-block:8px;z-index:5;border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.controls .lbl{font-size:13px;color:var(--muted)}
+.chip,.btn{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:5px 12px;border-radius:999px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip[aria-pressed="true"]{background:var(--maroon);border-color:var(--maroon);color:var(--on-maroon)}
+.chip:focus-visible,.btn:focus-visible,input:focus-visible,.grow:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.progress{margin-left:auto;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+/* gantt */
+.ganttbox{overflow-x:auto;border:1px solid var(--line);border-radius:8px;width:fit-content;max-width:100%}
+.gantt{position:relative;width:calc(var(--lab) + var(--nd) * var(--day));font-size:12.5px}
+.ghead{display:flex;position:relative;z-index:2;background:var(--maroon);color:var(--on-maroon)}
+.ghead .glab{background:var(--maroon);color:var(--on-maroon);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:flex-end;padding:6px 10px}
+.gtrack{position:relative;width:calc(var(--nd) * var(--day));flex:none}
+.weeks{height:20px}.days{height:16px}
+.weeks span{position:absolute;top:3px;font-size:11.5px;font-weight:700;white-space:nowrap;padding-left:4px;border-left:1px solid rgba(255,255,255,.6)}
+.days{height:18px;display:flex}
+.days{position:relative}.days span{position:absolute;top:4px;width:0;height:10px;border-left:1px solid rgba(255,255,255,.4)}
+
+.mrow{height:22px;background:var(--surface);border-bottom:1px solid var(--line)}
+.mrow .glab{background:var(--surface);color:var(--muted);font-size:12px;padding:3px 10px}
+.mk{position:absolute;top:5px;width:10px;height:10px;background:var(--gold);transform:rotate(45deg);border:1px solid var(--maroon)}
+.mlab{position:absolute;top:3px;font-size:10.5px;color:var(--maroon);white-space:nowrap;font-weight:700}
+.mlab.r0,.mlab.r2{transform:translateX(calc(-100% - 18px))}
+.mrow{height:22px}
+.grow{display:flex;position:relative;z-index:2;height:24px;cursor:pointer;background:transparent}
+.grow:hover .glab{background:var(--p-gold)}
+.glab{width:var(--lab);flex:none;position:sticky;left:0;background:var(--surface);border-right:1px solid var(--line);padding:3px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:3}
+.glab .gid{font-family:var(--mono);color:var(--muted);margin-right:6px}
+.gphase{display:flex;position:relative;z-index:2;height:22px}
+.gphase .glab{background:var(--accent-soft);font-weight:700;border-left:4px solid var(--gold);padding-left:6px}
+.gphase .gtrack{background:rgba(255,244,209,.45)}
+.bar{position:absolute;top:5px;height:14px;border-radius:3px;min-width:3px}
+.dia{position:absolute;top:7px;width:10px;height:10px;transform:rotate(45deg);border-radius:1px}
+
+.overlay{position:absolute;left:var(--lab);top:0;bottom:0;width:calc(var(--nd) * var(--day));z-index:1;pointer-events:none;background:repeating-linear-gradient(90deg,transparent 0 calc(7 * var(--day) - 1px),#F3F3F6 calc(7 * var(--day) - 1px) calc(7 * var(--day)))}
+.overlay i{position:absolute;top:0;bottom:0}
+.overlay .we{background:rgba(0,0,0,.035);width:var(--day)}
+.overlay .hol{background:var(--p-orange);width:calc(2 * var(--day))}
+.overlay .mline{width:0;border-left:1px solid #DCDCE2}
+.overlay .win{background:rgba(255,198,39,.10)}
+.overlay .ml{width:0;border-left:2px dashed var(--gold)}
+.overlay .today{width:0;border-left:2px solid var(--maroon)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--muted);align-items:center}
+.legend i{display:inline-block;width:14px;height:10px;border-radius:2px;vertical-align:middle;margin-right:5px}
+/* table */
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:900px;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--line)}
+thead th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--on-maroon);font-weight:700;background:var(--maroon)}
+tr.phase td{background:var(--accent-soft);font-weight:700;color:var(--fg);padding:8px 10px;border-left:4px solid var(--gold)}
+tr.phase .pd{font-family:var(--mono);font-weight:400;font-size:13px;color:var(--muted);margin-left:8px}
+
+tr.done .task{text-decoration:line-through}
+tr.flash td{background:var(--p-gold);transition:background .6s}
+td.ck{width:28px}
+td.id{font-family:var(--mono);font-size:12.5px;color:var(--muted);white-space:nowrap}
+.task{font-weight:600}
+.detail{color:var(--muted);font-size:13.5px;margin-top:2px}
+.btn{margin-top:6px;padding:3px 10px;font-size:12.5px;background:var(--p-gold);border-color:#F1DE9A}
+.btn[aria-expanded="true"]{background:var(--maroon);color:var(--on-maroon);border-color:var(--maroon)}
+tr.guide td{background:#FFFCF2;border-left:4px solid var(--gold)}
+tr.guide ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px;max-width:95ch;font-size:14px}
+tr.guide .gh{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:6px}
+.owner{display:inline-flex;gap:6px;align-items:center;white-space:nowrap;font-size:13.5px}
+.dates{font-family:var(--mono);font-size:12.5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.dep{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.tag{font-size:11px;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--warn);color:var(--warn);background:var(--warn-bg);padding:0 6px;border-radius:3px;margin-left:6px;white-space:nowrap}
+/* cards */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.cols .box:nth-child(6n+1){background:var(--p-gold)} .cols .box:nth-child(6n+2){background:var(--p-blue)} .cols .box:nth-child(6n+3){background:var(--p-green)}
+.cols .box:nth-child(6n+4){background:var(--p-orange)} .cols .box:nth-child(6n+5){background:var(--p-maroon)} .cols .box:nth-child(6n+6){background:var(--p-grey)}
+.box{border-radius:8px;padding:10px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.box ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+a{color:var(--accent);text-underline-offset:2px}
+.links{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px}
+.res dl{margin:0;display:flex;flex-direction:column;gap:7px}
+.res dt{font-weight:600;font-size:14px}
+.res dd{margin:0;color:var(--muted);font-size:13.5px}
+.res dt a{word-break:break-word}
+.note{border-left:3px solid var(--warn);background:var(--warn-bg);padding:10px 14px;font-size:14px;border-radius:0 8px 8px 0}
+
+/* workspace: gantt left, task panel right */
+.work{display:grid;grid-template-columns:auto minmax(360px,1fr);gap:16px;align-items:start}
+.work > *{min-width:0}
+.panel{position:sticky;top:calc(env(safe-area-inset-top,0px) + 60px);max-height:calc(100vh - 76px);overflow:auto;background:var(--p-gold);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;border-top:5px solid var(--maroon)}
+.panel .pp{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.panel h3{margin:0;font-size:19px;line-height:1.25;color:var(--maroon)}
+.panel h3 .pid{font-family:var(--mono);font-size:15px;color:var(--muted);margin-right:6px}
+.panel .full{font-size:14px;line-height:1.45}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;margin:0;font-size:13.5px}
+.meta dt{color:var(--muted)}
+.meta dd{margin:0}
+.deplink{font:inherit;font-family:var(--mono);font-size:12.5px;background:#FFFFFF;border:1px solid #EAD48A;border-radius:4px;padding:0 6px;cursor:pointer;color:var(--maroon);margin:0 4px 2px 0}
+.donebox{display:flex;gap:8px;align-items:center;font-size:14px;background:#FFFFFF;border-radius:6px;padding:7px 10px;cursor:pointer}
+.panel .gh{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.panel ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px;font-size:14px;line-height:1.45}
+.pnav{display:flex;justify-content:space-between;gap:8px;padding-top:4px;border-top:1px solid #EAD48A}
+.pnav .btn{margin:0;background:#FFFFFF}
+.grow.sel{background:rgba(140,29,64,.07)}
+.grow.sel .glab{background:var(--maroon);color:var(--on-maroon)}
+.grow.sel .glab .gid{color:var(--gold)}
+.grow .ok{color:#3E7D10;margin-left:4px;font-weight:700}
+.grow.sel .ok{color:var(--gold)}
+@media (max-width:1099px){.work{grid-template-columns:1fr}.panel{position:static;max-height:none}}
+.skus{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.sku{border-radius:8px;padding:9px 12px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.sku:nth-child(6n+1){background:var(--p-gold)} .sku:nth-child(6n+2){background:var(--p-blue)} .sku:nth-child(6n+3){background:var(--p-green)}
+.sku:nth-child(6n+4){background:var(--p-orange)} .sku:nth-child(6n+5){background:var(--p-maroon)} .sku:nth-child(6n+6){background:var(--p-grey)}
+.skh{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;font-size:12.5px}
+.skh b{color:var(--maroon)}
+.skh .gp,.skh .vit{font-size:11px;border-radius:3px;padding:0 5px;background:#FFFFFF;color:var(--muted)}
+.skh .vit{background:var(--maroon);color:var(--on-maroon)}
+.skn{font-weight:700;font-size:14px;line-height:1.3}
+.ske{font-size:12.5px;color:var(--muted);font-style:italic;line-height:1.3}
+.skm{font-size:12.5px;color:var(--muted)}
+/* schedule status */
+:root{--late:#CC2F2F; --late-bg:#FBE3E3; --ok:#3E7D10; --ok-bg:#EDF7E2; --soon:#8C6400; --soon-bg:#FFF4D1}
+.sched{background:var(--p-grey);border-radius:8px;padding:12px 16px;display:flex;flex-direction:column;gap:10px}
+.schead{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.schip{font-weight:700;font-size:14px;border-radius:999px;padding:4px 12px}
+.schip.ok{background:var(--ok-bg);color:var(--ok)} .schip.late{background:var(--late-bg);color:var(--late)} .schip.wait{background:#FFFFFF;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.kpi{background:#FFFFFF;border-radius:6px;padding:6px 10px;display:flex;flex-direction:column}
+.kpi b{font-size:20px;font-variant-numeric:tabular-nums;line-height:1.2}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.kpi.late b{color:var(--late)} .kpi.ok b{color:var(--ok)}
+.pbars{display:grid;grid-template-columns:auto 1fr auto;gap:4px 10px;align-items:center;font-size:13px}
+.pbar{height:10px;background:#FFFFFF;border-radius:5px;overflow:hidden}
+.pbar i{display:block;height:100%;border-radius:5px}
+.srow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px}
+.srow .btn{margin:0;background:#FFFFFF}
+.connbox{background:#FFFFFF;border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;font-size:14px;max-width:760px}
+.connbox ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.connbox .frow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.connbox select,.connbox input[type=password]{font:inherit;font-size:14px;padding:5px 8px;border:1px solid var(--line);border-radius:6px;min-width:0}
+.connbox input[type=password]{flex:1 1 260px}
+.msg{font-size:13px} .msg.err{color:var(--late)} .msg.okm{color:var(--ok)}
+.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px}
+.pill.late{background:var(--late-bg);color:var(--late)} .pill.ok{background:var(--ok-bg);color:var(--ok)} .pill.prog{background:#FFFFFF;color:var(--soon)} .pill.ns{background:#FFFFFF;color:var(--muted)}
+
+.grow .lt{color:var(--late);margin-left:4px;font-weight:700}
+.grow.sel .lt{color:#FFFFFF}
+.donebox input:disabled + span{color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* SOLAR Learning Lab chrome */
+.brandbar{background:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:7px 24px;flex-wrap:wrap}
+.brandbar img{display:block}.logo-asu{height:30px;width:auto}.logo-lab{height:52px;width:auto;mix-blend-mode:multiply}
+.nav{background:#8C1D40;display:flex;align-items:center;gap:14px;padding:6px 24px;min-height:52px;flex-wrap:wrap}
+.nav-links{margin-left:auto;display:flex;gap:3px;flex-wrap:wrap}
+.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:12px;font-weight:700;padding:6px 11px;border-radius:3px;white-space:nowrap}
+.nav-links a:hover{background:rgba(255,255,255,.14);color:#fff}
+.nav-links a.active{background:#FFC627;color:#8C1D40}
+.nav-title{min-width:0}.nav-title .t1{font-size:14px;font-weight:700;line-height:1.2;color:#fff}
+.nav-title .t2{font-size:11px;color:rgba(255,255,255,0.78);line-height:1.35}.nav-title .t2 strong{color:#FFC627;font-weight:700}
+.gold-bar{height:4px;background:#FFC627}
+.footer{background:#3E3E3E;color:#BFBFBF;font-size:10px;padding:10px 24px;text-align:center}.footer span{color:#FFC627}
+@media(max-width:760px){.logo-asu{height:22px}.logo-lab{height:32px}}
+.sched{background:var(--surface)}
+.kpi{background:var(--p-grey)}
+.pbar{background:var(--p-grey)}
+.srow .btn{background:var(--p-grey)}
+.ms div{min-height:62px}
+.legend i{width:16px;height:10px;border-radius:2px}
+.tbl2{overflow-x:auto;background:var(--surface);border-radius:8px}
+.tbl2 table{min-width:860px}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.flag{background:var(--p-gold);border-radius:6px;padding:8px 12px;font-size:13.5px}
+
+</style>
+</head>
+<body data-no-pager>
+<div class="brandbar">
+  <img class="logo-asu" src="logos/ASU%20Logo%20School.png" alt="Arizona State University — Ira A. Fulton Schools of Engineering, School of Manufacturing Systems and Networks">
+  <img class="logo-lab" src="logos/SOLAR%20LAB%20LOGO.png" alt="SOLAR — Sensing, Optics, Laser Application Research">
+</div>
+<div class="nav">
+  <div class="nav-title">
+    <div class="t1">Deflectometry Learning Lab</div>
+    <div class="t2"><strong>Diego Bethancourth</strong> &nbsp;&middot;&nbsp; Advisor: Dr. Xiangyu Guo &nbsp;&middot;&nbsp; Systems, Optics and Laser Application Research Lab &nbsp;&middot;&nbsp; Arizona State University</div>
+  </div>
+  <nav class="nav-links" id="site-nav"></nav>
+  <script src="assets/nav.js"></script>
+</div>
+<div class="gold-bar"></div>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">SMOTS segmented-mirror deflectometry · research roadmap · Mar 2026 – Mar 2027</span>
+  <h1>From the weekly reports to the WCMNM 2027 poster</h1>
+  <p class="muted">Every weekly report, the I-Corps program, the purchase lists submitted for the bench, and the plan to the poster-abstract deadline on Dec 10, 2026. Click any task in the Gantt chart to see its details in the panel beside it. Ticks are saved in this repository, so Dr. Guo and the lab see the same progress.</p>
+</header>
+
+<section>
+  <h2>Milestones</h2>
+  <div class="ms">
+    <div><b>G1 · Fri 6 Nov</b><span>Decision gate: parts in hand decide Plan A, A-lite or B</span></div>
+    <div><b>Mon 10 Nov</b><span>WCMNM 2027 poster-abstract portal opens (≥ 250 words)</span></div>
+    <div><b>Mon 7 Dec</b><span>Abstract submitted, three days before the deadline</span></div>
+    <div><b>Thu 10 Dec</b><span>Poster-abstract deadline</span></div>
+    <div><b>8–11 Mar 2027</b><span>9th World Congress on Micro and Nano Manufacturing: poster</span></div>
+  </div>
+</section>
+
+<div class="controls" role="group" aria-label="Filter by track">
+  <span class="lbl">Show</span>
+  <button class="chip" data-f="all" aria-pressed="true">All tracks</button>
+  <button class="chip" data-f="MTH" aria-pressed="false"><span class="dot" style="background:var(--t-mth)"></span>Method and code</button>
+  <button class="chip" data-f="HW" aria-pressed="false"><span class="dot" style="background:var(--t-hw)"></span>Hardware</button>
+  <button class="chip" data-f="PRC" aria-pressed="false"><span class="dot" style="background:var(--t-prc)"></span>Purchasing</button>
+  <button class="chip" data-f="ICP" aria-pressed="false"><span class="dot" style="background:var(--t-icp)"></span>I-Corps</button>
+  <button class="chip" data-f="ABS" aria-pressed="false"><span class="dot" style="background:var(--t-abs)"></span>Abstract and poster</button>
+  <button class="chip" data-f="SIDE" aria-pressed="false"><span class="dot" style="background:var(--t-side)"></span>Side task</button>
+  <span class="progress" id="progress"></span>
+</div>
+
+<section class="sched" aria-labelledby="sched-h">
+  <div class="schead"><h2 id="sched-h">Schedule status</h2><span class="schip wait" id="schip">Loading status…</span><span class="muted" id="sdate" style="font-size:13px"></span></div>
+  <div class="kpis" id="kpis"></div>
+  <div class="pbars" id="pbars"></div>
+  <div class="srow"><span class="muted" id="srcinfo"></span><button class="btn" type="button" id="refresh">Refresh status</button><button class="btn" type="button" id="connect">Connect GitHub to mark tasks</button></div>
+  <div class="connbox" id="connbox" hidden>
+    <b>Connect your GitHub account (once per browser)</b>
+    <ol>
+      <li>Open <a href="https://github.com/settings/tokens/new?scopes=public_repo&amp;description=SMOTS%20roadmap" target="_blank" rel="noopener">GitHub · new personal access token (classic)</a> while signed in.</li>
+      <li>Set <b>Expiration</b> to 90 days. Leave only <b>public_repo</b> ticked. Click <b>Generate token</b> and copy it.</li>
+      <li>Choose your name, paste the token below and click Connect.</li>
+    </ol>
+    <div class="frow">
+      <label for="who">Name</label>
+      <select id="who"><option>Diego</option><option>Dr. Guo</option></select>
+      <label for="tok" class="muted">Token</label>
+      <input type="password" id="tok" autocomplete="off" placeholder="ghp_…">
+      <button class="btn" type="button" id="tokgo" style="margin:0">Connect</button>
+    </div>
+    <span class="msg" id="connmsg">The token stays in this browser only. Never send it to anyone or put it in the repository.</span>
+  </div>
+</section>
+
+<section>
+  <h2>Gantt chart and tasks</h2>
+  <div class="legend">
+    <span><i style="background:var(--t-mth)"></i>Method and code</span>
+    <span><i style="background:var(--t-hw)"></i>Hardware design and build</span>
+    <span><i style="background:var(--t-prc)"></i>Purchasing</span>
+    <span><i style="background:var(--t-icp)"></i>I-Corps</span>
+    <span><i style="background:var(--t-abs)"></i>Abstract and poster</span>
+    <span><i style="background:var(--t-side)"></i>Side task</span>
+  </div>
+  <div class="work">
+    <div>
+      <div class="ganttbox"><div class="gantt" id="gantt"></div></div>
+    </div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+  <p class="muted" style="font-size:13px">One column per week, 16 Mar 2026 – 14 Mar 2027. The pale gold band runs from Oct 29 to the abstract deadline; the orange column is Thanksgiving (26–27 Nov); dashed gold lines are milestones and the maroon line is today. A ✓ means done, a ! means past its end date and not done. Dates of past work come from report and file dates.</p>
+</section>
+
+<section>
+  <h2>Purchase lists submitted to Dr. Guo</h2>
+  <div class="tbl2"><table>
+    <thead><tr><th>List</th><th>Revision and date</th><th>Lines</th><th>Total (list prices)</th><th>File</th><th>Follow-up with ASU purchasing</th></tr></thead>
+    <tbody>
+      <tr><td><b>P4.1 Test bed</b> (Thorlabs)</td><td class="n">Rev 9 · Sep 15, 2026</td><td class="n">12</td><td class="n">$4,711.44</td><td class="mono">Purchase_List_SOLAR_LAB_Diego_20260915_9NODE_HYBRID.docx</td><td>PO number and ship date per line; MPIA10 and MB12D marked “Lead Time”</td></tr>
+      <tr><td><b>P4.2 Camera and lens</b> (Basler)</td><td class="n">Rev 1 · Oct 4 · quote Oct 13</td><td class="n">7 / 7</td><td class="n">$1,185.64 (Rev 1)<br>$1,566.81 (quote)</td><td class="mono">…20261004_Camera_Lens.docx · NBQ-ECOM-0165.pdf</td><td>Confirm the USB acA2440-35um (quote, Rev 2) was ordered, not the GigE acA2440-20gm (Rev 1)</td></tr>
+      <tr><td><b>P4.3 Cage</b> (Thorlabs + Amazon)</td><td class="n">Rev 1 · Oct 16, 2026</td><td class="n">17</td><td class="n">$1,509.48</td><td class="mono">Purchase_List_SOLAR_LAB_Diego_20261016_Cage.docx</td><td>PO number and ship date</td></tr>
+      <tr><td><b>P4.5 Overhead shelf</b> (side task)</td><td class="n">Rev F3-L · Oct 26, 2026</td><td class="n">17</td><td class="n">$3,309.13</td><td class="mono">…20261026_8020_Shelf_RevF3-L_Long_Side.docx</td><td>Not on the research critical path</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted" style="font-size:13px">Research bench total with the Basler quote: $7,787.73, shipping and tax excluded. Lists are in <span class="mono">00_ADMIN/Purchase_Lists</span>.</p>
+</section>
+
+<div class="cols">
+  <div class="box">
+    <h2>Why the hardware can wait for the abstract</h2>
+    <ul>
+      <li>The Dec 10 deadline is for a poster <b>abstract</b> (≥ 250 words). The poster itself is presented on 8–11 Mar 2027.</li>
+      <li>E1 (repeatability) needs no actuator: nothing is moved during the 30 captures.</li>
+      <li>A manual tilt with the laser reference (C7.1) shows tilt detection before the MPIA10 arrive.</li>
+      <li>E2 (piezo linearity) and E3 (drift) move to January and go on the poster.</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h2>Open items</h2>
+    <ul>
+      <li>Order status and PO numbers for P4.1–P4.4 (task P4.6).</li>
+      <li>Which camera version was ordered (P4.2).</li>
+      <li>Node-clearance check in the full SolidWorks assembly.</li>
+      <li>Re-measure mirror size and gap.</li>
+      <li>Corner-mirror fringe coverage: 93 % / 77 % in Week 12 CAD, 93 % / 87 % in the Week 14 simulation.</li>
+    </ul>
+  </div>
+</div>
+</div>
+<div class="footer">Deflectometry Learning Lab · <span>ASU SOLAR</span> · Systems, Optics and Laser Application Research Lab · Arizona State University · All rights reserved</div>
+
+<script>
+/* id, short label, task, done check, track, start, end, needs, guide steps */
+const P = [
+ ["0","Foundations: method and components","23 Mar – 8 May 2026",[
+  ["R0.1","WK1 PMD basics: 4-step phase shift","Homework #1, Introduction to Image Science: generate four phase-shifted fringe images and decode an uncalibrated phase map","Report WKR1 delivered (dated Mar 30)","MTH","2026-03-23","2026-03-30","",[
+   "Report: <code>02_REPORTS/WK01/WKR1_HW_R_INTRODUCTION TO IMAGE SCIENCE</code>.",
+   "Fringe model: <code>I = 0.5 + 0.5·cos(k·x + δ)</code>, one period across the long side of the display.",
+   "Phase: <code>φ = atan2(I4 − I2, I1 − I3)</code>. The lab code keeps this convention (<code>deflecto/fringe.py</code>).",
+   "Week 14 reopens this step on the real bench geometry (A5.1)."]],
+  ["R0.2","WK1 phase-shift experiment","Capture the four phase-shifted patterns on a real screen and process them","Photos and analysis outputs saved","MTH","2026-03-31","2026-04-10","R0.1",[
+   "Data: <code>05_DATA/2026-04_WK1_PhaseShift_Experiment</code> (sinusoidal phases, cross-sections).",
+   "Code: MATLAB in <code>Documents/MATLAB</code>; re-tested in Stage 1 (R3.8)."]],
+  ["R0.3","WK2 Sourcing mirrors and display","Survey mirrors and displays for the array","Report WKR2 delivered (Apr 17)","HW","2026-03-31","2026-04-17","",[
+   "Report: <code>02_REPORTS/WK02</code>.",
+   "Finding: hexagonal first-surface mirrors are not catalogue items; square and round are."]],
+  ["R0.4","WK3 Component selection and equations","Governing equations: pixel pitch p = W/Nx, fringe pitch Pf = n·p, array width L = n·a, fringes across the array","Report WKR3 delivered (Apr 24)","HW","2026-04-18","2026-04-24","R0.3",[
+   "Report: <code>02_REPORTS/WK03</code>."]],
+  ["R0.5","WK4 Mirror assembly, 3×3 array","Confirm PFSQ10-03-G01 (λ/10, protected aluminium), the display, and the 3×3 layout","Report WKR4 delivered (May 1)","HW","2026-04-25","2026-05-01","R0.4",[
+   "Report: <code>02_REPORTS/WK04</code>."]],
+  ["R0.6","Spring 2026 summary deck","Present the spring work: foundations, sourcing, assembly plan, roadmap","Deck delivered (May 8)","HW","2026-05-02","2026-05-08","R0.5",[
+   "Deck: <code>02_REPORTS/Spring2026_Summary</code>."]]]],
+ ["1","Mechanical design","9 May – 10 Jul 2026",[
+  ["R1.1","WK5 Mirror assembly proposal","Actuation scope (one active mirror), TR-series thread bridge, XT34 ladder frame, controller mapping","Report WKR5 delivered (Jun 5); XT34 ladder later superseded","HW","2026-05-09","2026-06-05","R0.6",[
+   "Report and BOM: <code>02_REPORTS/WK05</code>."]],
+  ["R1.2","WK6 Mirror-node support","Node support options and mounting interface","Report WKR6 delivered (about Jun 19)","HW","2026-06-06","2026-06-19","R1.1",[
+   "Report: <code>02_REPORTS/WK06</code> (HTML)."]],
+  ["R1.3","WK7 SolidWorks fitment draft","First SolidWorks build of one mirror node from Thorlabs CAD","Report WKR7 delivered (Jul 10)","HW","2026-06-20","2026-07-10","R1.2",[
+   "Report: <code>02_REPORTS/WK07</code>. CAD: <code>03_CAD/WK07_Assem1_draft</code>."]]]],
+ ["2","I-Corps @ SPIE Optics + Photonics","10 Aug – 16 Sep 2026",[
+  ["I2.1","Value proposition and interview prep","Team 683 Solar Metrology: value proposition, product principles, interview objectives; virtual Sessions 1–2 (Aug 18–19)","Meeting slides delivered","ICP","2026-08-10","2026-08-19","",[
+   "Deck: <code>02_REPORTS/ICorps_SPIE_2026/ICorps_SPIE_Meeting_Slides_Aug2026.pptx</code>.",
+   "Start date approximate; Sessions 1–2 were on Aug 18 and 19."]],
+  ["I2.2","San Diego: SPIE + customer interviews","In person in San Diego: Session 3 (Aug 24), office hours, conference floor and customer-discovery interviews (Aug 25–27)","41 interviews recorded","ICP","2026-08-24","2026-08-27","I2.1",[
+   "Schedule: <code>00_ADMIN/ICorps_SPIE</code>.",
+   "Outcome: the inline-inspection hypothesis was not validated; the pivot is thermal qualification (surface figure at temperature)."]],
+  ["I2.3","Findings and Discovery deck","Report-out: techniques observed, the pivot, company ranking on two axes, ecosystem map, implications for the research","Deck delivered (Sep 4)","ICP","2026-08-28","2026-09-04","I2.2",[
+   "Deck: <code>02_REPORTS/ICorps_SPIE_2026/ICorps_SPIE_Findings_Discovery_20260904.pptx</code>."]],
+  ["I2.4","Virtual Sessions 4–6","Revenue streams and cost structure (Sep 2); key partners, activities and resources (Sep 9); final presentations (Sep 16)","Final presentation given","ICP","2026-09-02","2026-09-16","I2.3",[
+   "Runs in parallel with WK8–WK9."]]]],
+ ["3","Final design, camera and cage","4 Sep – 27 Oct 2026",[
+  ["R3.1","WK8 4-node vs 9-node CAD and BOM","Two SolidWorks assemblies and their BOMs for advisor comparison","Report WKR8 delivered (Sep 10)","HW","2026-09-04","2026-09-11","R1.3",[
+   "Report: <code>02_REPORTS/WK08</code>."]],
+  ["R3.2","WK9 Final purchase configuration","9-node TR1.5/PH1.5 hybrid, Rev 9; one active centre node with 2× MPIA10","Report WKR9 delivered (Sep 18)","HW","2026-09-12","2026-09-18","R3.1",[
+   "Report: <code>02_REPORTS/WK09</code>. Purchase list P4.1."]],
+  ["R3.3","WK10 SMOTS step 1: shear recovery","SMOTS method decomposed into five stages; 1-D verification of the Fourier shear recovery in Colab","Report WKR10 delivered (Sep 22)","MTH","2026-09-19","2026-09-25","",[
+   "Report: <code>02_REPORTS/WK10</code>. Code: <code>smots/first_steps</code> in this repository."]],
+  ["R3.4","WK11 Camera and lens selection","FOV, pixel requirement, camera short list, lens and height, aperture and focus","Report WKR11 delivered (Oct 2–4): acA2440 + C23-2518-5M, z = 432 mm","HW","2026-09-26","2026-10-04","R3.2",[
+   "Report: <code>02_REPORTS/WK11</code>. Purchase list P4.2."]],
+  ["R3.5","WK12 Cage design","Tilt θ = 15°, positions, heights, XE25 frame on MB18, screen mount and camera hanger, CAD check","Report WKR12 delivered (Oct 16)","HW","2026-10-05","2026-10-16","R3.4",[
+   "Report: <code>02_REPORTS/WK12</code>. Purchase list P4.3."]],
+  ["R3.6","WK13 Overhead shelf (side task)","80/20 shelf over the optical table, requested by the advisor; not part of the SMOTS research","Report WKR13 delivered (Oct 21)","SIDE","2026-10-17","2026-10-21","",[
+   "Report: <code>02_REPORTS/WK13</code>. Purchase list P4.5."]],
+  ["R3.7","Piezo alternatives search","Find a faster actuator for the centre node after the MPIA10 8-week lead time","Options compared; none fits the KMSR 3/16\"-100 thread","PRC","2026-10-19","2026-10-23","",[
+   "Result: only Thorlabs makes a piezo with the KMSR thread. Keep the KMSR and fit the MPIA10 when it arrives (see C7.1 for the meantime)."]],
+  ["R3.8","Stage 1 code standardization","Shared fringe module for the lab: Python <code>deflecto/fringe.py</code> (33 tests) and matching MATLAB","Python and MATLAB match pixel for pixel","MTH","2026-10-22","2026-10-27","R0.2",[
+   "Code: <code>deflecto/</code>, <code>matlab/</code>, <code>Stage1_Fringe_Pattern_Tests_Colab.ipynb</code>."]]]],
+ ["4","Purchase lists: Dr. Guo → ASU purchasing","15 Sep – 15 Dec 2026",[
+  ["P4.1","Test bed, Rev 9 (Thorlabs)","12 Thorlabs lines, 43 items: 9× PFSQ10-03-G01, 9× KMSR, 2× MPIA10, KIM101, KPS201, MB12D, posts and adapters. $4,711.44 (shipping and tax excluded)","All items received and counted against the list","PRC","2026-09-15","2026-11-06","R3.2",[
+   "List: <code>00_ADMIN/Purchase_Lists/Purchase_List_SOLAR_LAB_Diego_20260915_9NODE_HYBRID.docx</code>, submitted to Dr. Guo.",
+   "Ask ASU purchasing for the PO number, the Thorlabs order confirmation and the ship date of each line.",
+   "MPIA10 and MB12D were marked “Lead Time” on the list. The cage design (P4.3) uses an MB18 instead of the MB12D.",
+   "Count each box on arrival and add it to the lab inventory (room ISTB12 335)."]],
+  ["P4.2","Camera and lens (Basler)","Camera, lens, cables and tripod mount. Basler quote NBQ-ECOM-0165 (Oct 13): acA2440-35um USB + C23-2518-5M, $1,566.81 with express delivery and estimated tariffs","Camera and lens received","PRC","2026-10-04","2026-11-06","R3.4",[
+   "The submitted folder holds list Rev 1 (Oct 4: acA2440-20gm <b>GigE</b>, $1,185.64) and the quote for the <b>USB</b> acA2440-35um. List Rev 2 (Oct 16) is the USB version. Confirm with purchasing which one was ordered.",
+   "Quote terms: express delivery 5–7 business days once ordered; the quote is non-binding and tariffs are charged at cost.",
+   "List Rev 1 notes a Basler lead time of about 13 weeks for the camera at standard delivery. Ask for the confirmed date."]],
+  ["P4.3","Cage, Rev 1 (Thorlabs + Amazon)","MB18, 4× XE25L24, 9× XE25L15, RM1S cubes, brackets, fasteners, camera hanger (TR3, SWC, TR2), TB5 posterboard, MD2468 tilt mount. $1,509.48","All items received","PRC","2026-10-16","2026-11-06","R3.5",[
+   "List: <code>Purchase_List_SOLAR_LAB_Diego_20261016_Cage.docx</code>.",
+   "The two Amazon lines can be ordered separately if the Thorlabs part of the order waits."]],
+  ["P4.4","MPIA10 ×2: 8-week lead time","Thorlabs confirmed an 8-week lead time on the MPIA10 (Oct 20)","Both actuators received and tested with the KIM101","PRC","2026-10-20","2026-12-15","P4.1",[
+   "8 weeks from Oct 20 is about Dec 15, after the abstract deadline. Only E2 and E3 need them.",
+   "Confirm the order date with purchasing; the arrival date moves with it."]],
+  ["P4.5","Overhead shelf, Rev F3-L (side task)","80/20 15-series frame, HDPE shelves, two 16-outlet power strips. $3,309.13","Shelf parts received","SIDE","2026-10-26","2026-11-13","R3.6",[
+   "List: <code>Purchase_List_SOLAR_LAB_Diego_20261026_8020_Shelf_RevF3-L_Long_Side.docx</code>."]],
+  ["P4.6","Follow up with ASU purchasing","Get PO numbers, order dates and tracking for P4.1–P4.4 before the decision gate","A table of PO number, order date and expected arrival for each list","PRC","2026-10-30","2026-11-06","",[
+   "Email the purchasing contact with the four list file names and ask for the PO number and order date of each.",
+   "Ask Basler directly (customer account) for the ship date if the order was placed.",
+   "Record the answers in this task and move the P4 bars to the real dates."]]]],
+ ["5","Fundamentals before hardware","28 Oct – 18 Nov 2026",[
+  ["A5.1","WK14 PMD simulation of the bench","Ray-trace the Week 11/12 bench, simulate the phase-shifted captures, decode and recover each mirror's tilt","Report WKR14 delivered; code in <code>04_CODE/WK14_PMD_Bench_Simulation</code>","MTH","2026-10-28","2026-11-04","R3.8",[
+   "Follow the step-by-step notebook: <a href='https://colab.research.google.com/github/diegobethancourth/deflectometry-mirror-array/blob/main/PMD_Bench_Simulation_Colab.ipynb'>open in Colab</a>.",
+   "Results: 11.5 camera px per fringe; two corner mirrors partly outside the fringes; ±971 µrad range with one period; linear to ±2,000 µrad with three periods."]],
+  ["A5.2","WK15 Apertures and tip/tilt on simulated images","Digital aperture per segment and tip/tilt from slopes, in MATLAB and Python, tested on the simulated images","Recovered tilt matches the simulated input within 1 µrad","MTH","2026-11-05","2026-11-11","A5.1",[
+   "Use the simulated frames from A5.1 as input, not the ray-traced coordinates.",
+   "Port the aperture and slope steps to MATLAB for the bench."]],
+  ["A5.3","Dry run: one mirror on the lab screen","Repeat the WK1 experiment with one PFSQ10 mirror, the screen and any lab camera; tilt it by hand and read the change","First real phase-difference map of a tilted mirror","MTH","2026-11-05","2026-11-13","A5.1",[
+   "Use the laser reference (C7.1) to know the true tilt.",
+   "Wait about a minute after touching the mount before capturing."]],
+  ["A5.4","WK16 SMOTS shear method vs PMD","Apply the WK10 Fourier shear method to the same simulated data and compare with phase shifting","Both methods give the same tilt on the simulated set","MTH","2026-11-12","2026-11-18","A5.2",[
+   "Code: <code>smots/</code> in this repository."]]]],
+ ["6","Build and experiments","6 Nov 2026 – 12 Feb 2027",[
+  ["B6.1","G1 decision gate","Which parts are in hand decides the path: Plan A (full build), A-lite (open bench) or B (simulation + one-mirror data)","Path chosen and recorded","HW","2026-11-06","2026-11-06","P4.6",[
+   "Plan A: test bed, camera and cage in hand → build with the manual KMSR adjusters.",
+   "A-lite: camera in hand, cage late → open bench on the breadboard, lights off.",
+   "B: no camera → abstract reports the simulation and the dry run; array data goes on the March poster."]],
+  ["B6.2","Build the test bed","Assemble the 9 nodes on the board; centre node with its manual KMSR adjusters until the MPIA10 arrive","All 9 mirrors at the same height (PH1.5) and reflecting the screen","HW","2026-11-09","2026-11-13","B6.1",[
+   "No CAD or BOM change: the MPIA10 replace the manual adjusters later.",
+   "Re-measure mirror size and gap (open item)."]],
+  ["B6.3","Build the cage and align","Rails, screen on its tilt mount, camera on its hanger; check all 9 reflections are in the image","Every segment's reflection of the screen inside the camera image","HW","2026-11-16","2026-11-20","B6.2",[
+   "Compare the live image with the simulated frame (A5.1, Fig. 2)."]],
+  ["B6.4","E1 repeatability + manual-tilt detection","30 static captures (E1), then tilt the centre mirror by hand and measure it, with the laser reference as truth","Standard deviation of each segment's tilt; measured vs laser tilt","MTH","2026-11-23","2026-12-02","B6.3",[
+   "E1 involves no adjustment: nothing is touched during the 30 captures.",
+   "For the tilt step: release the knob, wait about a minute, capture, read the laser spot. Hand effects (heat, settling) show up in the wait and are measured, not assumed.",
+   "Thanksgiving Nov 26–27."]],
+  ["B6.5","E2 linearity with the MPIA10","Commanded piezo steps vs recovered tilt (H1)","RMS deviation compared with the predicted resolution","MTH","2027-01-11","2027-01-29","P4.4",[
+   "Piezo steps are the known input. Check them against the laser reference too: inertia piezo steps vary."]],
+  ["B6.6","E3 drift and E4 monitor vs tablet","Two-hour warm-up drift (H2) and the fringe-source comparison","Drift curve and E4 table","MTH","2027-02-01","2027-02-12","B6.5",[
+   "E4 needs the tablet from the MORE supplies budget."]]]],
+ ["7","Contingency","9 Nov – 4 Dec 2026",[
+  ["C7.1","Laser optical-lever reference","Laser pointer bounced off the centre mirror onto a far wall: spot shift = 2·α·L gives the true tilt without the camera","Spot shift readable to 0.5 mm at L ≈ 3 m","HW","2026-11-09","2026-11-13","",[
+   "At L = 3 m (118 in), 100 µrad of tilt moves the spot 0.6 mm (0.024 in).",
+   "Mark the spot on paper taped to the wall; read shifts with a ruler or a phone photo with a scale.",
+   "This gives an independent reference for every manual tilt, so the hand adjustment is a way to set the tilt, not a source of the value."]],
+  ["C7.2","Fallback: open-bench data run","If Plan A cannot produce data by Dec 2: mirrors on the breadboard, screen and camera on posts, lights off","At least E1 + one manual tilt measured","HW","2026-11-30","2026-12-04","B6.1",[
+   "Same software as Plan A; only the frame changes."]]]],
+ ["8","Abstract and poster","10 Nov 2026 – 11 Mar 2027",[
+  ["D8.1","Abstract portal opens","WCMNM 2027 poster abstract: at least 250 words, not peer-reviewed, included in the proceedings","Portal checked","ABS","2026-11-10","2026-11-10","",[
+   "Submission page: <a href='https://na.eventscloud.com/website/93824/submissions/'>na.eventscloud.com/website/93824/submissions</a>."]],
+  ["D8.2","Draft the abstract","Method, simulation results and first data, in 250+ words","Draft sent to Dr. Guo","ABS","2026-11-16","2026-12-01","A5.1",[
+   "Start from the Week 14 simulation; add E1 and the manual-tilt result when they exist."]],
+  ["D8.3","Dr. Guo review","Advisor review with room for one revision","Approved text","ABS","2026-12-02","2026-12-04","D8.2",[]],
+  ["D8.4","Submit the abstract","Target submission, three days before the deadline","Confirmation email received","ABS","2026-12-07","2026-12-07","D8.3",[
+   "Deadline Dec 10, 2026."]],
+  ["D8.5","Poster design and print","Poster with E1–E4 results","Poster printed","ABS","2027-02-15","2027-02-26","B6.6",[]],
+  ["D8.6","WCMNM 2027","9th World Congress on Micro and Nano Manufacturing, poster session","Poster presented","ABS","2027-03-08","2027-03-11","D8.5",[]]]]
+];
+
+const DAY = 864e5, START = Date.UTC(2026,2,16), NDAYS = 364;
+const OWN = {MTH:["Method and code","--t-mth"],HW:["Hardware design and build","--t-hw"],PRC:["Purchasing","--t-prc"],ICP:["I-Corps","--t-icp"],ABS:["Abstract and poster","--t-abs"],SIDE:["Side task","--t-side"]};
+const MILES = [["G1","2026-11-06"],["Portal","2026-11-10"],["","2026-12-07"],["Submit · Due","2026-12-10"],["WCMNM","2027-03-08"]];
+const ut = s => Date.parse(s+"T00:00:00Z");
+const idx = t => Math.round((t-START)/DAY);
+const fmt = t => new Date(t).toLocaleDateString("en-US",{day:"numeric",month:"short",timeZone:"UTC"});
+const fmtY = t => new Date(t).toLocaleDateString("en-US",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"});
+const OWNER="diegobethancourth", REPO="deflectometry-mirror-array", SPATH="docs/roadmap_status.json", API=`https://api.github.com/repos/${OWNER}/${REPO}`;
+let done={}, statusSrc=null, statusAt=null, busy=false, panelMsg="";
+let me=null; try{ me=JSON.parse(localStorage.getItem("smots-gh")||"null"); }catch(e){}
+const pad=n=>String(n).padStart(2,"0");
+const todayISO=()=>{ const d=new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
+const dDiff=(a,b)=>Math.round((Date.parse(b+"T00:00:00Z")-Date.parse(a+"T00:00:00Z"))/DAY);
+const b64enc=str=>btoa(unescape(encodeURIComponent(str)));
+const b64dec=str=>decodeURIComponent(escape(atob(str.replace(/\s/g,""))));
+const auth=()=>me&&me.token?{Authorization:"Bearer "+me.token}:{};
+function stateOf(t){
+  const T=todayISO(), d=done[t.id];
+  if(d){ const late=dDiff(t.e,d.done); return late>0?{k:"donelate",cls:"ok",txt:`Done ${late} day${late>1?"s":""} late`}:{k:"done",cls:"ok",txt:"Done"}; }
+  if(T>t.e){ const n=dDiff(t.e,T); return {k:"late",cls:"late",txt:`Late · ${n} day${n>1?"s":""} overdue`}; }
+  if(T>=t.s){ const n=dDiff(T,t.e); return {k:"prog",cls:"prog",txt:n===0?"In progress · due today":`In progress · due in ${n} day${n>1?"s":""}`}; }
+  const n=dDiff(T,t.s); return {k:"ns",cls:"ns",txt:`Not started · starts in ${n} day${n>1?"s":""}`};
+}
+async function loadStatus(){
+  let got=null;
+  try{ const r=await fetch(`${API}/contents/${SPATH}?ref=main`,{headers:{Accept:"application/vnd.github.raw+json",...auth()},cache:"no-store"});
+       if(r.ok){ got=await r.json(); statusSrc="GitHub"; } else if(r.status===404){ got={tasks:{}}; statusSrc="GitHub"; } }catch(e){}
+  if(!got){ try{ const r=await fetch(SPATH+"?t="+Date.now(),{cache:"no-store"}); if(r.ok){ got=await r.json(); statusSrc="the published copy"; } }catch(e){} }
+  if(got){ done=got.tasks||{}; statusAt=new Date(); } else { statusSrc=null; }
+  renderAll();
+}
+async function writeStatus(id,mark){
+  for(let attempt=0;attempt<3;attempt++){
+    const r=await fetch(`${API}/contents/${SPATH}?ref=main`,{headers:{Accept:"application/vnd.github+json",...auth()},cache:"no-store"});
+    let sha, cur={tasks:{}};
+    if(r.ok){ const j=await r.json(); sha=j.sha; cur=JSON.parse(b64dec(j.content)); }
+    else if(r.status!==404) throw new Error(r.status===401?"GitHub did not accept the token. Connect again with a new token.":"GitHub answered "+r.status+".");
+    cur.tasks=cur.tasks||{};
+    if(mark) cur.tasks[id]={done:todayISO(),by:me.name}; else delete cur.tasks[id];
+    cur.updated=new Date().toISOString();
+    const body={message:mark?`Roadmap: mark ${id} done (${me.name})`:`Roadmap: unmark ${id} (${me.name})`,content:b64enc(JSON.stringify(cur,null,2)+"\n"),branch:"main"};
+    if(sha) body.sha=sha;
+    const p=await fetch(`${API}/contents/${SPATH}`,{method:"PUT",headers:{Accept:"application/vnd.github+json","Content-Type":"application/json",...auth()},body:JSON.stringify(body)});
+    if(p.ok){ done=cur.tasks; statusAt=new Date(); statusSrc="GitHub"; return; }
+    if(p.status===409||p.status===422) continue;
+    if(p.status===403||p.status===404) throw new Error("This token cannot write to the repository. Check that public_repo is ticked.");
+    throw new Error("GitHub answered "+p.status+".");
+  }
+  throw new Error("Someone else was saving at the same moment. Try again.");
+}
+async function connect(){
+  const tok=document.getElementById("tok").value.trim(), name=document.getElementById("who").value, m=document.getElementById("connmsg");
+  if(!tok){ m.className="msg err"; m.textContent="Paste your token first."; return; }
+  m.className="msg"; m.textContent="Checking the token with GitHub…";
+  try{
+    const r=await fetch(API,{headers:{Accept:"application/vnd.github+json",Authorization:"Bearer "+tok}});
+    if(!r.ok){ m.className="msg err"; m.textContent=r.status===401?"GitHub did not accept this token. Copy it again or create a new one.":"GitHub answered "+r.status+"."; return; }
+    const j=await r.json();
+    if(!(j.permissions&&j.permissions.push)){ m.className="msg err"; m.textContent="This token can read but not write to the repository."; return; }
+    me={name,token:tok}; try{ localStorage.setItem("smots-gh",JSON.stringify(me)); }catch(e){}
+    document.getElementById("tok").value=""; document.getElementById("connbox").hidden=true; panelMsg=""; await loadStatus();
+  }catch(e){ m.className="msg err"; m.textContent="Could not reach GitHub from this page."; }
+}
+function renderSched(){
+  const v=visible(), T=todayISO(), st=v.map(t=>[t,stateOf(t)]);
+  const c=k=>st.filter(([,x])=>x.k===k).length;
+  const nd=c("done")+c("donelate"), late=c("late"), due=v.filter(t=>t.e<T).length;
+  const dueDone=v.filter(t=>t.e<T&&done[t.id]).length;
+  const dur=t=>dDiff(t.s,t.e)+1, tot=v.reduce((a,t)=>a+dur(t),0)||1;
+  const plan=v.reduce((a,t)=>{ const el=Math.min(Math.max(dDiff(t.s,T),0),dur(t)); return a+el; },0)/tot*100;
+  const act=v.reduce((a,t)=>a+(done[t.id]?dur(t):0),0)/tot*100;
+  const chip=document.getElementById("schip");
+  if(!statusSrc){ chip.className="schip wait"; chip.textContent="Status not available here"; }
+  else if(late){ chip.className="schip late"; chip.textContent=`Behind schedule · ${late} late task${late>1?"s":""}`; }
+  else { chip.className="schip ok"; chip.textContent="On schedule"; }
+  const dl=dDiff(T,"2026-12-10");
+  document.getElementById("sdate").textContent=`Today ${fmtY(ut(T))} · ${filter==="all"?"all tracks":OWN[filter][0]}${dl>=0?` · ${dl} days to the abstract deadline`:""}`;
+  document.getElementById("kpis").innerHTML=
+   `<div class="kpi ok"><b>${nd} / ${v.length}</b><span>Tasks done (${c("donelate")} of them late)</span></div>
+    <div class="kpi ${late?"late":""}"><b>${late}</b><span>Late, not done</span></div>
+    <div class="kpi"><b>${dueDone} / ${due}</b><span>Due by today and done</span></div>
+    <div class="kpi"><b>${c("prog")}</b><span>In progress</span></div>
+    <div class="kpi"><b>${c("ns")}</b><span>Not started</span></div>`;
+  document.getElementById("pbars").innerHTML=
+   `<span>Planned by today</span><div class="pbar"><i style="width:${plan.toFixed(1)}%;background:var(--gold)"></i></div><b>${plan.toFixed(0)}%</b>
+    <span>Actually done</span><div class="pbar"><i style="width:${act.toFixed(1)}%;background:${act+0.5<plan?"var(--late)":"var(--ok)"}"></i></div><b>${act.toFixed(0)}%</b>`;
+  const si=document.getElementById("srcinfo");
+  si.textContent=statusSrc?`Status read from ${statusSrc} at ${statusAt.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}.`:"The shared status loads on the GitHub page.";
+  document.getElementById("connect").textContent=me?`Connected as ${me.name} · Disconnect`:"Connect GitHub to mark tasks";
+}
+let filter="all", sel=null;
+const ALLT=[]; P.forEach(([pn,pt,pd,ts])=>ts.forEach(t=>ALLT.push({pn,pt,pd,id:t[0],sh:t[1],task:t[2],check:t[3],own:t[4],s:t[5],e:t[6],dep:t[7],steps:t[8]})));
+const byId=Object.fromEntries(ALLT.map(t=>[t.id,t]));
+const vis = o => filter==="all" || o===filter;
+const visible = () => ALLT.filter(t=>vis(t.own));
+function defaultSel(){ const v=visible(), T=todayISO(); return (v.find(t=>!done[t.id] && t.e>=T) || v[0]).id; }
+
+function renderGantt(){
+  const g=document.getElementById("gantt");
+  let mo="", wk="", ov="";
+  for(let i=0;i<NDAYS;i++){
+    const t=START+i*DAY, d=new Date(t);
+    if(d.getUTCDate()===1||i===0){ const lab=d.toLocaleDateString("en-US",{month:"short",timeZone:"UTC"})+(d.getUTCMonth()===0?" "+d.getUTCFullYear():""); mo+=`<span style="left:calc(${i} * var(--day))">${lab}</span>`; if(i) ov+=`<i class="mline" style="left:calc(${i} * var(--day))"></i>`; }
+    if(d.getUTCDay()===1) wk+=`<span style="left:calc(${i} * var(--day))"></span>`;
+  }
+  ov+=`<i class="hol" style="left:calc(${idx(ut("2026-11-26"))} * var(--day))"></i>`;
+  ov+=`<i class="win" style="left:calc(${idx(ut("2026-10-29"))} * var(--day));width:calc(${dDiff("2026-10-29","2026-12-10")} * var(--day))"></i>`;
+  MILES.forEach(([m,s])=>{ ov+=`<i class="ml" style="left:calc(${idx(ut(s))+.5} * var(--day))"></i>`; });
+  const ti=(Date.now()-START)/DAY; if(ti>=0&&ti<NDAYS) ov+=`<i class="today" style="left:calc(${ti} * var(--day))"></i>`;
+  const mk=MILES.map(([m,s],k)=>`<i class="mk" style="left:calc(${idx(ut(s))} * var(--day) - 3px)"></i><b class="mlab r${k}" style="left:calc(${idx(ut(s))} * var(--day) + 9px)">${m}</b>`).join("");
+  let html=`<div class="overlay">${ov}</div>
+   <div class="ghead"><div class="glab" style="height:36px">Task</div><div class="gtrack"><div class="weeks">${mo}</div><div class="days">${wk}</div></div></div>
+   <div class="ghead mrow"><div class="glab">Milestones</div><div class="gtrack">${mk}</div></div>`;
+  for(const [pn,pt] of P){
+    const v=visible().filter(t=>t.pn===pn); if(!v.length) continue;
+    html+=`<div class="gphase"><div class="glab">${pn} · ${pt}</div><div class="gtrack"></div></div>`;
+    for(const t of v){
+      const a=idx(ut(t.s)), b=idx(ut(t.e)), sk=stateOf(t).k, one=a===b;
+      const shape = one
+        ? `<i class="dia" style="left:calc(${a} * var(--day) - 5px);background:var(${OWN[t.own][1]})"></i>`
+        : `<i class="bar" style="left:calc(${a} * var(--day));width:calc(${b-a+1} * var(--day));background:var(${OWN[t.own][1]})"></i>`;
+      html+=`<div class="grow ${done[t.id]?"done":""} ${t.id===sel?"sel":""}" role="button" tabindex="0" aria-pressed="${t.id===sel}" data-id="${t.id}" title="${t.id} · ${t.sh} · ${fmtY(ut(t.s))}${one?"":" – "+fmtY(ut(t.e))} · ${OWN[t.own][0]}">
+        <div class="glab"><span class="gid">${t.id}</span>${t.sh}${done[t.id]?'<span class="ok" aria-label="done">✓</span>':sk==="late"?'<span class="lt" aria-label="late">!</span>':""}</div>
+        <div class="gtrack">${shape}</div></div>`;
+    }
+  }
+  g.innerHTML=html;
+  g.querySelectorAll(".grow").forEach(r=>{
+    r.addEventListener("click",()=>select(r.dataset.id));
+    r.addEventListener("keydown",e=>{
+      if(e.key==="Enter"||e.key===" "){ e.preventDefault(); select(r.dataset.id); }
+      if(e.key==="ArrowDown"||e.key==="ArrowUp"){ e.preventDefault(); step(e.key==="ArrowDown"?1:-1,true); }
+    });
+  });
+}
+function renderPanel(){
+  const t=byId[sel], pnl=document.getElementById("panel"), a=ut(t.s), b=ut(t.e), days=idx(b)-idx(a)+1;
+  const deps = t.dep ? t.dep.split(/,\s*/).map(d=>byId[d]?`<button class="deplink" type="button" data-go="${d}">${d}</button>`:`<span class="mono">${d}</span>`).join("") : "None";
+  const v=visible(), i=v.findIndex(x=>x.id===sel);
+  pnl.innerHTML=`<div class="pp">${t.pn} · ${t.pt}</div>
+    <h3><span class="pid">${t.id}</span>${t.sh}</h3>
+    <div><span class="pill ${stateOf(t).cls}">${stateOf(t).txt}</span>${done[t.id]?` <span class="muted" style="font-size:13px">· marked on ${fmtY(ut(done[t.id].done))} by ${done[t.id].by}</span>`:""}</div>
+    <div class="full">${t.task}</div>
+    <dl class="meta">
+      <dt>Track</dt><dd><span class="owner"><span class="dot" style="background:var(${OWN[t.own][1]})"></span>${OWN[t.own][0]}</span></dd>
+      <dt>Dates</dt><dd class="dates">${a===b?fmtY(a):fmt(a)+" – "+fmtY(b)} · ${days} day${days>1?"s":""}</dd>
+      <dt>Needs</dt><dd>${deps}</dd>
+      <dt>Done when</dt><dd>${t.check}</dd>
+    </dl>
+    <label class="donebox" for="done-cb"><input type="checkbox" id="done-cb" ${done[t.id]?"checked":""} ${(!me||busy||!statusSrc)?"disabled":""}> <span>${busy?"Saving to GitHub…":me?`Mark ${t.id} as done`:`Mark ${t.id} as done (locked until you connect GitHub)`}</span></label>
+    ${panelMsg?`<div class="msg ${panelMsg.startsWith("Saved")?"okm":"err"}">${panelMsg}</div>`:""}
+    ${t.steps.length?`<div class="gh">Notes and steps</div><ol>${t.steps.map(x=>`<li>${x}</li>`).join("")}</ol>`:""}
+    <div class="pnav"><button class="btn" type="button" id="prev" ${i<=0?"disabled":""}>← Previous task</button><button class="btn" type="button" id="next" ${i>=v.length-1?"disabled":""}>Next task →</button></div>`;
+  pnl.scrollTop=0;
+  pnl.querySelector("#done-cb").addEventListener("change",async e=>{
+    const mark=e.target.checked; busy=true; panelMsg=""; renderPanel();
+    try{ await writeStatus(t.id,mark); panelMsg=`Saved to GitHub: ${t.id} ${mark?"marked done":"unmarked"}.`; }
+    catch(err){ panelMsg=err.message; }
+    busy=false; renderAll(); });
+  pnl.querySelectorAll("[data-go]").forEach(x=>x.addEventListener("click",()=>select(x.dataset.go)));
+  pnl.querySelector("#prev").addEventListener("click",()=>step(-1));
+  pnl.querySelector("#next").addEventListener("click",()=>step(1));
+}
+function progress(){ const v=visible(); document.getElementById("progress").textContent=`${v.filter(t=>done[t.id]).length} of ${v.length} tasks done`; renderSched(); }
+function renderAll(){ renderGantt(); renderPanel(); progress(); }
+function step(d,focusRow){ const v=visible(), i=v.findIndex(x=>x.id===sel), n=v[i+d]; if(n) select(n.id,focusRow); }
+function select(id,focusRow){
+  if(!vis(byId[id].own)){ filter="all"; document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.f==="all")); }
+  sel=id; renderGantt(); renderPanel(); progress();
+  const row=document.querySelector(`.grow[data-id="${CSS.escape(id)}"]`);
+  if(row){ row.scrollIntoView({block:"nearest",inline:"nearest"}); if(focusRow) row.focus({preventScroll:true}); }
+  if(matchMedia("(max-width:1099px)").matches && !focusRow) document.getElementById("panel").scrollIntoView({block:"start"});
+}
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+  filter=c.dataset.f; document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===c));
+  if(!vis(byId[sel].own)) sel=defaultSel();
+  renderGantt(); renderPanel(); progress(); }));
+document.getElementById("refresh").addEventListener("click",()=>{ panelMsg=""; loadStatus(); });
+document.getElementById("connect").addEventListener("click",()=>{
+  if(me){ me=null; try{ localStorage.removeItem("smots-gh"); }catch(e){} renderAll(); return; }
+  const b=document.getElementById("connbox"); b.hidden=!b.hidden; if(!b.hidden) document.getElementById("who").focus(); });
+document.getElementById("tokgo").addEventListener("click",connect);
+document.getElementById("tok").addEventListener("keydown",e=>{ if(e.key==="Enter") connect(); });
+sel=defaultSel(); renderAll(); loadStatus();
+// scroll the chart so today is in view
+(function(){ const box=document.querySelector(".ganttbox"); const ti=(Date.now()-START)/DAY; const px=parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--day")); if(box&&ti>0) box.scrollLeft=Math.max(0,ti*px-box.clientWidth*0.5); })();
+
+</script>
+</body>
+</html>
